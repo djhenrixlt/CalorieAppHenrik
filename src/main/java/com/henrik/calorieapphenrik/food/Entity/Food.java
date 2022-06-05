@@ -9,11 +9,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+
 public class Food {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     private String name;
     private Integer calories;
@@ -22,4 +25,6 @@ public class Food {
     private Integer fat;
     private Integer fiber;
 
+    @ManyToOne
+    private Person person;
 }

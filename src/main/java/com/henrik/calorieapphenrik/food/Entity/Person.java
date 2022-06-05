@@ -5,10 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -30,4 +29,7 @@ public class Person {
     private Integer goalCalories;
     private Integer caloriesLeft;
     private Integer caloriesConsumed;
+
+    @OneToMany
+    private List<Food> foodList;
 }
