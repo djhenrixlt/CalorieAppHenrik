@@ -1,7 +1,6 @@
 package com.henrik.calorieapphenrik.food.Controller;
 
-import com.henrik.calorieapphenrik.food.dto.FoodDto;
-import com.henrik.calorieapphenrik.food.dto.GoalsDto;
+
 import com.henrik.calorieapphenrik.food.dto.PersonDto;
 import com.henrik.calorieapphenrik.food.service.PersonService;
 import lombok.AllArgsConstructor;

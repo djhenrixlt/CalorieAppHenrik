@@ -1,18 +1,12 @@
 package com.henrik.calorieapphenrik.food.Controller;
 
-import com.henrik.calorieapphenrik.food.Entity.Food;
-import com.henrik.calorieapphenrik.food.dto.GoalsDto;
-import com.henrik.calorieapphenrik.food.dto.PersonDto;
 import com.henrik.calorieapphenrik.food.service.FoodService;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
-import com.henrik.calorieapphenrik.food.service.PersonService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import javax.validation.Valid;
 import java.util.List;
 

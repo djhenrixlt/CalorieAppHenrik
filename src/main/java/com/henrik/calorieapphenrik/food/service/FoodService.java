@@ -22,7 +22,7 @@ public class FoodService {
         return foodRepo.findAll()
                 .stream()
                 .map(FoodMapper.FOOD_MAPPER::mapDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public Optional<FoodDto> getFoodByName(String foodName) {
@@ -48,11 +48,11 @@ public class FoodService {
         return FoodMapper.FOOD_MAPPER.mapDto(saveFood);
     }
 
-    public void deleteFood(String name) throws Exception {
-        Optional<Food> food = foodRepo.findByName(name);
+    public void deleteFood(String name) {
+        Optional<Food> food = foodRepo.findByName(name.toLowerCase());
        Long id = food.get().getId();
         if (!foodRepo.existsById(id)) {
-            throw new Exception("id not exist" + id);
+            throw new FoodException("Food not exist");
         }
         foodRepo.delete(food.get());
     }
