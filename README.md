@@ -132,6 +132,21 @@ Send like this:
     }
     
 ```
+to add new food :
+/api/v1.0/foods/new
+```json
+Send like this:
+
+    {
+        "name": "Egg",
+        "calories": 155,
+        "protein": 13,
+        "carbs": 1,
+        "fat": 11,
+        "fiber": 5
+    }
+    
+```
 
 
 
@@ -147,14 +162,19 @@ send like this:
 
 ```json
 {
-    "name": "chicken",
-    "calories": 200,
-    "protein": 10,
-    "carbs": 0,
-    "fat": 4,
-    "fiber": 0
+  "name": "Egg",
+  "calories": 300,
+  "protein": 20,
+  "carbs": 1,
+  "fat": 11,
+  "fiber": 5
 }
 ```
-#### REAd me not finish
-
+#### Delete
+Delete
 ```
+Delete Person
+"/api/v1.0/persons/delete/{name}"
+
+Delete food
+/api/v1.0/foods/delete/chicken
