@@ -1,8 +1,11 @@
 package com.henrik.calorieapphenrik.food.Controller;
 
 import com.henrik.calorieapphenrik.food.Entity.Food;
+import com.henrik.calorieapphenrik.food.dto.GoalsDto;
+import com.henrik.calorieapphenrik.food.dto.PersonDto;
 import com.henrik.calorieapphenrik.food.service.FoodService;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
+import com.henrik.calorieapphenrik.food.service.PersonService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,11 +40,13 @@ public class FoodController {
     }
 
     @GetMapping("/calories")
-    public ResponseEntity<Integer> getCalories(){
+    public ResponseEntity<Integer> getFoodCalories(){
         return ResponseEntity.ok(foodService.getCalories());
     }
 
-    @PostMapping("new")
+
+
+    @PostMapping("/new")
     public ResponseEntity<FoodDto> create(@RequestBody @Valid FoodDto food){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(foodService.saveFood(food));
@@ -58,6 +63,7 @@ public class FoodController {
     public void delete(@PathVariable("name") String name) throws Exception {
         foodService.deleteFood(name);
     }
+
 
 
 

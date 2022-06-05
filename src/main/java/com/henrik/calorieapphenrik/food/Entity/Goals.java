@@ -14,15 +14,9 @@ import javax.persistence.Id;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Calories {
+public class Goals {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
-    private String personName;
-    private Integer age;
-    private Integer weight;
-    private Integer height;
+    private Integer goalCalories;
+    private Integer caloriesLeft;
+    private Integer caloriesConsumed;
 }
