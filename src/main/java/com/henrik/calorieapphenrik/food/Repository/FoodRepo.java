@@ -13,6 +13,7 @@ public interface FoodRepo extends JpaRepository<Food, Long> {
 
 
     List<Food> findAll();
+
     Optional<Food> findByName(String name);
 
     @Query(value = "SELECT SUM(calories) FROM food ", nativeQuery = true)

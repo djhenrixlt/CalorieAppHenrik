@@ -1,7 +1,5 @@
 package com.henrik.calorieapphenrik.food.Controller;
 
-import com.henrik.calorieapphenrik.food.dto.FoodDto;
-import com.henrik.calorieapphenrik.food.dto.GoalsDto;
 import com.henrik.calorieapphenrik.food.dto.PersonDto;
 import com.henrik.calorieapphenrik.food.service.PersonService;
 import lombok.AllArgsConstructor;
@@ -21,18 +19,26 @@ public class PersonController {
 
 
     @GetMapping("/goalCal")
-    public ResponseEntity<?> getGoalCalories(@RequestBody @Valid PersonDto personDto){
+    public ResponseEntity<?> getGoalCalories(@RequestBody @Valid PersonDto personDto) {
         return ResponseEntity.ok(personService.getGoalCalories(personDto));
     }
 
-    @GetMapping("/Cal/{name}")
-    public ResponseEntity<List<?>> getAllCaLByName(@PathVariable String name){
+    @GetMapping("/cal/{name}")
+    public ResponseEntity<List<?>> getAllCaLByName(@PathVariable String name) {
         return ResponseEntity.ok(personService.getAllCaLByName(name));
     }
 
     @PostMapping("/new")
-    public ResponseEntity<PersonDto> create(@RequestBody @Valid PersonDto person){
+    public ResponseEntity<PersonDto> create(@RequestBody @Valid PersonDto person) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(personService.savePerson(person));
     }
+
+    @DeleteMapping("/delete/{name}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("name") String name) {
+        personService.deletePerson(name);
+    }
+
+
 }

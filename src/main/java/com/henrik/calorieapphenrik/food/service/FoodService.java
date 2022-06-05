@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,23 +21,24 @@ public class FoodService {
         return foodRepo.findAll()
                 .stream()
                 .map(FoodMapper.FOOD_MAPPER::mapDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public Optional<FoodDto> getFoodByName(String foodName) {
         Optional<Food> food = foodRepo.findByName(foodName);
-        if (food.isEmpty()){
+        if (food.isEmpty()) {
             throw new FoodException("Food Not Exist");
         }
         return Optional.of(FoodMapper.FOOD_MAPPER.mapDto(food.get()));
 
     }
+
     public FoodDto updateFood(FoodDto foodDto, Long id) {
-        boolean  isExist = foodRepo.existsById(id);
-        if (!isExist){
+        boolean isExist = foodRepo.existsById(id);
+        if (!isExist) {
             throw new FoodException("Food not exist");
         }
-        Food update =  FoodMapper.FOOD_MAPPER.mapModel(foodDto);
+        Food update = FoodMapper.FOOD_MAPPER.mapModel(foodDto);
         foodRepo.save(update);
         return FoodMapper.FOOD_MAPPER.mapDto(update);
     }
@@ -48,15 +48,16 @@ public class FoodService {
         return FoodMapper.FOOD_MAPPER.mapDto(saveFood);
     }
 
-    public void deleteFood(String name) throws Exception {
+    public void deleteFood(String name) {
         Optional<Food> food = foodRepo.findByName(name);
-       Long id = food.get().getId();
+        Long id = food.get().getId();
         if (!foodRepo.existsById(id)) {
-            throw new Exception("id not exist" + id);
+            throw new FoodException("id not exist" + id);
         }
         foodRepo.delete(food.get());
     }
-    public Integer getCalories(){
+
+    public Integer getCalories() {
         return foodRepo.getCaloriesSUm();
     }
 
