@@ -40,7 +40,7 @@ public class FoodController {
 
 
     @PostMapping("/new")
-    public ResponseEntity<FoodDto> create(@RequestBody @Valid FoodDto food) {
+    public ResponseEntity<?> create(@RequestBody @Valid FoodDto food) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(foodService.saveFood(food));
     }

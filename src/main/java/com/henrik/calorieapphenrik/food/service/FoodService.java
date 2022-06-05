@@ -7,6 +7,7 @@ import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.mapper.FoodMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,13 +44,15 @@ public class FoodService {
         return FoodMapper.FOOD_MAPPER.mapDto(update);
     }
 
+
     public FoodDto saveFood(FoodDto food) {
-        Food saveFood = foodRepo.save(FoodMapper.FOOD_MAPPER.mapModel(food));
+        Food saveFood = FoodMapper.FOOD_MAPPER.mapModel(food);
+         foodRepo.save(saveFood);
         return FoodMapper.FOOD_MAPPER.mapDto(saveFood);
     }
 
     public void deleteFood(String name) {
-        Optional<Food> food = foodRepo.findByName(name);
+        Optional<Food> food = foodRepo.findByName(name.toLowerCase());
         Long id = food.get().getId();
         if (!foodRepo.existsById(id)) {
             throw new FoodException("id not exist" + id);

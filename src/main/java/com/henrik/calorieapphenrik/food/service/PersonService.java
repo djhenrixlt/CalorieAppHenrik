@@ -24,7 +24,7 @@ public class PersonService {
 
     private static final String WOMAN = "woman";
     private static final String MEN = "men";
-    private static final String SEDENTARY = "Sedentary";
+    private static final String SEDENTARY = "sedentary";
     private static final String LIGHTLY = "lightly";
     private static final String MODERATELY = "moderately";
     private static final String ACTIVE = "active";
