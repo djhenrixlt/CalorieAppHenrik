@@ -77,12 +77,14 @@ class FoodServiceTest {
 
     @Test
     void updateFood() {
-        FoodDto foodDto = getFoodDto();
-        Food food = getById(ID);
-        Food update = FoodMapper.FOOD_MAPPER.mapForUpdate(foodDto, food);
+        Optional<Food> food  = Optional.ofNullable(getFood());
+        FoodDto foodDto = FoodMapper.FOOD_MAPPER.mapDto(food.get());
+
 
         when(foodRepo.existsById(ID)).thenReturn(true);
+       when(foodRepo.findById(ID)).thenReturn(food);
 
+        Food update = FoodMapper.FOOD_MAPPER.mapForUpdate(foodDto, food.get());
         FoodDto actual = foodService.updateFood(foodDto, ID);
 
         verify(foodRepo).existsById(ID);
@@ -156,11 +158,6 @@ class FoodServiceTest {
         assertEquals(food.getFat(), actual.getFat());
         assertEquals(food.getProtein(), actual.getProtein());
         assertEquals(food.getFiber(), actual.getFiber());
-    }
-    private Food getById(long id) {
-        return foodRepo
-                .findById(id)
-                .orElseThrow(() -> new FoodException("id not exist"));
     }
 
 }

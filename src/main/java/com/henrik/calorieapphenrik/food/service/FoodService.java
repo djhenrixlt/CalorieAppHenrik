@@ -7,7 +7,6 @@ import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.mapper.FoodMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,8 +38,8 @@ public class FoodService {
         if (!isExist) {
             throw new FoodException("Food not exist");
         }
-        Food food = getById(id);
-        Food update = FoodMapper.FOOD_MAPPER.mapForUpdate(foodDto,food);
+       Optional<Food> food = foodRepo.findById(id);
+        Food update = FoodMapper.FOOD_MAPPER.mapForUpdate(foodDto,food.get());
         foodRepo.save(update);
         return FoodMapper.FOOD_MAPPER.mapDto(update);
     }
@@ -63,11 +62,6 @@ public class FoodService {
 
     public Integer getCalories() {
         return foodRepo.getCaloriesSUm();
-    }
-    private Food getById(long id) {
-        return foodRepo
-                .findById(id)
-                .orElseThrow(() -> new FoodException("id not exist"));
     }
 
 }

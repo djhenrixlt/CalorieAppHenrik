@@ -18,5 +18,4 @@ public interface FoodRepo extends JpaRepository<Food, Long> {
 
     @Query(value = "SELECT SUM(calories) FROM food ", nativeQuery = true)
     Integer getCaloriesSUm();
-
 }

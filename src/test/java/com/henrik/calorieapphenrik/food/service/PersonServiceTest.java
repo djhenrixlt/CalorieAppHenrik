@@ -9,11 +9,14 @@ import com.henrik.calorieapphenrik.food.mapper.FoodMapper;
 import com.henrik.calorieapphenrik.food.mapper.PersonMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -29,14 +32,18 @@ class PersonServiceTest {
     private static final String MODERATELY = "moderately";
     private static final String ACTIVE = "active";
     private static final String VERY = "very";
-    public static final String NAME = "a";
-    public static final String NAME_2 = "name2";
+    private static final String NAME = "a";
+    private static final String NAME_2 = "name2";
+
 
     @InjectMocks
     private PersonService personService;
 
     @Mock
     private PersonRepo personRepo;
+
+    @Captor
+    ArgumentCaptor<Person> personCaptor;
 
     @Test
     void getGoalCalories() {
@@ -52,6 +59,15 @@ class PersonServiceTest {
 
     @Test
     void deletePerson() {
+        Person person = getPerson();
+
+        when(personRepo.findByPersonName(NAME)).thenReturn(person);
+        when(personRepo.existsById(person.getId())).thenReturn(true);
+
+        personService.deletePerson(NAME);
+        verify(personRepo).delete(personCaptor.capture());
+        Person capturedPerson = personCaptor.getValue();
+        testPerson(person, PersonMapper.PERSON_MAPPER.mapDto(capturedPerson));
     }
     private Person getPerson() {
         return Person.builder().personName(NAME).activityLevel(MODERATELY).age(20.0)
