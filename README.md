@@ -89,6 +89,13 @@ you will get from this : /api/v1.0/persons/cal/Henrikas
 
 ```
 this Calorie daily goal Canculator will not save data: 
+GENDER: man , woman
+Activity levelel:
+sedentary 
+lightly
+moderately
+active
+very
    
    api/v1.0/persons/goalCal
 You need to enter data like this to "postMan":
