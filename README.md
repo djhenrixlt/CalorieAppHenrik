@@ -61,6 +61,7 @@ You will Get like this:
 ]
 ```
 you will get all calories sum from list: /api/v1.0/foods/calories
+
 you will get number:
 ```json
 320
@@ -79,6 +80,9 @@ for example:
 
 ```
 you will get from this : /api/v1.0/persons/cal/Henrikas
+
+First you need add Person to get this.
+
   1. Goal 2. how much was added to list 3. how much left to reach goal
 ```json
 [
@@ -90,7 +94,9 @@ you will get from this : /api/v1.0/persons/cal/Henrikas
 ```
 this Calorie daily goal Canculator will not save data: 
 
-GENDER: man (male)
+GENDER:
+ 
+man (male)
 
 woman (female)
 
@@ -133,8 +139,24 @@ You will recive result:
   POST
 ```
 will add person and count goal, left, and will show humch consumed
-gender = men, women;
-activityLevel = sedentary, lightly, moderately" activ, very ;
+
+GENDER:
+ 
+man (male)
+
+woman (female)
+
+Activity levels:
+
+sedentary  (little or no exercise) 
+
+lightly (exercise 1-3 days/week) 
+
+moderately (exercise 3-5 days/week) 
+
+active (exercise 6-7 days/week)
+ 
+very (hard exercise 6-7 days/week)
 
 /api/v1.0/persons/new
 ```json
@@ -195,3 +217,9 @@ Delete Person
 
 Delete food
 /api/v1.0/foods/delete/chicken
+#### plans for the Future
+```
+
+Add login system
+
+Create fron end with React
