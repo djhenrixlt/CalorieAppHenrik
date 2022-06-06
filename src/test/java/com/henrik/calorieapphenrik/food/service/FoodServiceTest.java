@@ -1,6 +1,7 @@
 package com.henrik.calorieapphenrik.food.service;
 
 import com.henrik.calorieapphenrik.food.Entity.Food;
+import com.henrik.calorieapphenrik.food.Exception.FoodException;
 import com.henrik.calorieapphenrik.food.Repository.FoodRepo;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.mapper.FoodMapper;
@@ -40,7 +41,7 @@ class FoodServiceTest {
         Food food = Food.builder()
                 .calories(100)
                 .fat(20)
-                .id(1)
+                .id(1L)
                 .fiber(4)
                 .protein(30)
                 .name("Benas")
@@ -48,7 +49,6 @@ class FoodServiceTest {
         Food food2 = Food.builder()
                 .calories(10)
                 .fat(20)
-                .id(2)
                 .fiber(4)
                 .protein(30)
                 .name("l")
@@ -78,16 +78,17 @@ class FoodServiceTest {
     @Test
     void updateFood() {
         FoodDto foodDto = getFoodDto();
-        Food food = FoodMapper.FOOD_MAPPER.mapModel(foodDto);
+        Food food = getById(ID);
+        Food update = FoodMapper.FOOD_MAPPER.mapForUpdate(foodDto, food);
 
         when(foodRepo.existsById(ID)).thenReturn(true);
 
         FoodDto actual = foodService.updateFood(foodDto, ID);
 
         verify(foodRepo).existsById(ID);
-        verify(foodRepo).save(food);
+        verify(foodRepo).save(update);
 
-        testFood(food, actual);
+        testFood(update, actual);
     }
 
     @Test
@@ -105,15 +106,15 @@ class FoodServiceTest {
 
     @Test
     void deleteFood() throws Exception {
-        Food food = getFood();
+        Optional<Food> food = Optional.ofNullable(getFood());
 
-        when(foodRepo.findByName(NAME)).thenReturn(Optional.of(food));
+        when(foodRepo.findByName(NAME)).thenReturn(food);
         when(foodRepo.existsById(ID)).thenReturn(true);
 
         foodService.deleteFood(NAME);
         verify(foodRepo).delete(foodCaptor.capture());
         Food capturedFood = foodCaptor.getValue();
-        testFood(food, FoodMapper.FOOD_MAPPER.mapDto(capturedFood));
+        testFood(food.get(), FoodMapper.FOOD_MAPPER.mapDto(capturedFood));
     }
 
     @Test
@@ -131,7 +132,7 @@ class FoodServiceTest {
         return Food.builder()
                 .calories(100)
                 .fat(20)
-                .id(1)
+                .id(1L)
                 .fiber(4)
                 .protein(30)
                 .name(NAME)
@@ -156,4 +157,10 @@ class FoodServiceTest {
         assertEquals(food.getProtein(), actual.getProtein());
         assertEquals(food.getFiber(), actual.getFiber());
     }
+    private Food getById(long id) {
+        return foodRepo
+                .findById(id)
+                .orElseThrow(() -> new FoodException("id not exist"));
+    }
+
 }

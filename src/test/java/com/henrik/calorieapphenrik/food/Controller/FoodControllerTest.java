@@ -101,7 +101,6 @@ class FoodControllerTest {
         return Food.builder()
                 .calories(1)
                 .fat(1)
-                .id(1)
                 .fiber(1)
                 .protein(1)
                 .carbs(1)

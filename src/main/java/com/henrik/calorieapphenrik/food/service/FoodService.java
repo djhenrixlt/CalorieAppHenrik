@@ -53,7 +53,7 @@ public class FoodService {
     }
 
     public void deleteFood(String name) {
-        Optional<Food> food = foodRepo.findByName(name.toLowerCase());
+        Optional<Food> food = foodRepo.findByName(name);
         Long id = food.get().getId();
         if (!foodRepo.existsById(id)) {
             throw new FoodException("id not exist" + id);
