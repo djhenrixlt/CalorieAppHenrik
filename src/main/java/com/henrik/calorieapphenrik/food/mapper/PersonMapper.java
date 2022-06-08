@@ -3,6 +3,7 @@ package com.henrik.calorieapphenrik.food.mapper;
 import com.henrik.calorieapphenrik.food.Entity.Person;
 import com.henrik.calorieapphenrik.food.dto.PersonDto;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
@@ -14,5 +15,12 @@ public interface PersonMapper {
     PersonDto mapDto(Person person);
 
     Person mapModel(PersonDto personDto);
+
+//    @Mapping(target = "foodList", ignore = true)
+//    PersonDto mapDtoForSavePerson(Person person);
+//    @Mapping(target = "foodList", ignore = true)
+//    Person mapModelSavePerson(PersonDto personDto);
+
+
 }
 

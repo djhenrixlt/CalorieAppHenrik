@@ -38,8 +38,8 @@ public class FoodService {
         if (!isExist) {
             throw new FoodException("Food not exist");
         }
-       Optional<Food> food = foodRepo.findById(id);
-        Food update = FoodMapper.FOOD_MAPPER.mapForUpdate(foodDto,food.get());
+        Optional<Food> food = foodRepo.findById(id);
+        Food update = FoodMapper.FOOD_MAPPER.mapForUpdate(foodDto, food.get());
         foodRepo.save(update);
         return FoodMapper.FOOD_MAPPER.mapDto(update);
     }
@@ -47,7 +47,7 @@ public class FoodService {
 
     public FoodDto saveFood(FoodDto food) {
         Food saveFood = FoodMapper.FOOD_MAPPER.mapModel(food);
-         foodRepo.save(saveFood);
+        foodRepo.save(saveFood);
         return FoodMapper.FOOD_MAPPER.mapDto(saveFood);
     }
 

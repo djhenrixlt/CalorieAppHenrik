@@ -6,6 +6,7 @@ import com.henrik.calorieapphenrik.food.Exception.FoodException;
 import com.henrik.calorieapphenrik.food.Exception.PersonException;
 import com.henrik.calorieapphenrik.food.Repository.FoodRepo;
 import com.henrik.calorieapphenrik.food.Repository.PersonRepo;
+import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.dto.PersonDto;
 import com.henrik.calorieapphenrik.food.mapper.PersonMapper;
 import lombok.AllArgsConstructor;
@@ -13,14 +14,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
 @Slf4j
 public class PersonService {
-
-    private FoodRepo foodRepo;
-    private PersonRepo personRepo;
 
     private static final String WOMAN = "woman";
     private static final String MEN = "men";
@@ -29,8 +28,11 @@ public class PersonService {
     private static final String MODERATELY = "moderately";
     private static final String ACTIVE = "active";
     private static final String VERY = "very";
+    private FoodRepo foodRepo;
+    private PersonRepo personRepo;
+    private FoodService foodService;
 
-    //Gets calories just only by value do not saves data
+    //Gets calories just only by value do not save data
     public Integer getGoalCalories(PersonDto personDto) {
         return countBmr(personDto).intValue();
     }
@@ -58,11 +60,21 @@ public class PersonService {
         }
         personRepo.delete(person);
     }
+//    public void addToLIstByFoodName(String name, PersonDto personDto){
+//        this.getFoodList(name,personDto.getFoodList())
+//                .ifPresentOrElse(FoodDto::incrementQuantity,
+//                        ()-> addFoodToPersonList(name,personDto));
+//        personDto.setCaloriesConsumed(personDto.getTotalCalories().intValue());
+//        personDto.setCaloriesLeft(personDto.getGoalCalories()-personDto.getCaloriesLeft());
+//    }
+
 
     private void setGoals(PersonDto personDto, Person person) {
+
         person.setGoalCalories(countBmr(personDto).intValue());
-        person.setCaloriesConsumed(foodRepo.getCaloriesSUm());
-        person.setCaloriesLeft(countBmr(personDto).intValue() - foodRepo.getCaloriesSUm());
+        person.setCaloriesConsumed(0);
+        person.setCaloriesLeft(0);
+
     }
 
 
@@ -101,5 +113,17 @@ public class PersonService {
 
     private boolean isEquals(String firsValue, String secondValue) {
         return firsValue.toLowerCase().equals(secondValue);
+    }
+//    private void addFoodToPersonList(String name, PersonDto personDto){
+//        Optional<FoodDto> foodDto = foodService.getFoodByName(name);
+//        Food food = FoodMapper.FOOD_MAPPER.mapModel(foodDto.get());
+//        personDto.add(food);
+//
+//    }
+
+    private Optional<FoodDto> getFoodList(String foodName, List<FoodDto> foodDtoList) {
+        return foodDtoList.stream()
+                .filter(food -> food.getName().equals(foodName))
+                .findAny();
     }
 }

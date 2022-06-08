@@ -3,6 +3,7 @@ package com.henrik.calorieapphenrik.food.Entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -19,12 +20,9 @@ public class Food {
 
 
     private String name;
-    private Integer calories;
+    private BigDecimal calories;
     private Integer protein;
     private Integer carbs;
     private Integer fat;
     private Integer fiber;
-
-    @ManyToOne
-    private Person person;
 }

@@ -16,8 +16,10 @@ public class PersonDto {
     private Double age;
     private Double weight;
     private Double height;
-    private  String activityLevel;
+    private String activityLevel;
     private Integer goalCalories;
     private Integer caloriesLeft;
     private Integer caloriesConsumed;
+
+
 }
