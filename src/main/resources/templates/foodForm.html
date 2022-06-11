@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Henrik Pizza</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+<form method="POST" th:action="@{/foods}" th:object="${foodDto}">
+    <h1>add food</h1>
+    <h3></h3>
+<!--    <a th:href="@{/design}" id="another">Make one more baby</a><br/>-->
+    <ul>
+
+    </ul>
+    <h3>add Food</h3>
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}"/>
+    <br/>
+    <label for="calories">Calories: </label>
+    <input type="number" th:field="*{calories}"/>
+    <br/>
+    <label for="protein">Protein : </label>
+    <input type="number" th:field="*{protein}"/>
+    <br/>
+    <label for="carbs">Carbs: </label>
+    <input type="number" th:field="*{carbs}"/>
+    <br/>
+    <br/>
+    <label for="fat">Fat: </label>
+    <input type="number" th:field="*{fat}"/>
+    <br/>
+    <br/>
+    <label for="fiber">Carbs: </label>
+    <input type="number" th:field="*{fiber}"/>
+    <br/>
+
+    <input type="submit" value="Submit food"/>
+</form>
+<div class="col-md-6">
+    <a class="btn btn-success" href="#" th:href="@{/foods/list}"> Cancel</a>
+    <!--    <a class="btn btn-primary" href="#" th:href="@{/books/edit}" th:classappend="${books.empty} ? 'disabled' : ''"> Edit Books </a>-->
+</div>
+</body>
+</html>

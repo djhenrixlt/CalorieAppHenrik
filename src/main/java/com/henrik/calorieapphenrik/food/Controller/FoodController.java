@@ -3,35 +3,47 @@ package com.henrik.calorieapphenrik.food.Controller;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.service.FoodService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
-@AllArgsConstructor
+@Controller
+@Slf4j
+@RequiredArgsConstructor
 @RequestMapping("/foods")
 public class FoodController {
 
     private final FoodService foodService;
 
-    @GetMapping
-    public ResponseEntity<List<FoodDto>> getAll() {
-        return ResponseEntity.ok(foodService.getAllFoods());
+
+    @GetMapping("/add")
+    public String foodForm(@ModelAttribute(name = "foodDto") FoodDto foodDto){
+        return "foodForm";
     }
 
-    @GetMapping("/{foodName}")
-    public ResponseEntity<?> getByName(@PathVariable String foodName) {
-        return foodService.getFoodByName(foodName)
-                .map(food -> {
-                    return ResponseEntity
-                            .ok()
-                            .body(food);
-                })
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/list")
+    public String getAll(Model model) {
+        model.addAttribute("foods",foodService.getAllFoods());
+        return "foodList";
     }
+
+//    @GetMapping("/{foodName}")
+//    public ResponseEntity<?> getByName(@PathVariable String foodName) {
+//        return foodService.getFoodByName(foodName)
+//                .map(food -> {
+//                    return ResponseEntity
+//                            .ok()
+//                            .body(food);
+//                })
+//                .orElse(ResponseEntity.notFound().build());
+//    }
 
     @GetMapping("/calories")
     public ResponseEntity<Integer> getFoodCalories() {
@@ -39,16 +51,16 @@ public class FoodController {
     }
 
 
-    @PostMapping("/new")
-    public ResponseEntity<?> create(@RequestBody @Valid FoodDto food) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(foodService.saveFood(food));
+    @PostMapping
+    public String create(@ModelAttribute(name = "foodDto") @Valid FoodDto food) {
+        foodService.saveFood(food);
+        return "redirect:/foods/list";
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<FoodDto> update(@RequestBody @Valid FoodDto food, @PathVariable("id") Long id) {
-        return ResponseEntity.status(HttpStatus.ACCEPTED)
-                .body(foodService.updateFood(food, id));
+    public String update(@ModelAttribute(name = "foodDto") @Valid FoodDto foodDto, @PathVariable("id") Long id) {
+       foodService.updateFood(foodDto, id);
+       return "editFoodList";
     }
 
     @DeleteMapping("/delete/{name}")

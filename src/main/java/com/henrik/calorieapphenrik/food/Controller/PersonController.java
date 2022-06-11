@@ -1,21 +1,34 @@
 package com.henrik.calorieapphenrik.food.Controller;
 
+import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.dto.PersonDto;
 import com.henrik.calorieapphenrik.food.service.PersonService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@Controller
 @AllArgsConstructor
 @RequestMapping("/persons")
 public class PersonController {
 
     private PersonService personService;
+
+
+    @GetMapping("/add")
+    public String registerForm(@ModelAttribute(name = "personDto") PersonDto personDto){
+        return "registrationForm";
+    }
+    @GetMapping("/login")
+    public String loginForm(){
+        return "login";
+    }
 
 
     @GetMapping("/goalCal")
@@ -28,10 +41,10 @@ public class PersonController {
         return ResponseEntity.ok(personService.getAllCaLByName(name));
     }
 
-    @PostMapping("/new")
-    public ResponseEntity<PersonDto> create(@RequestBody @Valid PersonDto person) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(personService.savePerson(person));
+    @PostMapping
+    public String create(@ModelAttribute(name = "personDto") @Valid PersonDto personDto) {
+        personService.savePerson(personDto);
+        return "redirect:/persons/login";
     }
 
     @DeleteMapping("/delete/{name}")

@@ -11,9 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PersonDto {
 
-    private String personName;
+    private String firstName;
+    private String lastName;
+    private String password;
     private String gender;
     private Double age;
+    private String email;
     private Double weight;
     private Double height;
     private String activityLevel;

@@ -45,15 +45,15 @@ public class PersonService {
     }
 
     public List<Integer> getAllCaLByName(String name) {
-        Person person = personRepo.findByPersonName(name);
-        if (isEquals(person.getPersonName(), name)) {
+        Person person = personRepo.findByEmail(name);
+        if (isEquals(person.getFirstName(), name)) {
             throw new PersonException("person not Exist" + name);
         }
         return List.of(person.getGoalCalories(), person.getCaloriesConsumed(), person.getCaloriesLeft());
     }
 
     public void deletePerson(String name) {
-        Person person = personRepo.findByPersonName(name);
+        Person person = personRepo.findByEmail(name);
         Long id = person.getId();
         if (!personRepo.existsById(id)) {
             throw new PersonException("Name not exist");
@@ -112,7 +112,7 @@ public class PersonService {
     }
 
     private boolean isEquals(String firsValue, String secondValue) {
-        return firsValue.toLowerCase().equals(secondValue);
+        return firsValue.equals(secondValue);
     }
 //    private void addFoodToPersonList(String name, PersonDto personDto){
 //        Optional<FoodDto> foodDto = foodService.getFoodByName(name);

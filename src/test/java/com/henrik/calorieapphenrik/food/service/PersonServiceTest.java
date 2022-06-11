@@ -1,11 +1,8 @@
 package com.henrik.calorieapphenrik.food.service;
 
-import com.henrik.calorieapphenrik.food.Entity.Food;
 import com.henrik.calorieapphenrik.food.Entity.Person;
 import com.henrik.calorieapphenrik.food.Repository.PersonRepo;
-import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.dto.PersonDto;
-import com.henrik.calorieapphenrik.food.mapper.FoodMapper;
 import com.henrik.calorieapphenrik.food.mapper.PersonMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,9 +11,6 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -61,7 +55,7 @@ class PersonServiceTest {
     void deletePerson() {
         Person person = getPerson();
 
-        when(personRepo.findByPersonName(NAME)).thenReturn(person);
+        when(personRepo.findByEmail(NAME)).thenReturn(person);
         when(personRepo.existsById(person.getId())).thenReturn(true);
 
         personService.deletePerson(NAME);
@@ -75,12 +69,12 @@ class PersonServiceTest {
                 .goalCalories(1).caloriesLeft(1).build();
     }
     private PersonDto getPersonDto() {
-        return PersonDto.builder().personName(NAME_2).activityLevel(MODERATELY).age(20.0)
+        return PersonDto.builder().firstName(NAME_2).activityLevel(MODERATELY).age(20.0)
                 .gender(WOMAN).height(170.0).weight(60.0).caloriesConsumed(1)
                 .goalCalories(1).caloriesLeft(1).build();
     }
     private void testPerson(Person person, PersonDto actual) {
-        assertEquals(person.getPersonName(), actual.getPersonName());
+        assertEquals(person.getFirstName(), actual.getFirstName());
         assertEquals(person.getActivityLevel(), actual.getActivityLevel());
         assertEquals(person.getAge(), actual.getAge());
         assertEquals(person.getGender(), actual.getGender());

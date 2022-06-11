@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th> Name </th>
+        <th> Calories </th>
+        <th> Protein </th>
+        <th> Carbs </th>
+        <th> Fats </th>
+    </tr>
+    </thead>
+    <tbody>
+<!--    <tr th:if="${foods.empty}">-->
+<!--        <td colspan="2"> No Books Available </td>-->
+<!--    </tr>-->
+    <tr th:each="foods : ${foods}">
+        <td><span th:text="${foods.name}"> Name </span></td>
+        <td><span th:text="${foods.calories}">Calories: </span></td>
+        <td><span th:text="${foods.protein}">Protein: </span></td>
+        <td><span th:text="${foods.carbs}">Carbs: </span></td>
+        <td><span th:text="${foods.fat}">Fat: </span></td>
+    </tr>
+    </tbody>
+</table>
+<div class="col-md-6">
+    <a class="btn btn-success" href="#" th:href="@{/foods/add}"> Add Food </a>
+<!--    <a class="btn btn-primary" href="#" th:href="@{/books/edit}" th:classappend="${books.empty} ? 'disabled' : ''"> Edit Books </a>-->
+</div>
+</body>
+</html>
