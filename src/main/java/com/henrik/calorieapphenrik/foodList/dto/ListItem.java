@@ -1,16 +1,25 @@
 package com.henrik.calorieapphenrik.foodList.dto;
 
+import com.henrik.calorieapphenrik.food.Entity.Food;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Builder
-@Getter
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class ListItem {
 
-    private final FoodDto foodDto;
+    @Id
+    private Long id;
+
+
+    @ManyToOne
+    private Food foodDto;
 
     private Integer quantity;
 

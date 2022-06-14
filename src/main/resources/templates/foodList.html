@@ -1,38 +1,120 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<html
+      xmlns:th="http://www.thymeleaf.org" xmlns="">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link th:href="@{/styles/list/myFoodList.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<table>
-    <thead>
-    <tr>
-        <th> Name </th>
-        <th> Calories </th>
-        <th> Protein </th>
-        <th> Carbs </th>
-        <th> Fats </th>
-    </tr>
-    </thead>
-    <tbody>
-<!--    <tr th:if="${foods.empty}">-->
-<!--        <td colspan="2"> No Books Available </td>-->
+<section class="vh-100 gradient-custom-2">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-12 col-xl-10">
+
+                <div class="card mask-custom">
+                    <div class="card-body p-4 text-white">
+
+                        <div class="text-center pt-3 pb-2">
+                            <!--                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"-->
+                            <!--                                 alt="Check" width="60">-->
+                            <h2 class="my-4">My Food List</h2>
+                        </div>
+
+
+                        <table class="table text-white mb-0">
+                            <thead>
+                            <tr>
+                                <th >Name</th>
+                                <th scope="col">Calories</th>
+                                <th scope="col">Protein</th>
+                                <th scope="col">Carbs</th>
+                                <th scope="col">Fats</th>
+                            </tr>
+                            </thead>
+
+                            <tbody >
+
+
+                            <!--                            <tr class="fw-normal" th:if="${listDto == null}">-->
+                            <!--                                <td class="fw-normal" colspan="2" >Add Food</td>-->
+                            <!--                            </tr>-->
+                            <tr class="fw-normal" th:each="foods : ${foods}">
+
+
+                                <td>
+                                    <form method="POST" th:action="@{/list/add/${foods.name}}">
+                                        <input type="hidden" name="name" th:value="${foods.name}"  />
+                                        <button class="btn btn-danger" th:text="#{foods.name}">
+                                        </button>
+                                    </form>
+                                    <!--                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"-->
+                                    <!--                                         alt="avatar 1" style="width: 45px; height: auto;">-->
+                                    <h6 class="mb-0"><span class="badge bg-danger"  th:text="${foods.name}">
+
+                                    </span></h6>
+                                </td>
+                                <td class="align-middle">
+                                    <h6 class="mb-0"><span class="badge bg-danger" th:text="${foods.calories}"></span></h6>
+                                </td>
+                                <td class="align-middle">
+                                    <h6 class="mb-0"><span class="badge bg-danger" th:text="${foods.protein}"></span></h6>
+                                </td>
+                                <td class="align-middle">
+                                    <h6 class="mb-0"><span class="badge bg-danger" th:text="${foods.carbs}"></span></h6>
+                                </td>
+                                <td class="align-middle">
+                                    <h6 class="mb-0"><span class="badge bg-danger" th:text="${foods.fat}"></span></h6>
+                                </td>
+                                <td class="align-middle">
+
+                                    <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i
+                                            class="fas fa-trash-alt fa-lg text-warning"></i></a>
+                                </td>
+
+                            </tr>
+                            </tbody>
+
+
+                        </table>
+
+
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th> Name </th>-->
+<!--        <th> Calories </th>-->
+<!--        <th> Protein </th>-->
+<!--        <th> Carbs </th>-->
+<!--        <th> Fats </th>-->
 <!--    </tr>-->
-    <tr th:each="foods : ${foods}">
-        <td><span th:text="${foods.name}"> Name </span></td>
-        <td><span th:text="${foods.calories}">Calories: </span></td>
-        <td><span th:text="${foods.protein}">Protein: </span></td>
-        <td><span th:text="${foods.carbs}">Carbs: </span></td>
-        <td><span th:text="${foods.fat}">Fat: </span></td>
-    </tr>
-    </tbody>
-</table>
-<div class="col-md-6">
-    <a class="btn btn-success" href="#" th:href="@{/foods/add}"> Add Food </a>
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--&lt;!&ndash;    <tr th:if="${foods.empty}">&ndash;&gt;-->
+<!--&lt;!&ndash;        <td colspan="2"> No Books Available </td>&ndash;&gt;-->
+<!--&lt;!&ndash;    </tr>&ndash;&gt;-->
+<!--    <tr th:each="foods : ${foods}">-->
+<!--        <td><span th:text="${foods.name}"> Name </span></td>-->
+<!--        <td><span th:text="${foods.calories}">Calories: </span></td>-->
+<!--        <td><span th:text="${foods.protein}">Protein: </span></td>-->
+<!--        <td><span th:text="${foods.carbs}">Carbs: </span></td>-->
+<!--        <td><span th:text="${foods.fat}">Fat: </span></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--<div class="col-md-6">-->
+<!--    <a class="btn btn-success" href="#" th:href="@{/foods/add}"> Add Food </a>-->
 <!--    <a class="btn btn-primary" href="#" th:href="@{/books/edit}" th:classappend="${books.empty} ? 'disabled' : ''"> Edit Books </a>-->
-</div>
+<!--</div>-->
 </body>
 </html>

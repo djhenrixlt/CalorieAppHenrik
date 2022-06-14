@@ -34,16 +34,12 @@ public class FoodController {
         return "foodList";
     }
 
-//    @GetMapping("/{foodName}")
-//    public ResponseEntity<?> getByName(@PathVariable String foodName) {
-//        return foodService.getFoodByName(foodName)
-//                .map(food -> {
-//                    return ResponseEntity
-//                            .ok()
-//                            .body(food);
-//                })
-//                .orElse(ResponseEntity.notFound().build());
-//    }
+    @GetMapping("{name}")
+    public String getByName(Model model, @PathVariable("name") String name) {
+        model.addAttribute("foodDto", foodService.getFoodByName(name));
+        return "foodForm";
+
+    }
 
     @GetMapping("/calories")
     public ResponseEntity<Integer> getFoodCalories() {
