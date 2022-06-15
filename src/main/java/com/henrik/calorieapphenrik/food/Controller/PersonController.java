@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,10 +31,20 @@ public class PersonController {
         return "login";
     }
 
+//    @GetMapping("/main")
+//    public String myFoodList(@ModelAttribute(name = "persons") PersonDto personDto){
+//        return "myFoodList";
+//    }
+
 
     @GetMapping("/goalCal")
     public ResponseEntity<?> getGoalCalories(@RequestBody @Valid PersonDto personDto) {
         return ResponseEntity.ok(personService.getGoalCalories(personDto));
+    }
+    @GetMapping("/main")
+    public String getAllConsumed(Model model, @ModelAttribute(name = "goal") PersonDto personDto){
+        model.addAttribute("persons", personService.AllMyList());
+        return "myFoodList";
     }
 
     @GetMapping("/cal/{name}")
@@ -53,6 +64,10 @@ public class PersonController {
         personService.deletePerson(name);
     }
 
-
+@PostMapping("/food/{id}")
+    public String addToMyList(@PathVariable("id") Long id, @ModelAttribute(name = "food") FoodDto foodDto){
+        personService.addToMyList(id,foodDto);
+        return "redirect:/persons/main";
+}
 
 }

@@ -61,10 +61,10 @@ class PersonServiceTest {
         personService.deletePerson(NAME);
         verify(personRepo).delete(personCaptor.capture());
         Person capturedPerson = personCaptor.getValue();
-        testPerson(person, PersonMapper.PERSON_MAPPER.mapDto(capturedPerson));
+        testPerson(person, PersonMapper.PERSON_MAPPER.mapDtoForSavePerson(capturedPerson));
     }
     private Person getPerson() {
-        return Person.builder().personName(NAME).activityLevel(MODERATELY).age(20.0)
+        return Person.builder().firstName(NAME).activityLevel(MODERATELY).age(20.0)
                 .gender(WOMAN).height(170.0).weight(60.0).caloriesConsumed(1)
                 .goalCalories(1).caloriesLeft(1).build();
     }

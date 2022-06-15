@@ -1,6 +1,7 @@
 package com.henrik.calorieapphenrik.food.mapper;
 
 import com.henrik.calorieapphenrik.food.Entity.Food;
+import com.henrik.calorieapphenrik.food.Entity.MyList;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -16,4 +17,6 @@ public interface FoodMapper {
     Food mapModel(FoodDto foodDto);
 
     Food mapForUpdate(FoodDto foodDto, @MappingTarget Food food);
+
+    MyList mapToListModel(FoodDto foodDto);
 }

@@ -40,13 +40,18 @@
                             <!--                            <tr class="fw-normal" th:if="${listDto == null}">-->
                             <!--                                <td class="fw-normal" colspan="2" >Add Food</td>-->
                             <!--                            </tr>-->
-                            <tr class="fw-normal" th:each="foods : ${foods}">
+                            <tr class="fw-normal" th:each="foods : ${foods}" >
 
 
-                                <td>
-                                    <form method="POST" th:action="@{/list/add/${foods.name}}">
-                                        <input type="hidden" name="name" th:value="${foods.name}"  />
-                                        <button class="btn btn-danger" th:text="#{foods.name}">
+                                <td >
+                                    <form method="POST" th:action="@{/persons/food/1}" th:object="${food}">
+                                        <input type="hidden" name="name"  th:value="${foods.name}"  />
+<!--                                        <input type="hidden" name="calories" th:field="*{calories}" th:number="${foods.calories}"  />-->
+<!--                                        <input type="hidden" name="protein" th:field="*{protein}" th:number="${foods.protein}"  />-->
+<!--                                        <input type="hidden" name="carbs" th:field="*{carbs}" th:number="${foods.carbs}"  />-->
+<!--                                        <input type="hidden" name="fat" th:field="*{fat}" th:number="${foods.fat}"  />-->
+<!--                                        <input type="hidden" name="fiber" th:field="*{fiber}" th:number="${foods.fiber}"  />-->
+                                        <button class="btn btn-danger" th:text="${foods.name}" type="submit" >+
                                         </button>
                                     </form>
                                     <!--                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"-->

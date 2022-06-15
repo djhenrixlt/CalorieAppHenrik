@@ -15,7 +15,7 @@ public class FoodDto {
 
 
     private String name;
-    private BigDecimal calories;
+    private Integer calories;
     private Integer protein;
     private Integer carbs;
     private Integer fat;

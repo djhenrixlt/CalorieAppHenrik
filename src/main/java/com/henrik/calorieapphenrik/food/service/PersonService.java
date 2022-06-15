@@ -1,6 +1,7 @@
 package com.henrik.calorieapphenrik.food.service;
 
 
+import com.henrik.calorieapphenrik.food.Entity.MyList;
 import com.henrik.calorieapphenrik.food.Entity.Person;
 import com.henrik.calorieapphenrik.food.Exception.FoodException;
 import com.henrik.calorieapphenrik.food.Exception.PersonException;
@@ -8,11 +9,15 @@ import com.henrik.calorieapphenrik.food.Repository.FoodRepo;
 import com.henrik.calorieapphenrik.food.Repository.PersonRepo;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.dto.PersonDto;
+import com.henrik.calorieapphenrik.food.mapper.FoodMapper;
+import com.henrik.calorieapphenrik.food.mapper.MyListRepo;
 import com.henrik.calorieapphenrik.food.mapper.PersonMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +36,7 @@ public class PersonService {
     private FoodRepo foodRepo;
     private PersonRepo personRepo;
     private FoodService foodService;
+    private MyListRepo myListRepo;
 
     //Gets calories just only by value do not save data
     public Integer getGoalCalories(PersonDto personDto) {
@@ -38,10 +44,10 @@ public class PersonService {
     }
 
     public PersonDto savePerson(PersonDto personDto) {
-        Person person = PersonMapper.PERSON_MAPPER.mapModel(personDto);
+        Person person = PersonMapper.PERSON_MAPPER.mapModelSavePerson(personDto);
         setGoals(personDto, person);
         personRepo.save(person);
-        return PersonMapper.PERSON_MAPPER.mapDto(person);
+        return PersonMapper.PERSON_MAPPER.mapDtoForSavePerson(person);
     }
 
     public List<Integer> getAllCaLByName(String name) {
@@ -60,6 +66,41 @@ public class PersonService {
         }
         personRepo.delete(person);
     }
+
+//    public void addToMyList(Long id, FoodDto foodDto2){
+//        Optional<FoodDto> foodDto = foodService.getFoodByName(foodDto2.getName());
+//        PersonDto personDto = findByID(id);
+//        personDto.setCaloriesConsumed(personDto.getCaloriesConsumed()+ foodDto.get().getCalories());
+//        personDto.setCaloriesLeft(personDto.getGoalCalories()-personDto.getCaloriesConsumed());
+//        List<FoodDto> myFoodList = new LinkedList<>();
+//        myFoodList.add(foodDto.get());
+//        personDto.setMyFoodList(myFoodList);
+//        Person person = PersonMapper.PERSON_MAPPER.mapModelSavePerson(personDto);
+//        Person save = PersonMapper.PERSON_MAPPER.mapForUpdate(personDto, person);
+//        personRepo.save(save);
+//    }
+
+    public void addToMyList(Long id, FoodDto foodDto2){
+        Optional<FoodDto> foodDto = foodService.getFoodByName(foodDto2.getName());
+        PersonDto personDto = findByID(id);
+        personDto.setCaloriesConsumed(personDto.getCaloriesConsumed()+ foodDto.get().getCalories());
+        personDto.setCaloriesLeft(personDto.getGoalCalories()-personDto.getCaloriesConsumed());
+        Person person = PersonMapper.PERSON_MAPPER.mapModelSavePerson(personDto);
+        Person save = PersonMapper.PERSON_MAPPER.mapForUpdate(personDto, person);
+        personRepo.save(save);
+        MyList myList = FoodMapper.FOOD_MAPPER.mapToListModel(foodDto.get());
+        myListRepo.save(myList);
+    }
+    public List<MyList> AllMyList(){
+        return myListRepo.findAll();
+    }
+
+
+
+    public PersonDto findByID(Long id){
+        Optional<Person> person = personRepo.findById(id);
+        return PersonMapper.PERSON_MAPPER.mapDtoForSavePerson(person.get());
+    }
 //    public void addToLIstByFoodName(String name, PersonDto personDto){
 //        this.getFoodList(name,personDto.getFoodList())
 //                .ifPresentOrElse(FoodDto::incrementQuantity,
@@ -69,11 +110,12 @@ public class PersonService {
 //    }
 
 
+
     private void setGoals(PersonDto personDto, Person person) {
 
         person.setGoalCalories(countBmr(personDto).intValue());
         person.setCaloriesConsumed(0);
-        person.setCaloriesLeft(0);
+        person.setCaloriesLeft(countBmr(personDto).intValue());
 
     }
 
