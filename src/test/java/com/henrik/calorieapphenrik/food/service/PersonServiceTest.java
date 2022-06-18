@@ -74,7 +74,7 @@ class PersonServiceTest {
                 .goalCalories(1).caloriesLeft(1).build();
     }
     private void testPerson(Person person, PersonDto actual) {
-        assertEquals(person.getFirstName(), actual.getFirstName());
+        assertEquals(person.getUsername(), actual.getFirstName());
         assertEquals(person.getActivityLevel(), actual.getActivityLevel());
         assertEquals(person.getAge(), actual.getAge());
         assertEquals(person.getGender(), actual.getGender());

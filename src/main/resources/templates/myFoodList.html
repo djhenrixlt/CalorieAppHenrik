@@ -9,44 +9,49 @@
 </head>
 
 <body>
+<!--<section class="vh-100 gradient-custom-2">-->
+<!--<div class="row d-flex justify-content-center align-items-center h-100">-->
+
+<!--    </div>-->
+<!--</section>-->
 <section class="vh-100 gradient-custom-2">
-    <div class="card-body p-4 text-black-50">
-    <table class="table text-black-50" >
-        <thead>
-        <tr>
-            <th scope="col">Goal</th>
-            <th scope="col">Calories Consumed</th>
-            <th scope="col">Calories Left</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!--                            <tr class="fw-normal" th:if="${listDto == null}">-->
-        <!--                                <td class="fw-normal" colspan="2" >Add Food</td>-->
-        <!--                            </tr>-->
-        <tr class="fw-normal" th:each="listDto : ${goal}">
-            <th>
-                <!--                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"-->
-                <!--                                         alt="avatar 1" style="width: 45px; height: auto;">-->
-                <span class="ms-2" th:number="${listDto.goalCalories}"></span>
-            </th>
-            <td class="align-middle">
-                <span th:number="${listDto.caloriesConsumed}"></span>
-            </td>
-            <td class="align-middle">
-                <h6 class="mb-0"><span class="badge bg-danger" th:number="${listDto.caloriesLeft}"></span></h6>
-            </td>
 
-        </tr>
-
-        </tbody>
-    </div>
-    </table>
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-md-12 col-xl-10">
 
                 <div class="card mask-custom">
                     <div class="card-body p-4 text-black-50">
+                        <div class="col-md-12 col-xl-10">
+
+                            <table class="table text-black-50 mb-0">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Goal</th>
+                                    <th scope="col">Used</th>
+                                    <th scope="col">Left</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr class="fw-normal" th:each="person : ${person}">
+                                    <th>
+                                        <span class="ms-2" th:text="${person.goalCalories}"></span>
+                                    </th>
+                                    <td class="align-middle">
+                                        <span th:text="${person.caloriesConsumed}"></span>
+                                    </td>
+                                    <td class="align-middle">
+                                        <span class="ms-2"  th:text="${person.caloriesLeft}"></span>
+                                    </td>
+
+                                </tr>
+
+                                </tbody>
+                            </table>
+
+
+                        </div>
 
                         <table class="table text-black-50 mb-0">
                             <thead>
@@ -60,7 +65,7 @@
 <!--                            <tr class="fw-normal" th:if="${listDto == null}">-->
 <!--                                <td class="fw-normal" colspan="2" >Add Food</td>-->
 <!--                            </tr>-->
-                            <tr class="fw-normal" th:each="listDto : ${persons}">
+                            <tr class="fw-normal" th:each="listDto : ${person.myFoodList}">
                                 <th>
 <!--                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"-->
 <!--                                         alt="avatar 1" style="width: 45px; height: auto;">-->
@@ -73,8 +78,13 @@
                                     <h6 class="mb-0"><span class="badge bg-danger" th:text="${listDto.protein}"></span></h6>
                                 </td>
                                 <td class="align-middle">
-                                    <a href="#!" data-mdb-toggle="tooltip" title="Done"><i
-                                            class="fas fa-check fa-lg text-success me-3"></i></a>
+
+                                    <form method="POST" th:action="@{/persons/delete}">
+                                            <input type="hidden" name="foodId" th:value="${listDto.id}">
+                                            <button class="btn btn-danger" type="submit" th:text="delete">
+                                            </button>
+                                        </form>
+
                                     <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i
                                             class="fas fa-trash-alt fa-lg text-warning"></i></a>
                                 </td>

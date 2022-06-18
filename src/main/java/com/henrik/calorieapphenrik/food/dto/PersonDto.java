@@ -1,11 +1,12 @@
 package com.henrik.calorieapphenrik.food.dto;
 
 import com.henrik.calorieapphenrik.food.Entity.MyList;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.henrik.calorieapphenrik.food.Entity.Person;
+import com.henrik.calorieapphenrik.food.mapper.FoodMapper;
+import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -15,12 +16,12 @@ import java.util.Set;
 public class PersonDto {
 
     private long id;
-    private String firstName;
-    private String lastName;
-    private String password;
+    private  String username;
+    private  String password;
+    private  String fullName;
+    private  String email;
     private String gender;
     private Double age;
-    private String email;
     private Double weight;
     private Double height;
     private String activityLevel;
@@ -28,7 +29,22 @@ public class PersonDto {
     private Integer caloriesLeft;
     private Integer caloriesConsumed;
 
-    private Set<MyList> myFoodList ;
+    private Integer goalProtein;
+    private Integer goalCarbs;
+    private Integer goalFats;
+    private String plan;
+
+    @NonNull
+    private Set<MyList> myFoodList =  new HashSet<>();
+
+    public Person toUser(PasswordEncoder passwordEncoder){
+        return new Person(username, passwordEncoder.encode(password),
+                fullName, email, gender,age,weight,height, activityLevel, goalCalories, caloriesLeft, caloriesConsumed, goalProtein, goalCarbs, goalFats, plan);
+    }
+
+    public void addToMyLIst(FoodDto foodDto){
+        myFoodList.add(FoodMapper.FOOD_MAPPER.mapToListModel(foodDto));
+    }
 
 
 

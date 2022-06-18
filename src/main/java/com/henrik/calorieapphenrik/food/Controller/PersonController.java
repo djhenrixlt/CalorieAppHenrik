@@ -2,6 +2,7 @@ package com.henrik.calorieapphenrik.food.Controller;
 
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.dto.PersonDto;
+import com.henrik.calorieapphenrik.food.service.MyFoodListService;
 import com.henrik.calorieapphenrik.food.service.PersonService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -20,16 +21,17 @@ import java.util.List;
 public class PersonController {
 
     private PersonService personService;
+    private MyFoodListService myFoodListService;
 
 
     @GetMapping("/add")
     public String registerForm(@ModelAttribute(name = "personDto") PersonDto personDto){
         return "registrationForm";
     }
-    @GetMapping("/login")
-    public String loginForm(){
-        return "login";
-    }
+//    @GetMapping("/login")
+//    public String loginForm(){
+//        return "login";
+//    }
 
 //    @GetMapping("/main")
 //    public String myFoodList(@ModelAttribute(name = "persons") PersonDto personDto){
@@ -41,21 +43,27 @@ public class PersonController {
     public ResponseEntity<?> getGoalCalories(@RequestBody @Valid PersonDto personDto) {
         return ResponseEntity.ok(personService.getGoalCalories(personDto));
     }
-    @GetMapping("/main")
-    public String getAllConsumed(Model model, @ModelAttribute(name = "goal") PersonDto personDto){
-        model.addAttribute("persons", personService.AllMyList());
-        return "myFoodList";
-    }
+//    @GetMapping("/main")
+//    public String getAllConsumed(Model model){
+//        model.addAttribute("persons", personService.AllMyList());
+//        return "myFoodList";
+//    }
 
-    @GetMapping("/cal/{name}")
-    public ResponseEntity<List<?>> getAllCaLByName(@PathVariable String name) {
-        return ResponseEntity.ok(personService.getAllCaLByName(name));
+    @GetMapping("/main/{id}")
+    public String getPersonById(Model model, @PathVariable Long id) {
+        model.addAttribute("person", personService.findByID(id));
+        return "myFoodList";
     }
 
     @PostMapping
     public String create(@ModelAttribute(name = "personDto") @Valid PersonDto personDto) {
         personService.savePerson(personDto);
         return "redirect:/persons/login";
+    }
+    @PostMapping("/delete")
+    public String deleteMyFood(@RequestParam Long id){
+        myFoodListService.deleteMyFood(id);
+        return "redirect:/persons/main/1";
     }
 
     @DeleteMapping("/delete/{name}")
@@ -67,7 +75,7 @@ public class PersonController {
 @PostMapping("/food/{id}")
     public String addToMyList(@PathVariable("id") Long id, @ModelAttribute(name = "food") FoodDto foodDto){
         personService.addToMyList(id,foodDto);
-        return "redirect:/persons/main";
+        return "redirect:/persons/main/{id}";
 }
 
 }

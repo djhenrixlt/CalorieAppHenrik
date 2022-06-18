@@ -1,5 +1,6 @@
 package com.henrik.calorieapphenrik.food.dto;
 
+import com.henrik.calorieapphenrik.food.Entity.MyList;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

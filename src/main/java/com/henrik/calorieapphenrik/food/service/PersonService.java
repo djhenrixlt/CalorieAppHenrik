@@ -9,15 +9,13 @@ import com.henrik.calorieapphenrik.food.Repository.FoodRepo;
 import com.henrik.calorieapphenrik.food.Repository.PersonRepo;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.dto.PersonDto;
-import com.henrik.calorieapphenrik.food.mapper.FoodMapper;
 import com.henrik.calorieapphenrik.food.mapper.MyListRepo;
 import com.henrik.calorieapphenrik.food.mapper.PersonMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,22 +35,23 @@ public class PersonService {
     private PersonRepo personRepo;
     private FoodService foodService;
     private MyListRepo myListRepo;
-
+    private PasswordEncoder passwordEncoder;
     //Gets calories just only by value do not save data
     public Integer getGoalCalories(PersonDto personDto) {
         return countBmr(personDto).intValue();
     }
 
     public PersonDto savePerson(PersonDto personDto) {
-        Person person = PersonMapper.PERSON_MAPPER.mapModelSavePerson(personDto);
-        setGoals(personDto, person);
-        personRepo.save(person);
-        return PersonMapper.PERSON_MAPPER.mapDtoForSavePerson(person);
+        Person person = PersonMapper.PERSON_MAPPER.mapModel(personDto);
+        setGoals(personDto);
+        personRepo.save(personDto.toUser(passwordEncoder));
+
+        return PersonMapper.PERSON_MAPPER.mapDto(person);
     }
 
     public List<Integer> getAllCaLByName(String name) {
         Person person = personRepo.findByEmail(name);
-        if (isEquals(person.getFirstName(), name)) {
+        if (isEquals(person.getUsername(), name)) {
             throw new PersonException("person not Exist" + name);
         }
         return List.of(person.getGoalCalories(), person.getCaloriesConsumed(), person.getCaloriesLeft());
@@ -80,16 +79,30 @@ public class PersonService {
 //        personRepo.save(save);
 //    }
 
+//    public void addToMyList(Long id, FoodDto foodDto2){
+//        Optional<FoodDto> foodDto = foodService.getFoodByName(foodDto2.getName());
+//        PersonDto personDto = findByID(id);
+//        personDto.setCaloriesConsumed(personDto.getCaloriesConsumed()+ foodDto.get().getCalories());
+//        personDto.setCaloriesLeft(personDto.getGoalCalories()-personDto.getCaloriesConsumed());
+//        Person person = PersonMapper.PERSON_MAPPER.mapModelSavePerson(personDto);
+//        Person save = PersonMapper.PERSON_MAPPER.mapForUpdate(personDto, person);
+//        personRepo.save(save);
+//        MyList myList = FoodMapper.FOOD_MAPPER.mapToListModel(foodDto.get());
+//        myListRepo.save(myList);
+//    }
     public void addToMyList(Long id, FoodDto foodDto2){
         Optional<FoodDto> foodDto = foodService.getFoodByName(foodDto2.getName());
         PersonDto personDto = findByID(id);
         personDto.setCaloriesConsumed(personDto.getCaloriesConsumed()+ foodDto.get().getCalories());
         personDto.setCaloriesLeft(personDto.getGoalCalories()-personDto.getCaloriesConsumed());
-        Person person = PersonMapper.PERSON_MAPPER.mapModelSavePerson(personDto);
+        Person person = PersonMapper.PERSON_MAPPER.mapModel(personDto);
         Person save = PersonMapper.PERSON_MAPPER.mapForUpdate(personDto, person);
         personRepo.save(save);
-        MyList myList = FoodMapper.FOOD_MAPPER.mapToListModel(foodDto.get());
-        myListRepo.save(myList);
+        personDto.addToMyLIst(foodDto.get());
+        Person saveList = PersonMapper.PERSON_MAPPER.mapModel(personDto);
+        personRepo.save(saveList);
+//        MyList myList = FoodMapper.FOOD_MAPPER.mapToListModel(foodDto.get());
+//        myListRepo.save(myList);
     }
     public List<MyList> AllMyList(){
         return myListRepo.findAll();
@@ -99,69 +112,81 @@ public class PersonService {
 
     public PersonDto findByID(Long id){
         Optional<Person> person = personRepo.findById(id);
-        return PersonMapper.PERSON_MAPPER.mapDtoForSavePerson(person.get());
-    }
-//    public void addToLIstByFoodName(String name, PersonDto personDto){
-//        this.getFoodList(name,personDto.getFoodList())
-//                .ifPresentOrElse(FoodDto::incrementQuantity,
-//                        ()-> addFoodToPersonList(name,personDto));
-//        personDto.setCaloriesConsumed(personDto.getTotalCalories().intValue());
-//        personDto.setCaloriesLeft(personDto.getGoalCalories()-personDto.getCaloriesLeft());
-//    }
-
-
-
-    private void setGoals(PersonDto personDto, Person person) {
-
-        person.setGoalCalories(countBmr(personDto).intValue());
-        person.setCaloriesConsumed(0);
-        person.setCaloriesLeft(countBmr(personDto).intValue());
-
+        return PersonMapper.PERSON_MAPPER.mapDto(person.get());
     }
 
+
+
+    private void setGoals(PersonDto personDto) {
+//        person.setGoalCalories(countBmr(personDto).intValue());
+//        person.setCaloriesConsumed(0);
+//        person.setCaloriesLeft(countBmr(personDto).intValue());
+
+        personDto.setGoalCalories(countYourPlan(personDto.getPlan(), countBmr(personDto).intValue()).intValue());
+        personDto.setCaloriesConsumed(0);
+        personDto.setCaloriesLeft(countYourPlan(personDto.getPlan(), countBmr(personDto).intValue()).intValue());
+        personDto.setGoalProtein(countProteinGoal(personDto.getActivityLevel(), personDto.getWeight()).intValue());
+        personDto.setGoalCarbs(getCarbsGoal(personDto.getGoalCalories()));
+        personDto.setGoalFats(getFatGoal(personDto.getGoalCalories()).intValue());
+    }
+
+    private Double getFatGoal(Integer goalCal) {
+        return (goalCal * 0.3) / 9;
+    }
+
+    private int getCarbsGoal(Integer calories) {
+        return (calories / 2) / 4;
+    }
 
     private Double countBmr(PersonDto personDto) {
-        if (isEquals(personDto.getGender(), WOMAN)) {
-            double bmr = 655.1 + (9.563 * personDto.getWeight()) + (1.850 * personDto.getHeight()) - (4.676 * personDto.getAge());
-            return countAmr(personDto.getActivityLevel(), bmr);
-
-        } else if (isEquals(personDto.getGender(), MEN)) {
-            double bmr = (66.47 + (13.75 * personDto.getWeight()) + (5.003 * personDto.getHeight()) - (6.755 * personDto.getAge()));
-            return countAmr(personDto.getActivityLevel(), bmr);
-
-        }
-        throw new FoodException("gender not exist: " + personDto.getGender());
+         return switch (personDto.getGender()) {
+            case WOMAN -> countAmr(personDto.getActivityLevel(), getBmrWoman(personDto));
+            case MEN ->  countAmr(personDto.getActivityLevel(), getBmrMen(personDto));
+            default -> throw new FoodException("gender not exist: " + personDto.getGender());
+        };
     }
-
     private double countAmr(String activity, Double bmr) {
-
-        if (isEquals(activity, SEDENTARY)) {
-            return bmr * 1.2;
-
-        } else if (isEquals(activity, LIGHTLY)) {
-            return bmr * 1.375;
-
-        } else if (isEquals(activity, MODERATELY)) {
-            return bmr * 1.55;
-
-        } else if (isEquals(activity, ACTIVE)) {
-            return bmr * 1.725;
-
-        } else if (isEquals(activity, VERY)) {
-            return bmr * 1.9;
-        }
-        throw new FoodException("Your activity level not exist: " + activity);
+        return switch (activity) {
+            case SEDENTARY -> bmr * 1.2;
+            case LIGHTLY -> bmr * 1.375;
+            case MODERATELY -> bmr * 1.55;
+            case ACTIVE -> bmr * 1.725;
+            case VERY -> bmr * 1.9;
+            default -> throw new FoodException("Your activity level not exist: " + activity);
+        };
+    }
+    private Double countProteinGoal(String activity, Double weight) {
+        return switch (activity) {
+            case SEDENTARY -> weight * 0.7;
+            case LIGHTLY -> weight * 0.9;
+            case MODERATELY -> weight * 1.5;
+            case ACTIVE -> weight * 1.8;
+            case VERY -> weight * 2;
+            default -> throw new FoodException("Your activity level not exist: " + activity);
+        };
+    }
+    private Double countYourPlan(String level, Integer goalCalories) {
+        return switch (level) {
+            case "lost10" -> goalCalories * 0.9;
+            case "lost20" -> goalCalories * 0.8;
+            case "gain1" -> goalCalories + 200.0 ;
+            case "gain2" -> goalCalories * 500.0;
+            case "same" -> goalCalories.doubleValue();
+            default -> throw new FoodException("Your activity level not exist: " + level);
+        };
+    }
+    
+    private double getBmrWoman(PersonDto personDto) {
+        return 655.1 + (9.563 * personDto.getWeight()) + (1.850 * personDto.getHeight()) - (4.676 * personDto.getAge());
+    }
+    private double getBmrMen(PersonDto personDto) {
+        return 66.47 + (13.75 * personDto.getWeight()) + (5.003 * personDto.getHeight()) - (6.755 * personDto.getAge());
     }
 
     private boolean isEquals(String firsValue, String secondValue) {
         return firsValue.equals(secondValue);
     }
-//    private void addFoodToPersonList(String name, PersonDto personDto){
-//        Optional<FoodDto> foodDto = foodService.getFoodByName(name);
-//        Food food = FoodMapper.FOOD_MAPPER.mapModel(foodDto.get());
-//        personDto.add(food);
-//
-//    }
+
 
     private Optional<FoodDto> getFoodList(String foodName, List<FoodDto> foodDtoList) {
         return foodDtoList.stream()

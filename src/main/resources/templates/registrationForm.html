@@ -24,16 +24,16 @@
                 <div class="col-md-6 mb-4">
 
                   <div class="form-outline">
-                    <input type="text" th:field="*{firstName}" class="form-control form-control-lg" />
-                    <label class="form-label" for="firstName">First Name</label>
+                    <input type="text" th:field="*{username}" class="form-control form-control-lg" />
+                    <label class="form-label" for="username">User name</label>
                   </div>
 
                 </div>
                 <div class="col-md-6 mb-4">
 
                   <div class="form-outline">
-                    <input type="text" th:field="*{lastName}" class="form-control form-control-lg" />
-                    <label class="form-label" for="lastName">Last Name</label>
+                    <input type="text" th:field="*{fullName}" class="form-control form-control-lg" />
+                    <label class="form-label" for="fullName">Full Name</label>
                   </div>
 
                 </div>
@@ -111,20 +111,37 @@
                     <option value="1" disabled >Choose option</option>
                     <option   th:value="sedentary">Sedentary</option>
                     <option  th:value="lightly">lightly</option>
+                    <option th:value="moderately"  >moderately</option>
                     <option th:value="active" >active</option>
                     <option th:value="very"  >very</option>
                   </select>
                   <label class="form-label select-label">Activity level</label>
 
                 </div>
+                <div class="col-12">
+
+                  <select class="select form-control-lg" th:field="*{plan}">
+                    <option value="1" disabled >Your Plan</option>
+                    <option   th:value="lost10">Weight lost light</option>
+                    <option  th:value="lost20">Weight lost active</option>
+                    <option th:value="gain1" >Weight gain light</option>
+                    <option th:value="gain2"  >Weight gain active</option>
+                    <option th:value="same"  >Weight maintenance</option>
+                  </select>
+                  <label class="form-label select-label">Your weight plan</label>
+
+                </div>
+
 
               </div>
 
               <div class="mt-4 pt-2">
-                <input class="btn btn-primary btn-lg" type="submit" value="register person" />
-              </div>
+                <input class="btn btn-primary btn-lg" type="submit" value="Register" />
 
+              </div>
             </form>
+            <a class="btn btn-primary btn-lg" th:href="@{/login}">Back</a>
+
           </div>
         </div>
       </div>
