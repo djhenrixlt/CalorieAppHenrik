@@ -5,9 +5,335 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link th:href="@{/styles/list/myFoodList.css}" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/styles/fragments/layout.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
+<!--&lt;!&ndash;         Navbar &ndash;&gt;-->
+<!--<nav th:fragment="navbar(rootPath)" class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">-->
+<!--    <div class="container-fluid">-->
+<!--        &lt;!&ndash; Navbar brand &ndash;&gt;-->
+<!--        <a class="navbar-brand nav-link" target="_blank">-->
+<!--            <strong>HEX</strong>-->
+<!--        </a>-->
+<!--        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"-->
+<!--                aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <i class="fas fa-bars"></i>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarExample01">-->
+<!--            <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                <li class="nav-item active">-->
+<!--                    <a class="nav-link" aria-current="page" href="#MyProfile">My Profile</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" th:href="@{/persons/main/1}"-->
+<!--                       target="_blank">My List</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="canculator" >Count your intake</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+
+<!--            <ul class="navbar-nav list-inline">-->
+<!--                &lt;!&ndash; Icons &ndash;&gt;-->
+<!--                <li class="">-->
+<!--                    <a class="nav-link" href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA" rel="nofollow"-->
+<!--                       target="_blank">-->
+<!--                        <i class="fab fa-youtube"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="">-->
+<!--                    <a class="nav-link" href="https://www.facebook.com/mdbootstrap" rel="nofollow" target="_blank">-->
+<!--                        <i class="fab fa-facebook-f"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="https://twitter.com/MDBootstrap" rel="nofollow" target="_blank">-->
+<!--                        <i class="fab fa-twitter"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="https://github.com/mdbootstrap/mdb-ui-kit" rel="nofollow" target="_blank">-->
+<!--                        <i class="fab fa-github"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</nav>-->
+<!--&lt;!&ndash;        Main Navigation&ndash;&gt;-->
+
+<!--&lt;!&ndash; Carousel wrapper &ndash;&gt;-->
+<!--<div id="introCarousel" class="carousel slide carousel-fade shadow-2-strong" data-mdb-ride="carousel">-->
+<!--    &lt;!&ndash; Indicators &ndash;&gt;-->
+<!--    <ol class="carousel-indicators">-->
+<!--        <li data-mdb-target="#introCarousel" data-mdb-slide-to="0" class="active"></li>-->
+<!--        <li data-mdb-target="#introCarousel" data-mdb-slide-to="1"></li>-->
+<!--        <li data-mdb-target="#introCarousel" data-mdb-slide-to="2"></li>-->
+<!--    </ol>-->
+
+<!--    &lt;!&ndash; Inner &ndash;&gt;-->
+<!--    <div class="carousel-inner" >-->
+<!--        &lt;!&ndash; Single item &ndash;&gt;-->
+<!--        <div class="carousel-item active" >-->
+<!--            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6); display:block"   id="first">-->
+<!--                <div class="d-flex justify-content-center align-items-center h-100">-->
+<!--                    <div class="text-white text-center">-->
+<!--                        <section class="vh-100 gradient-custom-2">-->
+
+<!--                            <div class="container py-5 h-100">-->
+<!--                                <div class="row d-flex justify-content-center align-items-center h-100">-->
+<!--                                    <div class="col-md-12 col-xl-10">-->
+
+<!--                                        <div class="mask" style="background-color: rgba(0, 0, 0, 0.3);">-->
+<!--                                            <div class="card-body p-4 text-black-50">-->
+<!--                                                <div class="col-md-12 col-xl-10" >-->
+
+<!--                                                    <table class="table text-white-50 mb-0" >-->
+<!--                                                        <thead>-->
+<!--                                                        <tr>-->
+<!--                                                            <th scope="col">Goal</th>-->
+<!--                                                            <th scope="col">Used</th>-->
+<!--                                                            <th scope="col">Left</th>-->
+<!--                                                        </tr>-->
+<!--                                                        </thead>-->
+<!--                                                        <tbody>-->
+
+<!--                                                        <tr class="fw-normal" th:each="person : ${person}">-->
+<!--                                                            <th>-->
+<!--                                                                <span class="ms-2" th:text="${person.goalCalories}"></span>-->
+<!--                                                            </th>-->
+<!--                                                            <td class="align-middle">-->
+<!--                                                                <span th:text="${person.caloriesConsumed}"></span>-->
+<!--                                                            </td>-->
+<!--                                                            <td class="align-middle">-->
+<!--                                                                <span class="ms-2"  th:text="${person.caloriesLeft}"></span>-->
+<!--                                                            </td>-->
+
+<!--                                                        </tr>-->
+
+<!--                                                        </tbody>-->
+<!--                                                    </table>-->
+
+
+<!--                                                </div>-->
+
+<!--                                                <table class="table text-white-50 mb-0">-->
+<!--                                                    <thead>-->
+<!--                                                    <tr>-->
+<!--                                                        <th scope="col">Name</th>-->
+<!--                                                        <th scope="col">Calories</th>-->
+<!--                                                        <th scope="col">Protein</th>-->
+<!--                                                    </tr>-->
+<!--                                                    </thead>-->
+<!--                                                    <tbody>-->
+<!--                                                    &lt;!&ndash;                            <tr class="fw-normal" th:if="${listDto == null}">&ndash;&gt;-->
+<!--                                                    &lt;!&ndash;                                <td class="fw-normal" colspan="2" >Add Food</td>&ndash;&gt;-->
+<!--                                                    &lt;!&ndash;                            </tr>&ndash;&gt;-->
+<!--                                                    <tr class="fw-normal" th:each="listDto : ${person.myFoodList}">-->
+<!--                                                        <th>-->
+<!--                                                            &lt;!&ndash;                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;                                         alt="avatar 1" style="width: 45px; height: auto;">&ndash;&gt;-->
+<!--                                                            <span class="ms-2" th:text="${listDto.name}"></span>-->
+<!--                                                        </th>-->
+<!--                                                        <td class="align-middle">-->
+<!--                                                            <span th:text="${listDto.calories}"></span>-->
+<!--                                                        </td>-->
+<!--                                                        <td class="align-middle">-->
+<!--                                                            <h6 class="mb-0"><span class="badge bg-danger" th:text="${listDto.protein}"></span></h6>-->
+<!--                                                        </td>-->
+<!--                                                        <td class="align-middle">-->
+
+<!--                                                            <form method="POST" th:action="@{/persons/delete}">-->
+<!--                                                                <input type="hidden" name="foodId" th:value="${listDto.id}">-->
+<!--                                                                <button class="btn btn-danger" type="submit" th:text="delete">-->
+<!--                                                                </button>-->
+<!--                                                            </form>-->
+
+<!--                                                            <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i-->
+<!--                                                                    class="fas fa-trash-alt fa-lg text-warning"></i></a>-->
+<!--                                                        </td>-->
+<!--                                                    </tr>-->
+
+<!--                                                    </tbody>-->
+<!--                                                </table>-->
+<!--                                                <div class="fw-normal" >-->
+<!--                                                    <a class="align-middle" th:href="@{/foods/list}">Add Food +</a>-->
+<!--                                                </div>-->
+
+
+<!--                                            </div>-->
+<!--                                        </div>-->
+
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </section>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Single item &ndash;&gt;-->
+<!--        <div class="carousel-item"   >-->
+<!--            <div class="mask" style="background-color: rgba(0, 0, 0, 0.3); display:none "  id="second" >-->
+<!--                <div class="d-flex justify-content-center align-items-center h-100">-->
+<!--                    <div class="text-white text-center">-->
+<!--                        <div><section class="vh-100 gradient-custom-2">-->
+<!--                        <div class="container py-5 h-100">-->
+<!--                            <div class="row d-flex justify-content-center align-items-center h-100">-->
+<!--                                <div class="col-md-12 col-xl-10">-->
+
+<!--                                    <div class="card mask-custom">-->
+<!--                                        <div class="card-body p-4 text-white">-->
+
+<!--                                            <div class="text-center pt-3 pb-2">-->
+<!--                                                &lt;!&ndash;                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-todo-list/check1.webp"&ndash;&gt;-->
+<!--                                                &lt;!&ndash;                                 alt="Check" width="60">&ndash;&gt;-->
+<!--                                                <h2 class="my-4">My Food List</h2>-->
+<!--                                            </div>-->
+
+
+<!--                                            <table class="table text-white mb-0">-->
+<!--                                                <thead>-->
+<!--                                                <tr>-->
+<!--                                                    <th >Name</th>-->
+<!--                                                    <th scope="col">Calories</th>-->
+<!--                                                    <th scope="col">Protein</th>-->
+<!--                                                    <th scope="col">Carbs</th>-->
+<!--                                                    <th scope="col">Fats</th>-->
+<!--                                                </tr>-->
+<!--                                                </thead>-->
+
+<!--                                                <tbody >-->
+
+
+<!--                                                &lt;!&ndash;                            <tr class="fw-normal" th:if="${listDto == null}">&ndash;&gt;-->
+<!--                                                &lt;!&ndash;                                <td class="fw-normal" colspan="2" >Add Food</td>&ndash;&gt;-->
+<!--                                                &lt;!&ndash;                            </tr>&ndash;&gt;-->
+<!--                                                <tr class="fw-normal" th:each="foods : ${foods}" >-->
+
+
+<!--                                                    <td >-->
+<!--                                                        <form method="POST" th:action="@{/persons/food/1}" th:object="${food}">-->
+<!--                                                            <input type="hidden" name="name"  th:value="${foods.name}"  />-->
+<!--                                                            &lt;!&ndash;                                        <input type="hidden" name="calories" th:field="*{calories}" th:number="${foods.calories}"  />&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;                                        <input type="hidden" name="protein" th:field="*{protein}" th:number="${foods.protein}"  />&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;                                        <input type="hidden" name="carbs" th:field="*{carbs}" th:number="${foods.carbs}"  />&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;                                        <input type="hidden" name="fat" th:field="*{fat}" th:number="${foods.fat}"  />&ndash;&gt;-->
+<!--                                                            &lt;!&ndash;                                        <input type="hidden" name="fiber" th:field="*{fiber}" th:number="${foods.fiber}"  />&ndash;&gt;-->
+<!--                                                            <button class="btn btn-danger" th:text="${foods.name}" type="submit" >+-->
+<!--                                                            </button>-->
+<!--                                                        </form>-->
+<!--                                                        &lt;!&ndash;                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"&ndash;&gt;-->
+<!--                                                        &lt;!&ndash;                                         alt="avatar 1" style="width: 45px; height: auto;">&ndash;&gt;-->
+<!--                                                        <h6 class="mb-0"><span class="badge bg-danger"  th:text="${foods.name}">-->
+
+<!--                                    </span></h6>-->
+<!--                                                    </td>-->
+<!--                                                    <td class="align-middle">-->
+<!--                                                        <h6 class="mb-0"><span class="badge bg-danger" th:text="${foods.calories}"></span></h6>-->
+<!--                                                    </td>-->
+<!--                                                    <td class="align-middle">-->
+<!--                                                        <h6 class="mb-0"><span class="badge bg-danger" th:text="${foods.protein}"></span></h6>-->
+<!--                                                    </td>-->
+<!--                                                    <td class="align-middle">-->
+<!--                                                        <h6 class="mb-0"><span class="badge bg-danger" th:text="${foods.carbs}"></span></h6>-->
+<!--                                                    </td>-->
+<!--                                                    <td class="align-middle">-->
+<!--                                                        <h6 class="mb-0"><span class="badge bg-danger" th:text="${foods.fat}"></span></h6>-->
+<!--                                                    </td>-->
+<!--                                                    <td class="align-middle">-->
+
+<!--                                                        <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i-->
+<!--                                                                class="fas fa-trash-alt fa-lg text-warning"></i></a>-->
+<!--                                                    </td>-->
+
+<!--                                                </tr>-->
+<!--                                                </tbody>-->
+
+
+<!--                                            </table>-->
+<!--                                            <div class="fw-normal" >-->
+<!--                                                <a class="align-middle" th:href="@{/foods/add}">Add Your Food</a>-->
+<!--                                            </div>-->
+<!--                                            <div class="fw-normal" >-->
+<!--                                                <a class="align-middle" th:href="@{/persons/main/1}">Back</a>-->
+<!--                                            </div>-->
+
+
+
+
+<!--                                        </div>-->
+<!--                                    </div>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </section></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Single item &ndash;&gt;-->
+<!--    <div class="carousel-item" id="third">-->
+<!--        <div class="mask"   style="-->
+<!--              background: linear-gradient(-->
+<!--                45deg,-->
+<!--                rgba(29, 236, 197, 0.7),-->
+<!--                rgba(91, 14, 214, 0.7) 100%-->
+
+<!--              );-->
+<!--            ">-->
+<!--            <div class="d-flex justify-content-center align-items-center h-100" >-->
+<!--                <div class="text-white text-center" >-->
+<!--                    <h2>And cover it with any mask</h2>-->
+<!--                    <a class="btn btn-outline-light btn-lg m-2"-->
+<!--                       href="https://mdbootstrap.com/docs/standard/content-styles/masks/" target="_blank" role="button">Learn-->
+<!--                        about masks</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; Inner &ndash;&gt;-->
+
+<!--&lt;!&ndash; Controls &ndash;&gt;-->
+<!--<a id="toggle" class="carousel-control-prev" href="#introCarousel"  onclick="replace('first','second')" role="button" data-mdb-slide="prev">-->
+<!--    <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--    <span class="sr-only">Previous</span>-->
+<!--</a>-->
+<!--<a class="carousel-control-next" href="#introCarousel" role="button" data-mdb-slide="next" onclick="replace('second','third')">-->
+<!--    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--    <span class="sr-only">Next</span>-->
+<!--</a>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    // const one = document.getElementById("first");-->
+<!--    // const second = document.getElementById("second");-->
+<!--    // const third = document.getElementById("third");-->
+<!--    // const btn = document.getElementById("toggle");-->
+<!--    // btn.onclick = function () {-->
+<!--    //     if (one.style.display !== "none") {-->
+<!--    //         one.style.display = "none";-->
+<!--    //         second.style.display = "block";-->
+<!--    //     }else if (second.style.display !== "none") {-->
+<!--    //         second.style.display = "none";-->
+<!--    //         third.style.display = "block";-->
+<!--    //     }else {-->
+<!--    //         third.style.display = "none";-->
+<!--    //         one.style.display = "block";-->
+<!--    //-->
+<!--    //     }-->
+<!--    // };-->
+<!--    function replace( hide, show ) {-->
+<!--        document.getElementById(hide).style.display="none";-->
+<!--        document.getElementById(show).style.display="block";-->
+<!--    }-->
+<!--</script>-->
+<div th:fragment="foodList">
 <section class="vh-100 gradient-custom-2">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -100,6 +426,7 @@
         </div>
     </div>
 </section>
+</div>
 <!--<table>-->
 <!--    <thead>-->
 <!--    <tr>-->

@@ -2,6 +2,7 @@ package com.henrik.calorieapphenrik.food.Controller;
 
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.dto.PersonDto;
+import com.henrik.calorieapphenrik.food.service.FoodService;
 import com.henrik.calorieapphenrik.food.service.MyFoodListService;
 import com.henrik.calorieapphenrik.food.service.PersonService;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class PersonController {
 
     private PersonService personService;
     private MyFoodListService myFoodListService;
+    private final FoodService foodService;
 
 
     @GetMapping("/add")
@@ -38,6 +40,11 @@ public class PersonController {
 //        return "myFoodList";
 //    }
 
+        @GetMapping("/nav")
+    public String loginForm(){
+        return "fragments/navbar";
+    }
+
 
     @GetMapping("/goalCal")
     public ResponseEntity<?> getGoalCalories(@RequestBody @Valid PersonDto personDto) {
@@ -52,6 +59,7 @@ public class PersonController {
     @GetMapping("/main/{id}")
     public String getPersonById(Model model, @PathVariable Long id) {
         model.addAttribute("person", personService.findByID(id));
+        model.addAttribute("foods",foodService.getAllFoods());
         return "myFoodList";
     }
 
