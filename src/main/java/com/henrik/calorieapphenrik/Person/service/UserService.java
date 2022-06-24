@@ -1,8 +1,7 @@
-package com.henrik.calorieapphenrik.food.service;
+package com.henrik.calorieapphenrik.Person.service;
 
-import com.henrik.calorieapphenrik.food.Entity.Person;
-import com.henrik.calorieapphenrik.food.Repository.PersonRepo;
-import com.henrik.calorieapphenrik.food.mapper.PersonMapper;
+import com.henrik.calorieapphenrik.Person.Repository.PersonRepo;
+import com.henrik.calorieapphenrik.Person.mapper.PersonMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

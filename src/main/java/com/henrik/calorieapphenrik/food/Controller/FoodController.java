@@ -5,6 +5,7 @@ import com.henrik.calorieapphenrik.food.service.FoodService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,12 @@ public class FoodController {
     private final FoodService foodService;
 
 
+    @GetMapping("/main")
+    public String mainFrom(){
+        return "main";
+    }
+
+
     @GetMapping("/add")
     public String foodForm(@ModelAttribute(name = "foodDto") FoodDto foodDto){
         return "foodForm";
@@ -33,6 +40,14 @@ public class FoodController {
         model.addAttribute("foods",foodService.getAllFoods());
         return "foodList";
     }
+    @GetMapping("/filter")
+    public String getAllFilter(Model model, @Param("keyword") String keyword) {
+        List<FoodDto> foodDtoList = foodService.filter(keyword);
+        model.addAttribute("foodList", foodDtoList);
+        model.addAttribute("keyword", keyword);
+        return "myFoodList";
+    }
+
 
     @GetMapping("{name}")
     public String getByName(Model model, @PathVariable("name") String name) {

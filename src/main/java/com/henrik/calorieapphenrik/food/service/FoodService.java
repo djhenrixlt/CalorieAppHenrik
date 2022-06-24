@@ -17,6 +17,18 @@ public class FoodService {
 
     private final FoodRepo foodRepo;
 
+    public List<FoodDto> filter(String keyword) {
+        if (keyword != null){
+            return foodRepo.search(keyword)
+                    .stream()
+                    .map(FoodMapper.FOOD_MAPPER::mapDto)
+                    .toList();
+        }
+        return foodRepo.findAll()
+                .stream()
+                .map(FoodMapper.FOOD_MAPPER::mapDto)
+                .toList();
+    }
     public List<FoodDto> getAllFoods() {
         return foodRepo.findAll()
                 .stream()

@@ -1,5 +1,6 @@
-package com.henrik.calorieapphenrik.food.Entity;
+package com.henrik.calorieapphenrik.Person.entity;
 
+import com.henrik.calorieapphenrik.food.Entity.MyList;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.

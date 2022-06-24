@@ -18,4 +18,8 @@ public interface FoodRepo extends JpaRepository<Food, Long> {
 
     @Query(value = "SELECT SUM(calories) FROM food ", nativeQuery = true)
     Integer getCaloriesSUm();
+
+    @Query("SELECT p FROM  Food  p WHERE CONCAT(p.name, ' ') LIKE %?1%")
+//    +"OR p.calories LIKE  %?1%")
+    List<Food> search(String keyWord);
 }

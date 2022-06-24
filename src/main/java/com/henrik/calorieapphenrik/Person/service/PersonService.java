@@ -1,16 +1,17 @@
-package com.henrik.calorieapphenrik.food.service;
+package com.henrik.calorieapphenrik.Person.service;
 
 
 import com.henrik.calorieapphenrik.food.Entity.MyList;
-import com.henrik.calorieapphenrik.food.Entity.Person;
+import com.henrik.calorieapphenrik.Person.entity.Person;
 import com.henrik.calorieapphenrik.food.Exception.FoodException;
 import com.henrik.calorieapphenrik.food.Exception.PersonException;
 import com.henrik.calorieapphenrik.food.Repository.FoodRepo;
-import com.henrik.calorieapphenrik.food.Repository.PersonRepo;
+import com.henrik.calorieapphenrik.Person.Repository.PersonRepo;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
-import com.henrik.calorieapphenrik.food.dto.PersonDto;
+import com.henrik.calorieapphenrik.Person.dto.PersonDto;
 import com.henrik.calorieapphenrik.food.mapper.MyListRepo;
-import com.henrik.calorieapphenrik.food.mapper.PersonMapper;
+import com.henrik.calorieapphenrik.Person.mapper.PersonMapper;
+import com.henrik.calorieapphenrik.food.service.FoodService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -90,20 +91,7 @@ public class PersonService {
 //        MyList myList = FoodMapper.FOOD_MAPPER.mapToListModel(foodDto.get());
 //        myListRepo.save(myList);
 //    }
-    public void addToMyList(Long id, FoodDto foodDto2){
-        Optional<FoodDto> foodDto = foodService.getFoodByName(foodDto2.getName());
-        PersonDto personDto = findByID(id);
-        personDto.setCaloriesConsumed(personDto.getCaloriesConsumed()+ foodDto.get().getCalories());
-        personDto.setCaloriesLeft(personDto.getGoalCalories()-personDto.getCaloriesConsumed());
-        Person person = PersonMapper.PERSON_MAPPER.mapModel(personDto);
-        Person save = PersonMapper.PERSON_MAPPER.mapForUpdate(personDto, person);
-        personRepo.save(save);
-        personDto.addToMyLIst(foodDto.get());
-        Person saveList = PersonMapper.PERSON_MAPPER.mapModel(personDto);
-        personRepo.save(saveList);
-//        MyList myList = FoodMapper.FOOD_MAPPER.mapToListModel(foodDto.get());
-//        myListRepo.save(myList);
-    }
+
     public List<MyList> AllMyList(){
         return myListRepo.findAll();
     }
@@ -114,6 +102,8 @@ public class PersonService {
         Optional<Person> person = personRepo.findById(id);
         return PersonMapper.PERSON_MAPPER.mapDto(person.get());
     }
+
+
 
 
 

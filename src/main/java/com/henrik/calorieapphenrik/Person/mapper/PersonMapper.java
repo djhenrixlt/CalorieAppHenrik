@@ -1,13 +1,11 @@
-package com.henrik.calorieapphenrik.food.mapper;
+package com.henrik.calorieapphenrik.Person.mapper;
 
-import com.henrik.calorieapphenrik.food.Entity.Person;
-import com.henrik.calorieapphenrik.food.dto.PersonDto;
+import com.henrik.calorieapphenrik.Person.entity.Person;
+import com.henrik.calorieapphenrik.Person.dto.PersonDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
-
-import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public interface PersonMapper {

@@ -1,7 +1,8 @@
-package com.henrik.calorieapphenrik.food.dto;
+package com.henrik.calorieapphenrik.Person.dto;
 
 import com.henrik.calorieapphenrik.food.Entity.MyList;
-import com.henrik.calorieapphenrik.food.Entity.Person;
+import com.henrik.calorieapphenrik.Person.entity.Person;
+import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.mapper.FoodMapper;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,7 +29,6 @@ public class PersonDto {
     private Integer goalCalories;
     private Integer caloriesLeft;
     private Integer caloriesConsumed;
-
     private Integer goalProtein;
     private Integer goalCarbs;
     private Integer goalFats;
@@ -46,6 +46,8 @@ public class PersonDto {
         myFoodList.add(FoodMapper.FOOD_MAPPER.mapToListModel(foodDto));
     }
 
-
+    public void deleteFromMyList(MyList myList){
+        myFoodList.remove(myList);
+    }
 
 }

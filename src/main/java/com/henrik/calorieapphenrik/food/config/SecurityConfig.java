@@ -47,27 +47,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
 protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
                 .authorizeRequests()
-                .antMatchers( "/foods").access("hasRole('USER')")
-                .antMatchers("/", "/**").access("permitAll()")
+                .antMatchers("/foods/**", "/persons/**", "/myList/**").permitAll()
+//                .antMatchers("/persons/", "/**").aut
+
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/persons/main", true)
-                .usernameParameter("username")
-                .passwordParameter("password")
+                .defaultSuccessUrl("/foods/main", true)
+
                 .and()
                 .logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/login")
+
                 .and()
                 .csrf()
                 .ignoringAntMatchers("/h2/**")
+
                 .and()
                 .headers()
                 .frameOptions()
-                .sameOrigin();
+                .sameOrigin()
+        ;
+
     }
 
     @Override
