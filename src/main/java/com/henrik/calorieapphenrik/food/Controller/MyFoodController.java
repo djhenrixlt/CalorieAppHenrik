@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Controller
 @AllArgsConstructor
 @RequestMapping("/myList")
@@ -20,13 +22,13 @@ public class MyFoodController {
     @PostMapping("/delete/{id}")
     public String deleteMyFood(@RequestParam Long foodId, @PathVariable("id") Long id){
         myFoodListService.deleteMyFood(foodId,id);
-        return "redirect:/persons/main/1";
+        return "redirect:/persons/main/?hex=personFood";
     }
 
     @PostMapping("/food/{id}")
     public String addToMyList(@PathVariable("id") Long id, @ModelAttribute(name = "food") FoodDto foodDto){
         myFoodListService.addToMyList(id,foodDto);
-        return "redirect:/persons/main/{id}";
+        return "redirect:/persons/main/?hex=personFood";
     }
 
 }

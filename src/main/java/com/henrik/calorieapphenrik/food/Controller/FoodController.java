@@ -1,5 +1,7 @@
 package com.henrik.calorieapphenrik.food.Controller;
 
+import com.henrik.calorieapphenrik.Person.dto.PersonDto;
+import com.henrik.calorieapphenrik.Person.service.PersonService;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.service.FoodService;
 import lombok.AllArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -22,6 +25,7 @@ import java.util.List;
 public class FoodController {
 
     private final FoodService foodService;
+    private PersonService personService;
 
 
     @GetMapping("/main")
@@ -41,11 +45,14 @@ public class FoodController {
         return "foodList";
     }
     @GetMapping("/filter")
-    public String getAllFilter(Model model, @Param("keyword") String keyword) {
+    public String getAllFilter(Model model, @Param("keyword") String keyword, Principal principal) {
+
         List<FoodDto> foodDtoList = foodService.filter(keyword);
-        model.addAttribute("foodList", foodDtoList);
+
+        model.addAttribute("foods",foodDtoList);
         model.addAttribute("keyword", keyword);
-        return "myFoodList";
+        model.addAttribute("foods",foodDtoList);
+        return "foodList";
     }
 
 
@@ -65,13 +72,13 @@ public class FoodController {
     @PostMapping
     public String create(@ModelAttribute(name = "foodDto") @Valid FoodDto food) {
         foodService.saveFood(food);
-        return "redirect:/foods/list";
+        return "redirect:/persons/main/?hex=foodList";
     }
 
     @PutMapping("/update/{id}")
     public String update(@ModelAttribute(name = "foodDto") @Valid FoodDto foodDto, @PathVariable("id") Long id) {
        foodService.updateFood(foodDto, id);
-       return "editFoodList";
+       return "redirect:/persons/main/?hex=foodList";
     }
 
     @DeleteMapping("/delete/{name}")

@@ -58,6 +58,14 @@ public class PersonService {
         return List.of(person.getGoalCalories(), person.getCaloriesConsumed(), person.getCaloriesLeft());
     }
 
+    public PersonDto getByUserName(String name){
+        Optional<Person> person = personRepo.findByUsername(name);
+        if (!isEquals(person.get().getUsername(), name)){
+            throw new PersonException("user not exist");
+        }
+        return PersonMapper.PERSON_MAPPER.mapDto(person.get());
+    }
+
     public void deletePerson(String name) {
         Person person = personRepo.findByEmail(name);
         Long id = person.getId();

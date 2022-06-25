@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 @SuppressWarnings("deprecation")
@@ -49,17 +50,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/foods/**", "/persons/**", "/myList/**").permitAll()
+                .antMatchers("/foods", "/persons", "/myList").authenticated()
 //                .antMatchers("/persons/", "/**").aut
 
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/foods/main", true)
+                .defaultSuccessUrl("/persons/main", true)
 
                 .and()
                 .logout()
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 
                 .and()
                 .csrf()

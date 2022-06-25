@@ -28,6 +28,6 @@ public class RegisterController {
     @PostMapping
     public String create(@ModelAttribute(name = "personDto") @Valid PersonDto personDto) {
         personService.savePerson(personDto);
-        return "redirect:/persons/login";
+        return "redirect:/login";
     }
 }
