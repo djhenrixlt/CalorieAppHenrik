@@ -1,12 +1,12 @@
 package com.henrik.calorieapphenrik.food.dto;
 
-import com.henrik.calorieapphenrik.food.Entity.MyList;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Data
 @Builder
@@ -14,14 +14,20 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class FoodDto {
 
-
+    @NotBlank
     private String name;
+    @NotBlank
+    @Size(min = 1, max = 2000)
     private Integer calories;
+    @NotBlank
     private Integer protein;
+    @NotBlank
     private Integer carbs;
+    @NotBlank
     private Integer fat;
+    @NotBlank
     private Integer fiber;
 
 
-    }
+}
 

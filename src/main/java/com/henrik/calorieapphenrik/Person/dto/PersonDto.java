@@ -7,6 +7,9 @@ import com.henrik.calorieapphenrik.food.mapper.FoodMapper;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,14 +20,24 @@ import java.util.Set;
 public class PersonDto {
 
     private long id;
+
+    @NotBlank
     private  String username;
+    @Size(min = 6, max = 255)
     private  String password;
+    @NotBlank
     private  String fullName;
+    @NotBlank
+    @Email
     private  String email;
+    @NotBlank
     private String gender;
     private Double age;
+    @NotBlank
     private Double weight;
+    @NotBlank
     private Double height;
+    @NotBlank
     private String activityLevel;
     private Integer goalCalories;
     private Integer caloriesLeft;
@@ -32,6 +45,7 @@ public class PersonDto {
     private Integer goalProtein;
     private Integer goalCarbs;
     private Integer goalFats;
+    @NotBlank
     private String plan;
 
     @NonNull

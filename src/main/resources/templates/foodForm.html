@@ -34,7 +34,8 @@
 
                                                         <div class="form-outline">
                                                             <input type="text" th:field="*{name}" class="form-control form-control-lg" />
-                                                            <label class="form-label" for="name">Food name </label>
+                                                            <label class="form-label" th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'" for="name">Food name </label>
+                                                            <span class="invalid-feedback" th:errors="*{name}" th:if="${#fields.hasErrors('name')}"/>
                                                         </div>
 
                                                     </div>

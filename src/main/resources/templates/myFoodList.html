@@ -37,7 +37,7 @@
 
         <!-- Single item -->
         <div   class="carousel-item active" id="second" style="display:block" >
-            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6); ">
+            <div th:fragment="foodList" class="mask" style="background-color: rgba(0, 0, 0, 0.6); ">
                 <div class="d-flex justify-content-center align-items-center h-100">
                     <div class="text-white text-center">
                         <section class="vh-100 gradient-custom-2">
@@ -121,10 +121,7 @@
                                                                 </button>
                                                             </form>
 
-                                                            <h6 class="mb-0"><span class="badge bg-danger"
-                                                                                   th:text="${foods.name}">
 
-                                    </span></h6>
                                                         </td>
                                                         <td class="align-middle">
                                                             <h6 class="mb-0"><span class="badge bg-danger"
@@ -145,6 +142,13 @@
                                                                                    th:text="${foods.fat}"></span></h6>
                                                         </td>
                                                         <td class="align-middle">
+                                                            <form method="POST" th:action="@{/foods/delete}">
+                                                                <input type="hidden" name="name"
+                                                                       th:value="${foods.name}">
+                                                                <button class="btn btn-danger" type="submit"
+                                                                        th:text="delete">
+                                                                </button>
+                                                            </form>
 
                                                             <a href="#!" data-mdb-toggle="tooltip" title="Remove"><i
                                                                     class="fas fa-trash-alt fa-lg text-warning"></i></a>
@@ -156,7 +160,7 @@
 
                                                 </table>
                                                 <div class="fw-normal">
-                                                    <a class="align-middle" type="button" onclick="foodList()">Add Your
+                                                    <a class="align-middle" type="button" onclick="foodList()" th:href="@{/foods/add}">Add Your
                                                         Food</a>
                                                 </div>
 

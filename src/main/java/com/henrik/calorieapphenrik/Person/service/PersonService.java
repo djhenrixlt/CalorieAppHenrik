@@ -1,17 +1,15 @@
 package com.henrik.calorieapphenrik.Person.service;
 
 
-import com.henrik.calorieapphenrik.food.Entity.MyList;
+import com.henrik.calorieapphenrik.Person.Repository.PersonRepo;
+import com.henrik.calorieapphenrik.Person.dto.PersonDto;
 import com.henrik.calorieapphenrik.Person.entity.Person;
+import com.henrik.calorieapphenrik.Person.mapper.PersonMapper;
+import com.henrik.calorieapphenrik.food.Entity.MyList;
 import com.henrik.calorieapphenrik.food.Exception.FoodException;
 import com.henrik.calorieapphenrik.food.Exception.PersonException;
-import com.henrik.calorieapphenrik.food.Repository.FoodRepo;
-import com.henrik.calorieapphenrik.Person.Repository.PersonRepo;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
-import com.henrik.calorieapphenrik.Person.dto.PersonDto;
 import com.henrik.calorieapphenrik.food.mapper.MyListRepo;
-import com.henrik.calorieapphenrik.Person.mapper.PersonMapper;
-import com.henrik.calorieapphenrik.food.service.FoodService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,11 +30,10 @@ public class PersonService {
     private static final String MODERATELY = "moderately";
     private static final String ACTIVE = "active";
     private static final String VERY = "very";
-    private FoodRepo foodRepo;
-    private PersonRepo personRepo;
-    private FoodService foodService;
-    private MyListRepo myListRepo;
-    private PasswordEncoder passwordEncoder;
+    private final PersonRepo personRepo;
+    private final MyListRepo myListRepo;
+    private final PasswordEncoder passwordEncoder;
+
     //Gets calories just only by value do not save data
     public Integer getGoalCalories(PersonDto personDto) {
         return countBmr(personDto).intValue();
@@ -58,9 +55,9 @@ public class PersonService {
         return List.of(person.getGoalCalories(), person.getCaloriesConsumed(), person.getCaloriesLeft());
     }
 
-    public PersonDto getByUserName(String name){
+    public PersonDto getByUserName(String name) {
         Optional<Person> person = personRepo.findByUsername(name);
-        if (!isEquals(person.get().getUsername(), name)){
+        if (!isEquals(person.get().getUsername(), name)) {
             throw new PersonException("user not exist");
         }
         return PersonMapper.PERSON_MAPPER.mapDto(person.get());
@@ -75,44 +72,16 @@ public class PersonService {
         personRepo.delete(person);
     }
 
-//    public void addToMyList(Long id, FoodDto foodDto2){
-//        Optional<FoodDto> foodDto = foodService.getFoodByName(foodDto2.getName());
-//        PersonDto personDto = findByID(id);
-//        personDto.setCaloriesConsumed(personDto.getCaloriesConsumed()+ foodDto.get().getCalories());
-//        personDto.setCaloriesLeft(personDto.getGoalCalories()-personDto.getCaloriesConsumed());
-//        List<FoodDto> myFoodList = new LinkedList<>();
-//        myFoodList.add(foodDto.get());
-//        personDto.setMyFoodList(myFoodList);
-//        Person person = PersonMapper.PERSON_MAPPER.mapModelSavePerson(personDto);
-//        Person save = PersonMapper.PERSON_MAPPER.mapForUpdate(personDto, person);
-//        personRepo.save(save);
-//    }
 
-//    public void addToMyList(Long id, FoodDto foodDto2){
-//        Optional<FoodDto> foodDto = foodService.getFoodByName(foodDto2.getName());
-//        PersonDto personDto = findByID(id);
-//        personDto.setCaloriesConsumed(personDto.getCaloriesConsumed()+ foodDto.get().getCalories());
-//        personDto.setCaloriesLeft(personDto.getGoalCalories()-personDto.getCaloriesConsumed());
-//        Person person = PersonMapper.PERSON_MAPPER.mapModelSavePerson(personDto);
-//        Person save = PersonMapper.PERSON_MAPPER.mapForUpdate(personDto, person);
-//        personRepo.save(save);
-//        MyList myList = FoodMapper.FOOD_MAPPER.mapToListModel(foodDto.get());
-//        myListRepo.save(myList);
-//    }
-
-    public List<MyList> AllMyList(){
+    public List<MyList> AllMyList() {
         return myListRepo.findAll();
     }
 
 
-
-    public PersonDto findByID(Long id){
+    public PersonDto findByID(Long id) {
         Optional<Person> person = personRepo.findById(id);
         return PersonMapper.PERSON_MAPPER.mapDto(person.get());
     }
-
-
-
 
 
     private void setGoals(PersonDto personDto) {
@@ -137,12 +106,13 @@ public class PersonService {
     }
 
     private Double countBmr(PersonDto personDto) {
-         return switch (personDto.getGender()) {
+        return switch (personDto.getGender()) {
             case WOMAN -> countAmr(personDto.getActivityLevel(), getBmrWoman(personDto));
-            case MEN ->  countAmr(personDto.getActivityLevel(), getBmrMen(personDto));
+            case MEN -> countAmr(personDto.getActivityLevel(), getBmrMen(personDto));
             default -> throw new FoodException("gender not exist: " + personDto.getGender());
         };
     }
+
     private double countAmr(String activity, Double bmr) {
         return switch (activity) {
             case SEDENTARY -> bmr * 1.2;
@@ -153,6 +123,7 @@ public class PersonService {
             default -> throw new FoodException("Your activity level not exist: " + activity);
         };
     }
+
     private Double countProteinGoal(String activity, Double weight) {
         return switch (activity) {
             case SEDENTARY -> weight * 0.7;
@@ -163,20 +134,22 @@ public class PersonService {
             default -> throw new FoodException("Your activity level not exist: " + activity);
         };
     }
+
     private Double countYourPlan(String level, Integer goalCalories) {
         return switch (level) {
             case "lost10" -> goalCalories * 0.9;
             case "lost20" -> goalCalories * 0.8;
-            case "gain1" -> goalCalories + 200.0 ;
-            case "gain2" -> goalCalories * 500.0;
+            case "gain1" -> goalCalories + 200.0;
+            case "gain2" -> goalCalories + 500.0;
             case "same" -> goalCalories.doubleValue();
             default -> throw new FoodException("Your activity level not exist: " + level);
         };
     }
-    
+
     private double getBmrWoman(PersonDto personDto) {
         return 655.1 + (9.563 * personDto.getWeight()) + (1.850 * personDto.getHeight()) - (4.676 * personDto.getAge());
     }
+
     private double getBmrMen(PersonDto personDto) {
         return 66.47 + (13.75 * personDto.getWeight()) + (5.003 * personDto.getHeight()) - (6.755 * personDto.getAge());
     }

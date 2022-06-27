@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ import java.util.List;
 public class FoodController {
 
     private final FoodService foodService;
-    private PersonService personService;
+
 
 
     @GetMapping("/main")
@@ -76,15 +77,19 @@ public class FoodController {
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize(value = "hasAuthority('ADMIN')"
+            + "or authentication.principal.equals(#post.member) ")
     public String update(@ModelAttribute(name = "foodDto") @Valid FoodDto foodDto, @PathVariable("id") Long id) {
        foodService.updateFood(foodDto, id);
        return "redirect:/persons/main/?hex=foodList";
     }
 
-    @DeleteMapping("/delete/{name}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("name") String name) {
+    @PostMapping("/delete")
+    @PreAuthorize(value = "hasAuthority('ADMIN')"
+            + "or authentication.principal.equals(#post.member) ")
+    public String delete(@RequestParam String name) {
         foodService.deleteFood(name);
+        return "redirect:/persons/main/?hex=foodList";
     }
 
 

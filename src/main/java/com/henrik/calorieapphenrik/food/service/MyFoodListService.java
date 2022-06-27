@@ -22,8 +22,6 @@ public class MyFoodListService {
     private final MyListRepo myListRepo;
     private final PersonRepo personRepo;
     private final PersonService personService;
-
-    private FoodRepo foodRepo;
    private FoodService foodService;
 
 
@@ -33,8 +31,7 @@ public class MyFoodListService {
         if (!myListRepo.existsById(foodId)) {
             throw new FoodException("id not exist" + foodId);
         }
-        personDto.setCaloriesConsumed(personDto.getCaloriesConsumed()- food.get().getCalories());
-        personDto.setCaloriesLeft(personDto.getGoalCalories()+personDto.getCaloriesConsumed());
+        setGoals(personDto, personDto.getCaloriesConsumed() - food.get().getCalories());
         Person person = PersonMapper.PERSON_MAPPER.mapModel(personDto);
         Person save = PersonMapper.PERSON_MAPPER.mapForUpdate(personDto, person);
         personRepo.save(save);
@@ -44,19 +41,23 @@ public class MyFoodListService {
         personRepo.save(person2);
     }
 
+
+
     public void addToMyList(Long id, FoodDto foodDto2){
         Optional<FoodDto> foodDto = foodService.getFoodByName(foodDto2.getName());
         PersonDto personDto = personService.findByID(id);
-        personDto.setCaloriesConsumed(personDto.getCaloriesConsumed()+ foodDto.get().getCalories());
-        personDto.setCaloriesLeft(personDto.getGoalCalories()-personDto.getCaloriesConsumed());
+        setGoals(personDto, personDto.getCaloriesConsumed() + foodDto.get().getCalories());
         Person person = PersonMapper.PERSON_MAPPER.mapModel(personDto);
         Person save = PersonMapper.PERSON_MAPPER.mapForUpdate(personDto, person);
         personRepo.save(save);
         personDto.addToMyLIst(foodDto.get());
         Person saveList = PersonMapper.PERSON_MAPPER.mapModel(personDto);
         personRepo.save(saveList);
-//        MyList myList = FoodMapper.FOOD_MAPPER.mapToListModel(foodDto.get());
-//        myListRepo.save(myList);
+    }
+
+    private void setGoals(PersonDto personDto, int foodCalories) {
+        personDto.setCaloriesConsumed(foodCalories);
+        personDto.setCaloriesLeft(personDto.getGoalCalories()- personDto.getCaloriesConsumed());
     }
 
 }
