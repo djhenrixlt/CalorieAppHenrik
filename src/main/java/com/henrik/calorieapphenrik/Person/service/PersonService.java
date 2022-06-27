@@ -4,6 +4,7 @@ package com.henrik.calorieapphenrik.Person.service;
 import com.henrik.calorieapphenrik.Person.Repository.PersonRepo;
 import com.henrik.calorieapphenrik.Person.dto.PersonDto;
 import com.henrik.calorieapphenrik.Person.entity.Person;
+import com.henrik.calorieapphenrik.Person.entity.Role;
 import com.henrik.calorieapphenrik.Person.mapper.PersonMapper;
 import com.henrik.calorieapphenrik.food.Entity.MyList;
 import com.henrik.calorieapphenrik.food.Exception.FoodException;
@@ -15,8 +16,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -40,6 +43,10 @@ public class PersonService {
     }
 
     public PersonDto savePerson(PersonDto personDto) {
+        Optional<Person> usernameIs = personRepo.findByUsername(personDto.getUsername());
+        if (!usernameIs.isEmpty()){
+            throw  new PersonException("User name is taken");
+        }
         Person person = PersonMapper.PERSON_MAPPER.mapModel(personDto);
         setGoals(personDto);
         personRepo.save(personDto.toUser(passwordEncoder));

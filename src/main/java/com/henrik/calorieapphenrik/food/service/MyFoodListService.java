@@ -43,8 +43,8 @@ public class MyFoodListService {
 
 
 
-    public void addToMyList(Long id, FoodDto foodDto2){
-        Optional<FoodDto> foodDto = foodService.getFoodByName(foodDto2.getName());
+    public void addToMyList(Long id, String name){
+        Optional<FoodDto> foodDto = foodService.getFoodByName(name);
         PersonDto personDto = personService.findByID(id);
         setGoals(personDto, personDto.getCaloriesConsumed() + foodDto.get().getCalories());
         Person person = PersonMapper.PERSON_MAPPER.mapModel(personDto);

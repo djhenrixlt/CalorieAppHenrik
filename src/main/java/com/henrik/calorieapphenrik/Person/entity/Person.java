@@ -43,6 +43,10 @@ public class Person  implements UserDetails {
     private final Integer goalFats;
     private final String plan;
 
+    @ManyToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Role> roles;
+
+
     @OneToMany(cascade = CascadeType.ALL)
     @NonNull
     private Set<MyList> myFoodList =  new HashSet<>();
@@ -52,7 +56,7 @@ public class Person  implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("Role_USER"));
+        return roles;
     }
 
 

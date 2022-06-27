@@ -1,5 +1,6 @@
 package com.henrik.calorieapphenrik.Person.dto;
 
+import com.henrik.calorieapphenrik.Person.entity.Role;
 import com.henrik.calorieapphenrik.food.Entity.MyList;
 import com.henrik.calorieapphenrik.Person.entity.Person;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
@@ -47,6 +48,8 @@ public class PersonDto {
     private Integer goalFats;
     @NotBlank
     private String plan;
+
+    private Set<Role> roles;
 
     @NonNull
     private Set<MyList> myFoodList =  new HashSet<>();

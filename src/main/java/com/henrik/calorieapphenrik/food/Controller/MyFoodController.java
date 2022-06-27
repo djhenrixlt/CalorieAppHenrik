@@ -21,8 +21,8 @@ public class MyFoodController {
     }
 
     @PostMapping("/food/{id}")
-    public String addToMyList(@PathVariable("id") Long id, @ModelAttribute(name = "food") FoodDto foodDto) {
-        myFoodListService.addToMyList(id, foodDto);
+    public String addToMyList(@PathVariable("id") Long id, @RequestParam String name) {
+        myFoodListService.addToMyList(id, name);
         return "redirect:/persons/main/?hex=personFood";
     }
 
