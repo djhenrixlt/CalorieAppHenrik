@@ -7,6 +7,7 @@ import com.henrik.calorieapphenrik.food.service.FoodService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.dialect.PostgreSQL94Dialect;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ import java.util.List;
 public class FoodController {
 
     private final FoodService foodService;
+    private final PersonService personService;
 
 
 
@@ -71,8 +73,8 @@ public class FoodController {
 
 
     @PostMapping
-    public String create(@ModelAttribute(name = "foodDto") @Valid FoodDto food) {
-        foodService.saveFood(food);
+    public String create(@ModelAttribute(name = "foodDto") @Valid FoodDto food, Principal principal) {
+        foodService.saveFood(food, principal.getName());
         return "redirect:/persons/main/?hex=foodList";
     }
 
@@ -86,9 +88,9 @@ public class FoodController {
 
     @PostMapping("/delete")
     @PreAuthorize(value = "hasAuthority('ADMIN')"
-            + "or authentication.principal.equals(#post.member) ")
-    public String delete(@RequestParam String name) {
-        foodService.deleteFood(name);
+            + "or authentication.principal.equals(#principal.name) ")
+    public String delete(@RequestParam String name, Principal principal ) {
+        foodService.deleteFood(name, principal.getName());
         return "redirect:/persons/main/?hex=foodList";
     }
 

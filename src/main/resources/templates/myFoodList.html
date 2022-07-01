@@ -141,7 +141,7 @@
                                                             <h6 class="mb-0"><span class="badge bg-danger"
                                                                                    th:text="${foods.fat}"></span></h6>
                                                         </td>
-                                                        <td class="align-middle" sec:authorize="isAuthenticated()" th:if="${username}" >
+                                                        <td class="align-middle" sec:authorize="isAuthenticated()" th:if="${person.id}" >
                                                             <form method="POST" th:action="@{/foods/delete}">
                                                                 <input type="hidden" name="name"
                                                                        th:value="${foods.name}">

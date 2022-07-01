@@ -1,7 +1,10 @@
 package com.henrik.calorieapphenrik.food.service;
 
+import com.henrik.calorieapphenrik.Person.Repository.PersonRepo;
+import com.henrik.calorieapphenrik.Person.entity.Person;
 import com.henrik.calorieapphenrik.food.Entity.Food;
 import com.henrik.calorieapphenrik.food.Exception.FoodException;
+import com.henrik.calorieapphenrik.food.Exception.PersonException;
 import com.henrik.calorieapphenrik.food.Repository.FoodRepo;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.mapper.FoodMapper;
@@ -16,6 +19,7 @@ import java.util.Optional;
 public class FoodService {
 
     private final FoodRepo foodRepo;
+    private final PersonRepo personRepo;
 
     public List<FoodDto> filter(String keyword) {
         if (keyword != null){
@@ -57,19 +61,27 @@ public class FoodService {
     }
 
 
-    public FoodDto saveFood(FoodDto food) {
+    public FoodDto saveFood(FoodDto food,String userName) {
+        if (personRepo.findByUsername(userName).isEmpty()){
+            throw new FoodException("you can not create food if you are not logged in");
+        }
+        Optional<Person> person = personRepo.findByUsername(userName);
+        food.setUserNameCreated(userName);
         Food saveFood = FoodMapper.FOOD_MAPPER.mapModel(food);
         foodRepo.save(saveFood);
         return FoodMapper.FOOD_MAPPER.mapDto(saveFood);
     }
 
-    public void deleteFood(String name) {
+    public void deleteFood(String name, String userName) {
         Optional<Food> food = foodRepo.findByName(name);
+        if (food.get().getUserNameCreated().equals(userName)){
+            foodRepo.delete(food.get());
         Long id = food.get().getId();
         if (!foodRepo.existsById(id)) {
-            throw new FoodException("id not exist" + id);
+            throw new FoodException("food do not exist" + id);
         }
-        foodRepo.delete(food.get());
+        }
+        throw new PersonException("You can only delete your own food");
     }
 
     public Integer getCalories() {
