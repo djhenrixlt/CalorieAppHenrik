@@ -74,14 +74,14 @@ public class FoodService {
 
     public void deleteFood(String name, String userName) {
         Optional<Food> food = foodRepo.findByName(name);
+
         if (food.get().getUserNameCreated().equals(userName)){
-            foodRepo.delete(food.get());
         Long id = food.get().getId();
         if (!foodRepo.existsById(id)) {
             throw new FoodException("food do not exist" + id);
         }
+            foodRepo.delete(food.get());
         }
-        throw new PersonException("You can only delete your own food");
     }
 
     public Integer getCalories() {
