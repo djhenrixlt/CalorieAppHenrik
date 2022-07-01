@@ -2,32 +2,26 @@ package com.henrik.calorieapphenrik.Person.controller;
 
 import com.henrik.calorieapphenrik.Person.dto.PersonDto;
 import com.henrik.calorieapphenrik.Person.service.PersonService;
-import com.henrik.calorieapphenrik.food.service.FoodService;
-import com.henrik.calorieapphenrik.food.service.MyFoodListService;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-@Controller
+@RestController
 @AllArgsConstructor
 @RequestMapping("/register")
 public class RegisterController {
 
     private PersonService personService;
 
-    @GetMapping
-    public String registerForm(@ModelAttribute(name = "personDto") PersonDto personDto){
-        return "registrationForm";
-    }
-
     @PostMapping
-    public String create(@ModelAttribute(name = "personDto") @Valid PersonDto personDto) {
-        personService.savePerson(personDto);
-        return "redirect:/login";
+    public ResponseEntity<PersonDto> create(@RequestBody @Valid PersonDto personDto) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(personService.savePerson(personDto));
     }
 }
