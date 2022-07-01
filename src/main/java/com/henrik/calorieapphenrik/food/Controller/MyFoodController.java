@@ -1,12 +1,12 @@
 package com.henrik.calorieapphenrik.food.Controller;
 
-import com.henrik.calorieapphenrik.food.dto.FoodDto;
 import com.henrik.calorieapphenrik.food.service.MyFoodListService;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @AllArgsConstructor
 @RequestMapping("/myList")
 public class MyFoodController {
@@ -15,15 +15,15 @@ public class MyFoodController {
 
 
     @PostMapping("/delete/{id}")
-    public String deleteMyFood(@RequestParam Long foodId, @PathVariable("id") Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteMyFood(@RequestParam Long foodId, @PathVariable("id") Long id) {
         myFoodListService.deleteMyFood(foodId, id);
-        return "redirect:/persons/main/?hex=personFood";
     }
 
     @PostMapping("/food/{id}")
-    public String addToMyList(@PathVariable("id") Long id, @RequestParam String name) {
-        myFoodListService.addToMyList(id, name);
-        return "redirect:/persons/main/?hex=personFood";
+    public ResponseEntity<?> addToMyList(@PathVariable("id") Long id, @RequestParam String name) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(myFoodListService.addToMyList(id, name));
     }
 
 }
