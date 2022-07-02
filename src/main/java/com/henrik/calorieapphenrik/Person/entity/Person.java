@@ -3,14 +3,13 @@ package com.henrik.calorieapphenrik.Person.entity;
 import com.henrik.calorieapphenrik.food.Entity.MyList;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.
-        SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.io.Serial;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Builder
@@ -18,7 +17,7 @@ import java.util.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @Entity
 @RequiredArgsConstructor
-public class Person  implements UserDetails {
+public class Person implements UserDetails {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -43,15 +42,13 @@ public class Person  implements UserDetails {
     private final Integer goalFats;
     private final String plan;
 
-    @ManyToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles;
 
 
     @OneToMany(cascade = CascadeType.ALL)
     @NonNull
-    private Set<MyList> myFoodList =  new HashSet<>();
-
-
+    private Set<MyList> myFoodList = new HashSet<>();
 
 
     @Override
