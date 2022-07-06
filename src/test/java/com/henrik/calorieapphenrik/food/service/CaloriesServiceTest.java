@@ -1,6 +1,6 @@
 package com.henrik.calorieapphenrik.food.service;
 
-import com.henrik.calorieapphenrik.Person.entity.Person;
+import com.henrik.calorieapphenrik.Person.entity.Calories;
 import com.henrik.calorieapphenrik.Person.service.PersonService;
 import com.henrik.calorieapphenrik.Person.Repository.PersonRepo;
 import com.henrik.calorieapphenrik.Person.dto.PersonDto;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class PersonServiceTest {
+class CaloriesServiceTest {
 
     private static final String WOMAN = "woman";
     private static final String MEN = "men";
@@ -38,7 +38,7 @@ class PersonServiceTest {
     private PersonRepo personRepo;
 
     @Captor
-    ArgumentCaptor<Person> personCaptor;
+    ArgumentCaptor<Calories> personCaptor;
 
     @Test
     void getGoalCalories() {
@@ -54,18 +54,18 @@ class PersonServiceTest {
 
     @Test
     void deletePerson() {
-        Person person = getPerson();
+        Calories calories = getPerson();
 
-        when(personRepo.findByEmail(NAME)).thenReturn(person);
-        when(personRepo.existsById(person.getId())).thenReturn(true);
+        when(personRepo.findByEmail(NAME)).thenReturn(calories);
+        when(personRepo.existsById(calories.getId())).thenReturn(true);
 
         personService.deletePerson(NAME);
         verify(personRepo).delete(personCaptor.capture());
-        Person capturedPerson = personCaptor.getValue();
-        testPerson(person, PersonMapper.PERSON_MAPPER.mapDtoForSavePerson(capturedPerson));
+        Calories capturedCalories = personCaptor.getValue();
+        testPerson(calories, PersonMapper.PERSON_MAPPER.mapDtoForSavePerson(capturedCalories));
     }
-    private Person getPerson() {
-        return Person.builder().firstName(NAME).activityLevel(MODERATELY).age(20.0)
+    private Calories getPerson() {
+        return Calories.builder().firstName(NAME).activityLevel(MODERATELY).age(20.0)
                 .gender(WOMAN).height(170.0).weight(60.0).caloriesConsumed(1)
                 .goalCalories(1).caloriesLeft(1).build();
     }
@@ -74,15 +74,15 @@ class PersonServiceTest {
                 .gender(WOMAN).height(170.0).weight(60.0).caloriesConsumed(1)
                 .goalCalories(1).caloriesLeft(1).build();
     }
-    private void testPerson(Person person, PersonDto actual) {
-        assertEquals(person.getUsername(), actual.getFirstName());
-        assertEquals(person.getActivityLevel(), actual.getActivityLevel());
-        assertEquals(person.getAge(), actual.getAge());
-        assertEquals(person.getGender(), actual.getGender());
-        assertEquals(person.getHeight(), actual.getHeight());
-        assertEquals(person.getWeight(), actual.getWeight());
-        assertEquals(person.getCaloriesConsumed(), actual.getCaloriesConsumed());
-        assertEquals(person.getCaloriesLeft(), actual.getCaloriesLeft());
-        assertEquals(person.getGoalCalories(), actual.getGoalCalories());
+    private void testPerson(Calories calories, PersonDto actual) {
+        assertEquals(calories.getUsername(), actual.getFirstName());
+        assertEquals(calories.getActivityLevel(), actual.getActivityLevel());
+        assertEquals(calories.getAge(), actual.getAge());
+        assertEquals(calories.getGender(), actual.getGender());
+        assertEquals(calories.getHeight(), actual.getHeight());
+        assertEquals(calories.getWeight(), actual.getWeight());
+        assertEquals(calories.getCaloriesConsumed(), actual.getCaloriesConsumed());
+        assertEquals(calories.getCaloriesLeft(), actual.getCaloriesLeft());
+        assertEquals(calories.getGoalCalories(), actual.getGoalCalories());
     }
 }

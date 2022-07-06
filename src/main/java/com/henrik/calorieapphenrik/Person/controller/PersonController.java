@@ -23,10 +23,10 @@ public class PersonController {
     }
 
 
-    @GetMapping("/goalCal")
-    public ResponseEntity<?> getGoalCalories(@RequestBody @Valid PersonDto personDto) {
-        return ResponseEntity.ok(personService.getGoalCalories(personDto));
-    }
+//    @GetMapping("/goalCal")
+//    public ResponseEntity<?> getGoalCalories(@RequestBody @Valid PersonDto personDto) {
+//        return ResponseEntity.ok(personService.getGoalCalories(personDto));
+//    }
 
 
     @DeleteMapping("/delete/{name}")

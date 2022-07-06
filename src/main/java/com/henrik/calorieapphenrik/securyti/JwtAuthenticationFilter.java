@@ -2,7 +2,7 @@ package com.henrik.calorieapphenrik.securyti;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.henrik.calorieapphenrik.Person.entity.Person;
+import com.henrik.calorieapphenrik.Person.entity.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -52,8 +52,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             Authentication authResult) throws IOException, ServletException {
         SecurityContextHolder.getContext().setAuthentication(authResult);
 
-        Person person = (Person) authResult.getPrincipal();
-        String jwtToken = jwtProvider.createToken(person);
+        User user = (User) authResult.getPrincipal();
+        String jwtToken = jwtProvider.createToken(user);
 
         response.addHeader(AUTHORIZATION_HEADER, AUTHORIZATION_HEADER_PREFIX + jwtToken);
 

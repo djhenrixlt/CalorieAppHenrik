@@ -1,6 +1,7 @@
 package com.henrik.calorieapphenrik.Person.controller;
 
 import com.henrik.calorieapphenrik.Person.dto.PersonDto;
+import com.henrik.calorieapphenrik.Person.dto.UserDto;
 import com.henrik.calorieapphenrik.Person.service.PersonService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,8 +21,8 @@ public class RegisterController {
     private PersonService personService;
 
     @PostMapping
-    public ResponseEntity<PersonDto> create(@RequestBody @Valid PersonDto personDto) {
+    public ResponseEntity<UserDto> create(@RequestBody @Valid UserDto userDto) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(personService.savePerson(personDto));
+                .body(personService.savePerson(userDto));
     }
 }

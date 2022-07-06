@@ -1,14 +1,11 @@
 package com.henrik.calorieapphenrik.Person.entity;
 
-import com.henrik.calorieapphenrik.food.Entity.MyList;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.io.Serial;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -17,39 +14,27 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
 @Entity
 @RequiredArgsConstructor
-public class Person implements UserDetails {
+public class User implements UserDetails {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private final String username;
-    private final String password;
-    private final String fullName;
-    private final String email;
-    private final String gender;
-    private final Double age;
-    private final Double weight;
-    private final Double height;
-    private final String activityLevel;
-    private final Integer goalCalories;
-    private final Integer caloriesLeft;
-    private final Integer caloriesConsumed;
-    private final Integer goalProtein;
-    private final Integer goalCarbs;
-    private final Integer goalFats;
-    private final String plan;
+    private  String username;
+    private  String password;
+    private  String fullName;
+    private  String email;
+    private  String gender; // enum
+    private  Double age;
+    // entity information one to one  inbedet inbedible
+    private  Double weight;
+    private  Double height;
+    private  String activityLevel; //enum
+    private  String plan; //enum
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles;
-
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @NonNull
-    private Set<MyList> myFoodList = new HashSet<>();
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -77,4 +62,3 @@ public class Person implements UserDetails {
         return true;
     }
 }
-

@@ -138,7 +138,7 @@ You will recive result:
 ```http
   POST
 ```
-will add person and count goal, left, and will show humch consumed
+will add calories and count goal, left, and will show humch consumed
 
 GENDER:
  

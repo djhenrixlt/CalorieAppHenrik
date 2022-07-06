@@ -1,6 +1,6 @@
 package com.henrik.calorieapphenrik.securyti;
 
-import com.henrik.calorieapphenrik.Person.entity.Person;
+import com.henrik.calorieapphenrik.Person.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -8,15 +8,12 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Date;
 import java.util.List;
@@ -33,7 +30,7 @@ public class JwtProvider {
     @Value("#{${security.jwt.expire-in-mins} * 60000}")
     private long validityMillis;
 
-    public String createToken(Person user) {
+    public String createToken(User user) {
 
         Date now = new Date();
 

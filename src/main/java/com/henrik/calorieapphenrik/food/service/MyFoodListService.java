@@ -2,7 +2,7 @@ package com.henrik.calorieapphenrik.food.service;
 
 import com.henrik.calorieapphenrik.Person.Repository.PersonRepo;
 import com.henrik.calorieapphenrik.Person.dto.PersonDto;
-import com.henrik.calorieapphenrik.Person.entity.Person;
+import com.henrik.calorieapphenrik.Person.entity.Calories;
 import com.henrik.calorieapphenrik.Person.mapper.PersonMapper;
 import com.henrik.calorieapphenrik.Person.service.PersonService;
 import com.henrik.calorieapphenrik.food.Entity.MyList;
@@ -33,13 +33,13 @@ public class MyFoodListService {
             throw new FoodException("id not exist" + foodId);
         }
         setGoals(personDto, personDto.getCaloriesConsumed() - food.get().getCalories());
-        Person person = PersonMapper.PERSON_MAPPER.mapModel(personDto);
-        Person save = PersonMapper.PERSON_MAPPER.mapForUpdate(personDto, person);
+        Calories calories = PersonMapper.PERSON_MAPPER.mapModel(personDto);
+        Calories save = PersonMapper.PERSON_MAPPER.mapForUpdate(personDto, calories);
         personRepo.save(save);
         personDto.deleteFromMyList(food.get());
 
-        Person person2 = PersonMapper.PERSON_MAPPER.mapModel(personDto);
-        personRepo.save(person2);
+        Calories calories2 = PersonMapper.PERSON_MAPPER.mapModel(personDto);
+        personRepo.save(calories2);
     }
 
 
@@ -47,11 +47,11 @@ public class MyFoodListService {
         Optional<FoodDto> foodDto = foodService.getFoodByName(name);
         PersonDto personDto = personService.findByID(id);
         setGoals(personDto, personDto.getCaloriesConsumed() + foodDto.get().getCalories());
-        Person person = PersonMapper.PERSON_MAPPER.mapModel(personDto);
-        Person save = PersonMapper.PERSON_MAPPER.mapForUpdate(personDto, person);
+        Calories calories = PersonMapper.PERSON_MAPPER.mapModel(personDto);
+        Calories save = PersonMapper.PERSON_MAPPER.mapForUpdate(personDto, calories);
         personRepo.save(save);
         personDto.addToMyLIst(foodDto.get());
-        Person saveList = PersonMapper.PERSON_MAPPER.mapModel(personDto);
+        Calories saveList = PersonMapper.PERSON_MAPPER.mapModel(personDto);
         personRepo.save(saveList);
         return personDto.getMyFoodList();
     }
