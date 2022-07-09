@@ -12,7 +12,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonDto {
+public class CaloriesDto {
 
     private long id;
     private Integer goalCalories;

@@ -1,6 +1,6 @@
 package com.henrik.calorieapphenrik.food.service;
 
-import com.henrik.calorieapphenrik.Person.Repository.PersonRepo;
+import com.henrik.calorieapphenrik.Person.Repository.CaloriesRepo;
 import com.henrik.calorieapphenrik.Person.Repository.UserRepo;
 import com.henrik.calorieapphenrik.Person.entity.User;
 import com.henrik.calorieapphenrik.food.Entity.Food;
@@ -19,7 +19,7 @@ import java.util.Optional;
 public class FoodService {
 
     private final FoodRepo foodRepo;
-    private final PersonRepo personRepo;
+    private final CaloriesRepo caloriesRepo;
     private UserRepo userRepo;
 
     public List<FoodDto> filter(String keyword) {

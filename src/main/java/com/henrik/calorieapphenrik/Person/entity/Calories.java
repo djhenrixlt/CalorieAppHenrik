@@ -29,7 +29,7 @@ public class Calories {
     private Integer goalFats;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @NonNull
+//    @NonNull
     private Set<MyList> myFoodList = new HashSet<>();
 }
 

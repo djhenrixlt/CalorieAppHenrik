@@ -1,5 +1,6 @@
 package com.henrik.calorieapphenrik.Person.dto;
 
+import com.henrik.calorieapphenrik.Person.entity.Calories;
 import com.henrik.calorieapphenrik.Person.entity.Role;
 import com.henrik.calorieapphenrik.Person.entity.User;
 import lombok.*;
@@ -19,44 +20,42 @@ public class UserDto {
 
     private long id;
 
-    @NotBlank
+//    @NotBlank
     private  String username;
     @Size(min = 6, max = 255)
     private  String password;
-    @NotBlank
+//    @NotBlank
     private  String fullName;
-    @NotBlank
+//    @NotBlank
     @Email
     private  String email;
-    @NotBlank
+//    @NotBlank
     private String gender;
     private Double age;
-    @NotBlank
+//    @NotBlank
     private Double weight;
-    @NotBlank
+//    @NotBlank
     private Double height;
-    @NotBlank
+//    @NotBlank
     private String activityLevel;
 
-    @NotBlank
+//    @NotBlank
     private String plan;
+
+    private Calories calories;
+
 
     private Set<String> roles = new HashSet<>();
 
 
-//    public User toUser(PasswordEncoder passwordEncoder){
-//        return new User(username, passwordEncoder.encode(password),
-//                fullName, email, gender,age,weight,height, activityLevel, plan);
-//    }
+    public User toUser(PasswordEncoder passwordEncoder){
+        return new User(username, passwordEncoder.encode(password),
+                fullName, email, gender,age,weight,height, activityLevel, plan);
+    }
 
     public UserDto(User user) {
         this.id = user.getId();
         this.username=user.getUsername();
-//        this.name=user.getName();
-//        this.lastname =user.getLastname();
-//        this.email = user.getEmail();
-//        this.speciality=user.getSpeciality();
-//        this.phone = user.getPhone();
         this.roles=user.getRoles().stream()
                 .map(Role::getRoleName)
                 .collect(Collectors.toSet());

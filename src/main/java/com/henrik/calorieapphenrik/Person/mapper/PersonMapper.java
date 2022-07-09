@@ -1,7 +1,7 @@
 package com.henrik.calorieapphenrik.Person.mapper;
 
+import com.henrik.calorieapphenrik.Person.dto.CaloriesDto;
 import com.henrik.calorieapphenrik.Person.entity.Calories;
-import com.henrik.calorieapphenrik.Person.dto.PersonDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -13,18 +13,18 @@ public interface PersonMapper {
     PersonMapper PERSON_MAPPER = Mappers.getMapper(PersonMapper.class);
 
 
-    PersonDto mapDto(Calories calories);
+    CaloriesDto mapDto(Calories calories);
 
-    Calories mapModel(PersonDto personDto);
+    Calories mapModel(CaloriesDto caloriesDto);
 
     @Mapping(target = "myFoodList", ignore = true)
-    PersonDto mapDtoForSavePerson(Calories calories);
+    CaloriesDto mapDtoForSavePerson(Calories calories);
     @Mapping(target = "myFoodList", ignore = true)
-    Calories mapModelSavePerson(PersonDto personDto);
+    Calories mapModelSavePerson(CaloriesDto caloriesDto);
 
 
 //    @Mapping(target = "myFoodList", ignore = true)
-    Calories mapForUpdate(PersonDto personDto, @MappingTarget Calories calories);
+    Calories mapForUpdate(CaloriesDto caloriesDto, @MappingTarget Calories calories);
 
 //    @Mapping(target = "username", ignore = true)
 //    @Mapping(target = "fullName", ignore = true)
@@ -36,6 +36,6 @@ public interface PersonMapper {
 //    @Mapping(target = "height", ignore = true)
 //    @Mapping(target = "activityLevel", ignore = true)
 //    @Mapping(target = "goalCalories", ignore = true)
-//    Calories mapModeFodMyList(PersonDto personDto);
+//    Calories mapModeFodMyList(CaloriesDto personDto);
 }
 

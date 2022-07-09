@@ -1,9 +1,9 @@
 package com.henrik.calorieapphenrik.Person.service;
 
 
-import com.henrik.calorieapphenrik.Person.Repository.PersonRepo;
+import com.henrik.calorieapphenrik.Person.Repository.CaloriesRepo;
 import com.henrik.calorieapphenrik.Person.Repository.UserRepo;
-import com.henrik.calorieapphenrik.Person.dto.PersonDto;
+import com.henrik.calorieapphenrik.Person.dto.CaloriesDto;
 import com.henrik.calorieapphenrik.Person.dto.UserDto;
 import com.henrik.calorieapphenrik.Person.entity.Calories;
 import com.henrik.calorieapphenrik.Person.entity.User;
@@ -34,28 +34,28 @@ public class PersonService {
     private static final String MODERATELY = "moderately";
     private static final String ACTIVE = "active";
     private static final String VERY = "very";
-    private final PersonRepo personRepo;
+    private final CaloriesRepo caloriesRepo;
     private final MyListRepo myListRepo;
     private final PasswordEncoder passwordEncoder;
 
     private final UserRepo userRepo;
 
     //Gets calories just only by value do not save data
-//    public Integer getGoalCalories(PersonDto personDto) {
+//    public Integer getGoalCalories(CaloriesDto personDto) {
 //        return countBmr(personDto).intValue();
 //    }
 
     public UserDto savePerson(UserDto userDto) {
-        PersonDto  personDto = new PersonDto();
+        CaloriesDto caloriesDto = new CaloriesDto();
         Optional<User> usernameIs = userRepo.findByUsername(userDto.getUsername());
         if (!usernameIs.isEmpty()){
             throw  new PersonException("User name is taken");
         }
+        setGoals(caloriesDto,userDto);
         User user = UserMapper.USER_MAPPER.mapModel(userDto);
-        setGoals(personDto,userDto);
 
-        personRepo.save(PersonMapper.PERSON_MAPPER.mapModel(personDto));
-        userRepo.save(user);
+        caloriesRepo.save(PersonMapper.PERSON_MAPPER.mapModel(caloriesDto));
+        userRepo.save(userDto.toUser(passwordEncoder));
 
         return UserMapper.USER_MAPPER.mapDto(user);
     }
@@ -91,23 +91,23 @@ public class PersonService {
     }
 
 
-    public PersonDto findByID(Long id) {
-        Optional<Calories> person = personRepo.findById(id);
+    public CaloriesDto findByID(Long id) {
+        Optional<Calories> person = caloriesRepo.findById(id);
         return PersonMapper.PERSON_MAPPER.mapDto(person.get());
     }
 
 
-    private void setGoals(PersonDto personDto, UserDto userDto) {
-//        person.setGoalCalories(countBmr(personDto).intValue());
+    private void setGoals(CaloriesDto caloriesDto, UserDto userDto) {
+//        person.setGoalCalories(countBmr(caloriesDto).intValue());
 //        person.setCaloriesConsumed(0);
-//        person.setCaloriesLeft(countBmr(personDto).intValue());
+//        person.setCaloriesLeft(countBmr(caloriesDto).intValue());
 
-        personDto.setGoalCalories(countYourPlan(userDto.getPlan(), countBmr(userDto).intValue()).intValue());
-        personDto.setCaloriesConsumed(0);
-        personDto.setCaloriesLeft(countYourPlan(userDto.getPlan(), countBmr(userDto).intValue()).intValue());
-        personDto.setGoalProtein(countProteinGoal(userDto.getActivityLevel(), userDto.getWeight()).intValue());
-        personDto.setGoalCarbs(getCarbsGoal(personDto.getGoalCalories()));
-        personDto.setGoalFats(getFatGoal(personDto.getGoalCalories()).intValue());
+        caloriesDto.setGoalCalories(countYourPlan(userDto.getPlan(), countBmr(userDto).intValue()).intValue());
+        caloriesDto.setCaloriesConsumed(0);
+        caloriesDto.setCaloriesLeft(countYourPlan(userDto.getPlan(), countBmr(userDto).intValue()).intValue());
+        caloriesDto.setGoalProtein(countProteinGoal(userDto.getActivityLevel(), userDto.getWeight()).intValue());
+        caloriesDto.setGoalCarbs(getCarbsGoal(caloriesDto.getGoalCalories()));
+        caloriesDto.setGoalFats(getFatGoal(caloriesDto.getGoalCalories()).intValue());
     }
 
     private Double getFatGoal(Integer goalCal) {

@@ -12,6 +12,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED, force = true)
+@Table(name = "users")
 @Entity
 @RequiredArgsConstructor
 public class User implements UserDetails {
@@ -21,17 +22,20 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private  String username;
-    private  String password;
-    private  String fullName;
-    private  String email;
-    private  String gender; // enum
-    private  Double age;
+    private final String username;
+    private final String password;
+    private final String fullName;
+    private final String email;
+    private final String gender; // enum
+    private final Double age;
     // entity information one to one  inbedet inbedible
-    private  Double weight;
-    private  Double height;
-    private  String activityLevel; //enum
-    private  String plan; //enum
+    private final Double weight;
+    private final Double height;
+    private final String activityLevel; //enum
+    private final String plan; //enum
+
+    @OneToOne
+    private Calories calories;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles;

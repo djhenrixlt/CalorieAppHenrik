@@ -1,13 +1,11 @@
 package com.henrik.calorieapphenrik.Person.controller;
 
-import com.henrik.calorieapphenrik.Person.dto.PersonDto;
+import com.henrik.calorieapphenrik.Person.dto.CaloriesDto;
 import com.henrik.calorieapphenrik.Person.service.PersonService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @AllArgsConstructor
@@ -18,13 +16,13 @@ public class PersonController {
 
 
     @GetMapping("/person/{id}")
-    public ResponseEntity<PersonDto> getPersonById(@PathVariable Long id) {
+    public ResponseEntity<CaloriesDto> getPersonById(@PathVariable Long id) {
         return ResponseEntity.ok(personService.findByID(id));
     }
 
 
 //    @GetMapping("/goalCal")
-//    public ResponseEntity<?> getGoalCalories(@RequestBody @Valid PersonDto personDto) {
+//    public ResponseEntity<?> getGoalCalories(@RequestBody @Valid CaloriesDto personDto) {
 //        return ResponseEntity.ok(personService.getGoalCalories(personDto));
 //    }
 

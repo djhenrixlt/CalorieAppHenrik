@@ -1,6 +1,5 @@
 package com.henrik.calorieapphenrik.Person.controller;
 
-import com.henrik.calorieapphenrik.Person.dto.PersonDto;
 import com.henrik.calorieapphenrik.Person.dto.UserDto;
 import com.henrik.calorieapphenrik.Person.service.PersonService;
 import lombok.AllArgsConstructor;
