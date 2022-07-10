@@ -7,7 +7,7 @@ import com.henrik.calorieapphenrik.Person.dto.CaloriesDto;
 import com.henrik.calorieapphenrik.Person.dto.UserDto;
 import com.henrik.calorieapphenrik.Person.entity.Calories;
 import com.henrik.calorieapphenrik.Person.entity.User;
-import com.henrik.calorieapphenrik.Person.mapper.PersonMapper;
+import com.henrik.calorieapphenrik.Person.mapper.CaloriesMapper;
 import com.henrik.calorieapphenrik.Person.mapper.UserMapper;
 import com.henrik.calorieapphenrik.food.Entity.MyList;
 import com.henrik.calorieapphenrik.food.Exception.FoodException;
@@ -54,7 +54,7 @@ public class PersonService {
         setGoals(caloriesDto,userDto);
         User user = UserMapper.USER_MAPPER.mapModel(userDto);
 
-        caloriesRepo.save(PersonMapper.PERSON_MAPPER.mapModel(caloriesDto));
+        caloriesRepo.save(CaloriesMapper.CALORIES_MAPPER.mapModel(caloriesDto));
         userRepo.save(userDto.toUser(passwordEncoder));
 
         return UserMapper.USER_MAPPER.mapDto(user);
@@ -93,7 +93,7 @@ public class PersonService {
 
     public CaloriesDto findByID(Long id) {
         Optional<Calories> person = caloriesRepo.findById(id);
-        return PersonMapper.PERSON_MAPPER.mapDto(person.get());
+        return CaloriesMapper.CALORIES_MAPPER.mapDto(person.get());
     }
 
 

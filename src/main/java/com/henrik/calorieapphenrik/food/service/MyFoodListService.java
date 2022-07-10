@@ -3,7 +3,7 @@ package com.henrik.calorieapphenrik.food.service;
 import com.henrik.calorieapphenrik.Person.Repository.CaloriesRepo;
 import com.henrik.calorieapphenrik.Person.dto.CaloriesDto;
 import com.henrik.calorieapphenrik.Person.entity.Calories;
-import com.henrik.calorieapphenrik.Person.mapper.PersonMapper;
+import com.henrik.calorieapphenrik.Person.mapper.CaloriesMapper;
 import com.henrik.calorieapphenrik.Person.service.PersonService;
 import com.henrik.calorieapphenrik.food.Entity.MyList;
 import com.henrik.calorieapphenrik.food.Exception.FoodException;
@@ -33,12 +33,12 @@ public class MyFoodListService {
             throw new FoodException("id not exist" + foodId);
         }
         setGoals(caloriesDto, caloriesDto.getCaloriesConsumed() - food.get().getCalories());
-        Calories calories = PersonMapper.PERSON_MAPPER.mapModel(caloriesDto);
-        Calories save = PersonMapper.PERSON_MAPPER.mapForUpdate(caloriesDto, calories);
+        Calories calories = CaloriesMapper.CALORIES_MAPPER.mapModel(caloriesDto);
+        Calories save = CaloriesMapper.CALORIES_MAPPER.mapForUpdate(caloriesDto, calories);
         caloriesRepo.save(save);
         caloriesDto.deleteFromMyList(food.get());
 
-        Calories calories2 = PersonMapper.PERSON_MAPPER.mapModel(caloriesDto);
+        Calories calories2 = CaloriesMapper.CALORIES_MAPPER.mapModel(caloriesDto);
         caloriesRepo.save(calories2);
     }
 
@@ -47,11 +47,11 @@ public class MyFoodListService {
         Optional<FoodDto> foodDto = foodService.getFoodByName(name);
         CaloriesDto caloriesDto = personService.findByID(id);
         setGoals(caloriesDto, caloriesDto.getCaloriesConsumed() + foodDto.get().getCalories());
-        Calories calories = PersonMapper.PERSON_MAPPER.mapModel(caloriesDto);
-        Calories save = PersonMapper.PERSON_MAPPER.mapForUpdate(caloriesDto, calories);
+        Calories calories = CaloriesMapper.CALORIES_MAPPER.mapModel(caloriesDto);
+        Calories save = CaloriesMapper.CALORIES_MAPPER.mapForUpdate(caloriesDto, calories);
         caloriesRepo.save(save);
         caloriesDto.addToMyLIst(foodDto.get());
-        Calories saveList = PersonMapper.PERSON_MAPPER.mapModel(caloriesDto);
+        Calories saveList = CaloriesMapper.CALORIES_MAPPER.mapModel(caloriesDto);
         caloriesRepo.save(saveList);
         return caloriesDto.getMyFoodList();
     }

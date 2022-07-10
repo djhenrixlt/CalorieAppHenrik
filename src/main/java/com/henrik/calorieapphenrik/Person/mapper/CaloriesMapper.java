@@ -8,9 +8,9 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
-public interface PersonMapper {
+public interface CaloriesMapper {
 
-    PersonMapper PERSON_MAPPER = Mappers.getMapper(PersonMapper.class);
+    CaloriesMapper CALORIES_MAPPER = Mappers.getMapper(CaloriesMapper.class);
 
 
     CaloriesDto mapDto(Calories calories);
