@@ -1,7 +1,7 @@
-package com.henrik.calorieapphenrik.Person.mapper;
+package com.henrik.calorieapphenrik.user.mapper;
 
-import com.henrik.calorieapphenrik.Person.dto.UserDto;
-import com.henrik.calorieapphenrik.Person.entity.User;
+import com.henrik.calorieapphenrik.user.dto.UserDto;
+import com.henrik.calorieapphenrik.user.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

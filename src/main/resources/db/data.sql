@@ -7,3 +7,13 @@ VALUES( 'smoked salmon', 200,20,0,13,0),
 
 INSERT INTO CALORIES ( GOAL_CALORIES, CALORIES_LEFT, CALORIES_CONSUMED)
 VALUES (3087,3087,0);
+
+INSERT INTO ROLE (id, role_name)
+VALUES (1, 'USER'),
+       (2, 'ADMIN');
+
+
+-- INSERT INTO USERS_ROLES  (user_id, role_id)
+-- VALUES (1, 1);
+
+

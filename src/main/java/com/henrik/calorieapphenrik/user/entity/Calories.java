@@ -1,4 +1,4 @@
-package com.henrik.calorieapphenrik.Person.entity;
+package com.henrik.calorieapphenrik.user.entity;
 
 import com.henrik.calorieapphenrik.food.Entity.MyList;
 import lombok.*;

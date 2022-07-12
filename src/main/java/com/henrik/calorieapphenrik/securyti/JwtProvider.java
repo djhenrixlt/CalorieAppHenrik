@@ -1,6 +1,6 @@
 package com.henrik.calorieapphenrik.securyti;
 
-import com.henrik.calorieapphenrik.Person.entity.User;
+import com.henrik.calorieapphenrik.user.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;

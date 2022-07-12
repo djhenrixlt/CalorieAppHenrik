@@ -1,13 +1,12 @@
-package com.henrik.calorieapphenrik.Person.dto;
+package com.henrik.calorieapphenrik.user.dto;
 
-import com.henrik.calorieapphenrik.Person.entity.Calories;
-import com.henrik.calorieapphenrik.Person.entity.Role;
-import com.henrik.calorieapphenrik.Person.entity.User;
+import com.henrik.calorieapphenrik.user.entity.Calories;
+import com.henrik.calorieapphenrik.user.entity.Role;
+import com.henrik.calorieapphenrik.user.entity.User;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;

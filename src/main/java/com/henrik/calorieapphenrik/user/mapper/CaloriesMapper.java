@@ -1,7 +1,7 @@
-package com.henrik.calorieapphenrik.Person.mapper;
+package com.henrik.calorieapphenrik.user.mapper;
 
-import com.henrik.calorieapphenrik.Person.dto.CaloriesDto;
-import com.henrik.calorieapphenrik.Person.entity.Calories;
+import com.henrik.calorieapphenrik.user.dto.CaloriesDto;
+import com.henrik.calorieapphenrik.user.entity.Calories;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -18,9 +18,9 @@ public interface CaloriesMapper {
     Calories mapModel(CaloriesDto caloriesDto);
 
     @Mapping(target = "myFoodList", ignore = true)
-    CaloriesDto mapDtoForSavePerson(Calories calories);
+    CaloriesDto mapDtoForSave(Calories calories);
     @Mapping(target = "myFoodList", ignore = true)
-    Calories mapModelSavePerson(CaloriesDto caloriesDto);
+    Calories mapModelSave(CaloriesDto caloriesDto);
 
 
 //    @Mapping(target = "myFoodList", ignore = true)

@@ -1,6 +1,6 @@
-package com.henrik.calorieapphenrik.Person.Repository;
+package com.henrik.calorieapphenrik.user.Repository;
 
-import com.henrik.calorieapphenrik.Person.entity.User;
+import com.henrik.calorieapphenrik.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

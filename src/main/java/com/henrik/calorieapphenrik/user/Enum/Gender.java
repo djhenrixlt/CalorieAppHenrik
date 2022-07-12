@@ -1,6 +1,4 @@
-package com.henrik.calorieapphenrik.Person.Enum;
-
-import lombok.Data;
+package com.henrik.calorieapphenrik.user.Enum;
 
 public enum Gender {
     WOMAN("woman") , MEN("men");

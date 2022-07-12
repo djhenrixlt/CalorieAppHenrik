@@ -1,8 +1,8 @@
 package com.henrik.calorieapphenrik.food.service;
 
-import com.henrik.calorieapphenrik.Person.Repository.CaloriesRepo;
-import com.henrik.calorieapphenrik.Person.Repository.UserRepo;
-import com.henrik.calorieapphenrik.Person.entity.User;
+import com.henrik.calorieapphenrik.user.Repository.CaloriesRepo;
+import com.henrik.calorieapphenrik.user.Repository.UserRepo;
+import com.henrik.calorieapphenrik.user.entity.User;
 import com.henrik.calorieapphenrik.food.Entity.Food;
 import com.henrik.calorieapphenrik.food.Exception.FoodException;
 import com.henrik.calorieapphenrik.food.Repository.FoodRepo;

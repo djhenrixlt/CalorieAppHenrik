@@ -1,14 +1,14 @@
-package com.henrik.calorieapphenrik.Person.service;
+package com.henrik.calorieapphenrik.user.service;
 
 
-import com.henrik.calorieapphenrik.Person.Repository.CaloriesRepo;
-import com.henrik.calorieapphenrik.Person.Repository.UserRepo;
-import com.henrik.calorieapphenrik.Person.dto.CaloriesDto;
-import com.henrik.calorieapphenrik.Person.dto.UserDto;
-import com.henrik.calorieapphenrik.Person.entity.Calories;
-import com.henrik.calorieapphenrik.Person.entity.User;
-import com.henrik.calorieapphenrik.Person.mapper.CaloriesMapper;
-import com.henrik.calorieapphenrik.Person.mapper.UserMapper;
+import com.henrik.calorieapphenrik.user.Repository.CaloriesRepo;
+import com.henrik.calorieapphenrik.user.Repository.UserRepo;
+import com.henrik.calorieapphenrik.user.dto.CaloriesDto;
+import com.henrik.calorieapphenrik.user.dto.UserDto;
+import com.henrik.calorieapphenrik.user.entity.Calories;
+import com.henrik.calorieapphenrik.user.entity.User;
+import com.henrik.calorieapphenrik.user.mapper.CaloriesMapper;
+import com.henrik.calorieapphenrik.user.mapper.UserMapper;
 import com.henrik.calorieapphenrik.food.Entity.MyList;
 import com.henrik.calorieapphenrik.food.Exception.FoodException;
 import com.henrik.calorieapphenrik.food.Exception.PersonException;

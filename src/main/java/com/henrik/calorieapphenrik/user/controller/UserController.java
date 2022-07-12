@@ -1,8 +1,8 @@
-package com.henrik.calorieapphenrik.Person.controller;
+package com.henrik.calorieapphenrik.user.controller;
 
-import com.henrik.calorieapphenrik.Person.dto.UserDto;
-import com.henrik.calorieapphenrik.Person.entity.User;
-import com.henrik.calorieapphenrik.Person.service.UserService;
+import com.henrik.calorieapphenrik.user.dto.UserDto;
+import com.henrik.calorieapphenrik.user.entity.User;
+import com.henrik.calorieapphenrik.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;

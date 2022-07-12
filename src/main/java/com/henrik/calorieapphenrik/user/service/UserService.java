@@ -1,6 +1,6 @@
-package com.henrik.calorieapphenrik.Person.service;
+package com.henrik.calorieapphenrik.user.service;
 
-import com.henrik.calorieapphenrik.Person.Repository.UserRepo;
+import com.henrik.calorieapphenrik.user.Repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

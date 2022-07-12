@@ -1,4 +1,4 @@
-package com.henrik.calorieapphenrik.Person.dto;
+package com.henrik.calorieapphenrik.user.dto;
 
 import com.henrik.calorieapphenrik.food.Entity.MyList;
 import com.henrik.calorieapphenrik.food.dto.FoodDto;

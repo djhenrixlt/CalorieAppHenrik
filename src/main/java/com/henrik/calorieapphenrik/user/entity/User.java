@@ -1,4 +1,4 @@
-package com.henrik.calorieapphenrik.Person.entity;
+package com.henrik.calorieapphenrik.user.entity;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

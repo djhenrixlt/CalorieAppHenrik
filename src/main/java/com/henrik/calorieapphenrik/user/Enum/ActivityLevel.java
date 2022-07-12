@@ -1,4 +1,4 @@
-package com.henrik.calorieapphenrik.Person.Enum;
+package com.henrik.calorieapphenrik.user.Enum;
 
 public enum ActivityLevel {
     SEDENTARY ("sedentary"),

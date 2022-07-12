@@ -1,10 +1,10 @@
 package com.henrik.calorieapphenrik.food.service;
 
-import com.henrik.calorieapphenrik.Person.Repository.CaloriesRepo;
-import com.henrik.calorieapphenrik.Person.dto.CaloriesDto;
-import com.henrik.calorieapphenrik.Person.entity.Calories;
-import com.henrik.calorieapphenrik.Person.service.PersonService;
-import com.henrik.calorieapphenrik.Person.mapper.CaloriesMapper;
+import com.henrik.calorieapphenrik.user.Repository.CaloriesRepo;
+import com.henrik.calorieapphenrik.user.dto.CaloriesDto;
+import com.henrik.calorieapphenrik.user.entity.Calories;
+import com.henrik.calorieapphenrik.user.service.PersonService;
+import com.henrik.calorieapphenrik.user.mapper.CaloriesMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -62,7 +62,7 @@ class CaloriesServiceTest {
         personService.deletePerson(NAME);
         verify(caloriesRepo).delete(personCaptor.capture());
         Calories capturedCalories = personCaptor.getValue();
-        testPerson(calories, CaloriesMapper.CALORIES_MAPPER.mapDtoForSavePerson(capturedCalories));
+        testPerson(calories, CaloriesMapper.CALORIES_MAPPER.mapDtoForSave(capturedCalories));
     }
     private Calories getPerson() {
         return Calories.builder().firstName(NAME).activityLevel(MODERATELY).age(20.0)

@@ -1,7 +1,7 @@
-package com.henrik.calorieapphenrik.Person.controller;
+package com.henrik.calorieapphenrik.user.controller;
 
-import com.henrik.calorieapphenrik.Person.dto.CaloriesDto;
-import com.henrik.calorieapphenrik.Person.service.PersonService;
+import com.henrik.calorieapphenrik.user.dto.CaloriesDto;
+import com.henrik.calorieapphenrik.user.service.PersonService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
