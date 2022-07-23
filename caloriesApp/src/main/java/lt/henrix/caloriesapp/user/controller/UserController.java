@@ -2,7 +2,7 @@ package lt.henrix.caloriesapp.user.controller;
 
 import lombok.AllArgsConstructor;
 import lt.henrix.caloriesapp.user.dto.UserDto;
-import lt.henrix.caloriesapp.user.model.User;
+import lt.henrix.caloriesapp.user.entity.User;
 import lt.henrix.caloriesapp.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

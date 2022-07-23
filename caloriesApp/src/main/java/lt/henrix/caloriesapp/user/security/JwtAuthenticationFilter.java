@@ -3,7 +3,7 @@ package lt.henrix.caloriesapp.user.security;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lt.henrix.caloriesapp.user.model.User;
+import lt.henrix.caloriesapp.user.entity.User;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

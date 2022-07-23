@@ -1,23 +1,23 @@
 package lt.henrix.caloriesapp.user.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lt.henrix.caloriesapp.user.model.Role;
-import lt.henrix.caloriesapp.user.model.User;
+import lombok.*;
+import lt.henrix.caloriesapp.food.dto.FoodDto;
+import lt.henrix.caloriesapp.user.entity.Role;
+import lt.henrix.caloriesapp.user.entity.User;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Setter
 @Getter
-public class UserDto {
+public class UserDto implements Serializable {
 
     private Long id;
 
@@ -36,10 +36,26 @@ public class UserDto {
     private String name;
 
     private String email;
-
     private String phone;
 
     private Set<String> roles = new HashSet<>();
+
+    private String gender; // enum
+    private Double age;
+    private Double weight;
+    private Double height;
+    private String activityLevel; //enum
+    private String plan; //enum
+
+
+    private Integer calories;
+    private Integer left;
+    private Integer consumed;
+    private Integer protein;
+    private Integer carbs;
+    private Integer fats;
+
+    private Set<FoodDto> foods = new HashSet<>();
 
     //response after successful login
     public UserDto(User user) {
@@ -52,5 +68,6 @@ public class UserDto {
         this.roles = user.getRoles().stream()
                 .map(Role::getRoleName)
                 .collect(Collectors.toSet());
+
     }
 }
