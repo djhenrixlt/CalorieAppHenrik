@@ -5,8 +5,6 @@ i
 9src/main/java/lt/henrix/caloriesapp/food/dto/FoodDto.java,d\8\d8c9e413e40e8c4f07f1d38d760b9e050718d556
 u
 Esrc/main/java/lt/henrix/caloriesapp/food/Exception/FoodException.java,f\2\f2581d768cedd89495dc246792a0a9474a0df964
-o
-?src/main/java/lt/henrix/caloriesapp/food/mapper/FoodMapper.java,6\f\6fa6ea8b70764c756845336e5d1819103e1da965
 7
 HELP.md,1\a\1a273f73b7a477b0745593641bd708a6182c7ad5
 ~
@@ -15,8 +13,6 @@ r
 Bsrc/main/java/lt/henrix/caloriesapp/user/security/JwtProvider.java,8\a\8acd1325ac8272a514180cbe9db4edaf8f8ef576
 y
 Isrc/main/java/lt/henrix/caloriesapp/food/Controller/MyFoodController.java,0\2\02b5f468a2bc43e94e3f4e727ac1289a93385ffc
-o
-?src/main/java/lt/henrix/caloriesapp/food/mapper/MyListRepo.java,2\4\24e779503c07692db4aa6e389bd1adf08ba5c0b3
 n
 >src/main/java/lt/henrix/caloriesapp/user/mapper/NewMapper.java,3\d\3ded9a2798ea798542a6e41f83fc54cfc5c5679c
 w

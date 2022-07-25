@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lt.henrix.caloriesapp.UserGoals.entity.Goal;
-import lt.henrix.caloriesapp.Userdetails.dto.UserInfoDto;
+
 import lt.henrix.caloriesapp.Userdetails.entity.UserInfo;
 import lt.henrix.caloriesapp.food.Exception.FoodException;
 import lt.henrix.caloriesapp.food.dto.FoodDto;

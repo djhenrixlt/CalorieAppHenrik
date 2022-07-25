@@ -1,7 +1,6 @@
 package lt.henrix.caloriesapp.food.service;
 
 import lombok.AllArgsConstructor;
-import lt.henrix.caloriesapp.food.mapper.MyListRepo;
 import org.springframework.stereotype.Service;
 
 
@@ -9,9 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class MyFoodListService {
 
-    private final MyListRepo myListRepo;
-
-    private FoodService foodService;
+//    private final MyListRepo myListRepo;
+//
+//    private FoodService foodService;
 
 
 //    public void deleteMyFood(Long foodId, Long personID) {
