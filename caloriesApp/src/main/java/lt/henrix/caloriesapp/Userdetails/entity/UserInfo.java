@@ -31,8 +31,8 @@ public class UserInfo {
 
 
 
-    @OneToMany(mappedBy = "userInfo")
-    private Set<UserFood> userFoodsSet = new HashSet<>();
+//    @OneToMany(mappedBy = "userInfo")
+//    private Set<UserFood> userFoodsSet = new HashSet<>();
 
 
     @OneToOne
@@ -40,9 +40,9 @@ public class UserInfo {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public UserInfo addFood(UserFood userFood){
-        userFood.setUserInfo(this);
-        this.userFoodsSet.add(userFood);
-        return this;
-    }
+//    public UserInfo addFood(UserFood userFood){
+//        userFood.setUserInfo(this);
+//        this.userFoodsSet.add(userFood);
+//        return this;
+//    }
 }

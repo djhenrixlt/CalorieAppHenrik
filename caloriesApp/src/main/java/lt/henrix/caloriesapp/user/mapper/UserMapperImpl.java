@@ -41,12 +41,12 @@ public class UserMapperImpl {
         userDto.setHeight(user.getUserInfo().getHeight());
         userDto.setActivityLevel(user.getUserInfo().getActivityLevel());
         userDto.setPlan(user.getUserInfo().getPlan());
-        userDto.setCalories(user.getGoal().getGoalCalories());
-        userDto.setLeft(user.getGoal().getCaloriesLeft());
-        userDto.setConsumed(user.getGoal().getCaloriesConsumed());
-        userDto.setProtein(user.getGoal().getGoalProtein());
-        userDto.setCarbs(user.getGoal().getGoalCarbs());
-        userDto.setFats(user.getGoal().getGoalFats());
+        userDto.setGoalCalories(user.getGoal().getGoalCalories());
+        userDto.setCaloriesLeft(user.getGoal().getCaloriesLeft());
+        userDto.setCaloriesConsumed(user.getGoal().getCaloriesConsumed());
+        userDto.setGoalProtein(user.getGoal().getGoalProtein());
+        userDto.setGoalCarbs(user.getGoal().getGoalCarbs());
+        userDto.setGoalFats(user.getGoal().getGoalFats());
         userDto.setFoods(user.getFoods().stream()
                 .map(food -> FoodDto.builder()
                         .calories(food.getCalories())
@@ -83,11 +83,11 @@ public class UserMapperImpl {
         user.addUserInfo(userInfo);
 
         Goal userGoals = Goal.builder()
-                .goalCalories(userDTO.getCalories())
-                .goalCarbs(userDTO.getCarbs())
-                .caloriesConsumed(userDTO.getConsumed())
-                .goalFats(userDTO.getFats())
-                .caloriesLeft(userDTO.getLeft())
+                .goalCalories(userDTO.getGoalCalories())
+                .goalCarbs(userDTO.getGoalCarbs())
+                .caloriesConsumed(userDTO.getCaloriesConsumed())
+                .goalFats(userDTO.getGoalFats())
+                .caloriesLeft(userDTO.getCaloriesLeft())
                 .build();
         user.addGoal(userGoals);
 
@@ -101,6 +101,26 @@ public class UserMapperImpl {
                         .fiber(food.getFiber())
                         .build()).collect(Collectors.toSet()));
         return user;
+    }
+
+    public UserDto convertUserToDTOFood(User user) {
+        UserDto userDto = new UserDto();
+
+        userDto.setGoalCalories(user.getGoal().getGoalCalories());
+        userDto.setCaloriesLeft(user.getGoal().getCaloriesLeft());
+        userDto.setCaloriesConsumed(user.getGoal().getCaloriesConsumed());
+        userDto.setGoalProtein(user.getGoal().getGoalProtein());
+        userDto.setGoalCarbs(user.getGoal().getGoalCarbs());
+        userDto.setGoalFats(user.getGoal().getGoalFats());
+        userDto.setFoods(user.getFoods().stream()
+                .map(food -> FoodDto.builder()
+                        .calories(food.getCalories())
+                        .carbs(food.getCarbs())
+                        .fat(food.getFat())
+                        .name(food.getName())
+                        .protein(food.getProtein())
+                        .build()).collect(Collectors.toSet()));
+        return userDto;
     }
 
     private Set<RoleDto> createListRolesDto(Set<Role> roles) {

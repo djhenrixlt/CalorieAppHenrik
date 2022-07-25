@@ -1,7 +1,8 @@
 package lt.henrix.caloriesapp.food.Entity;
 
 import lombok.*;
-import lt.henrix.caloriesapp.Userdetails.entity.UserFood;
+
+import lt.henrix.caloriesapp.user.entity.User;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -33,8 +34,8 @@ public class Food {
 //    private UserInfo userInfo;
 
 
-    @OneToMany(mappedBy = "food")
-    Set<UserFood> registrations;
+//    @ManyToMany
+//    Set<User> registrations;
 
 //    @OneToMany(mappedBy = "food")
 //    public Set<UserFood> userFoodsSet = new HashSet<>();

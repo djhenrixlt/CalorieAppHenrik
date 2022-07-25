@@ -1,6 +1,7 @@
 package lt.henrix.caloriesapp.food.Controller;
 
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lt.henrix.caloriesapp.food.dto.FoodDto;
@@ -17,7 +18,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping("/foods")
 public class FoodController {
 

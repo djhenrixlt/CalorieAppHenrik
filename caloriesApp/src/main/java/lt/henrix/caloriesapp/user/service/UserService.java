@@ -1,10 +1,12 @@
 package lt.henrix.caloriesapp.user.service;
 
 import lombok.AllArgsConstructor;
+import lt.henrix.caloriesapp.UserGoals.Utils.Counter;
+import lt.henrix.caloriesapp.UserGoals.Utils.GoalException;
 import lt.henrix.caloriesapp.user.dto.UserDto;
+import lt.henrix.caloriesapp.user.entity.User;
 import lt.henrix.caloriesapp.user.exception.EntityNotFoundException;
 import lt.henrix.caloriesapp.user.mapper.UserMapperImpl;
-import lt.henrix.caloriesapp.user.entity.User;
 import lt.henrix.caloriesapp.user.repository.UserRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,8 +23,12 @@ public class UserService implements UserDetailsService {
     private UserRepo userRepo;
     private UserMapperImpl userMapperImpl;
 
-    public UserDto createUser(UserDto userDto){
+
+    private Counter counter;
+
+    public UserDto createUser(UserDto userDto) throws GoalException {
         User user = userMapperImpl.convertUserDtoToUserEntity(userDto);
+        counter.setGoals(user.getUserInfo(), user.getGoal());
         User saveUser = userRepo.save(user);
         userDto.setId(saveUser.getId());
         return userDto;
@@ -30,8 +36,13 @@ public class UserService implements UserDetailsService {
 
     public UserDto getUserById(long id) {
         User user = getById(id);
-        return userMapperImpl.convertUserToDTO(user);
+        return userMapperImpl.convertUserToDTOFood(user);
     }
+
+//    public List<User> getUserByIdFood(long id) {
+//
+//        return userRepo.getAllFoodsById(id);
+//    }
 
     public List<UserDto> getAllUsers() {
         return userRepo.findAll()
@@ -42,7 +53,7 @@ public class UserService implements UserDetailsService {
 
     public UserDto updateUser(UserDto userDto) {
         Long id = userDto.getId();
-        if(id == null){
+        if (id == null) {
             throw new EntityNotFoundException(id);
         }
         User user = getById(id);
@@ -53,7 +64,7 @@ public class UserService implements UserDetailsService {
     }
 
     public void deleteUser(long id) {
-        if(!userRepo.existsById(id)){
+        if (!userRepo.existsById(id)) {
             throw new EntityNotFoundException(id);
         }
         userRepo.deleteById(id);

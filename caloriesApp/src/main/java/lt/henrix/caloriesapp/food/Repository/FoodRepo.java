@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+
 public interface FoodRepo extends JpaRepository<Food, Long> {
 
 
@@ -23,4 +23,8 @@ public interface FoodRepo extends JpaRepository<Food, Long> {
     @Query("SELECT p FROM  Food  p WHERE CONCAT(p.name, ' ') LIKE %?1%")
 //    +"OR p.calories LIKE  %?1%")
     List<Food> search(String keyWord);
+
+//    @Query("SELECT u FROM User u JOIN u.foods WHERE u.user_id = :id")
+//    List<Food>findAllFoodByUserID(Long id);
+
 }

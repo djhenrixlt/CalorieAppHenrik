@@ -48,12 +48,12 @@ public class UserDto implements Serializable {
     private String plan; //enum
 
 
-    private Integer calories;
-    private Integer left;
-    private Integer consumed;
-    private Integer protein;
-    private Integer carbs;
-    private Integer fats;
+    private Integer goalCalories;
+    private Integer caloriesLeft;
+    private Integer caloriesConsumed;
+    private Integer goalProtein;
+    private Integer goalCarbs;
+    private Integer goalFats;
 
     private Set<FoodDto> foods = new HashSet<>();
 

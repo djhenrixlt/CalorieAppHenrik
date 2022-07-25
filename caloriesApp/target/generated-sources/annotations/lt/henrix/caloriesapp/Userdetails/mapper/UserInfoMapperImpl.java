@@ -1,17 +1,14 @@
 package lt.henrix.caloriesapp.Userdetails.mapper;
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.annotation.processing.Generated;
 import lt.henrix.caloriesapp.Userdetails.dto.UserInfoDto;
-import lt.henrix.caloriesapp.Userdetails.entity.UserFood;
 import lt.henrix.caloriesapp.Userdetails.entity.UserInfo;
 import lt.henrix.caloriesapp.user.entity.User;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-07-23T15:11:11+0200",
+    date = "2022-07-24T18:18:46+0200",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -30,7 +27,6 @@ public class UserInfoMapperImpl implements UserInfoMapper {
         Double height = null;
         String activityLevel = null;
         String plan = null;
-        Set<UserFood> userFoodsSet = null;
 
         id = userInfoDto.getId();
         gender = userInfoDto.getGender();
@@ -39,14 +35,10 @@ public class UserInfoMapperImpl implements UserInfoMapper {
         height = userInfoDto.getHeight();
         activityLevel = userInfoDto.getActivityLevel();
         plan = userInfoDto.getPlan();
-        Set<UserFood> set = userInfoDto.getUserFoodsSet();
-        if ( set != null ) {
-            userFoodsSet = new HashSet<UserFood>( set );
-        }
 
         User user = null;
 
-        UserInfo userInfo = new UserInfo( id, gender, age, weight, height, activityLevel, plan, userFoodsSet, user );
+        UserInfo userInfo = new UserInfo( id, gender, age, weight, height, activityLevel, plan, user );
 
         return userInfo;
     }
@@ -66,10 +58,6 @@ public class UserInfoMapperImpl implements UserInfoMapper {
         userInfoDto.setHeight( userInfo.getHeight() );
         userInfoDto.setActivityLevel( userInfo.getActivityLevel() );
         userInfoDto.setPlan( userInfo.getPlan() );
-        Set<UserFood> set = userInfo.getUserFoodsSet();
-        if ( set != null ) {
-            userInfoDto.setUserFoodsSet( new HashSet<UserFood>( set ) );
-        }
 
         return userInfoDto;
     }

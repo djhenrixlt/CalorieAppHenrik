@@ -1,6 +1,7 @@
 package lt.henrix.caloriesapp.user.controller;
 
 import lombok.AllArgsConstructor;
+import lt.henrix.caloriesapp.UserGoals.Utils.GoalException;
 import lt.henrix.caloriesapp.user.dto.UserDto;
 import lt.henrix.caloriesapp.user.entity.User;
 import lt.henrix.caloriesapp.user.service.UserService;
@@ -28,13 +29,18 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+//    @GetMapping("/api/users/food/{id}")
+//    public List<User> getUserBy(@PathVariable long id) {
+//        return userService.getUserByIdFood(id);
+//    }
+
     @GetMapping("/api/users")
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @PostMapping("/api/signup")
-    public ResponseEntity<UserDto> addUser(@RequestBody @Valid UserDto userDto) {
+    public ResponseEntity<UserDto> addUser(@RequestBody @Valid UserDto userDto) throws GoalException {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(userService.createUser(userDto));
     }

@@ -3,6 +3,7 @@ package lt.henrix.caloriesapp.user.entity;
 import lombok.*;
 
 import lt.henrix.caloriesapp.UserGoals.entity.Goal;
+
 import lt.henrix.caloriesapp.Userdetails.entity.UserInfo;
 import lt.henrix.caloriesapp.food.Entity.Food;
 import org.springframework.security.core.GrantedAuthority;
@@ -63,6 +64,10 @@ public class User implements UserDetails {
     private Goal Goal;
 
     @ManyToMany
+//    @JoinTable(
+//            name = "user_foods",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "food_id"))
     private Set<Food> foods = new HashSet<>();
 
 
