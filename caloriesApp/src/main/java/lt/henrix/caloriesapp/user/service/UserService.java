@@ -1,8 +1,13 @@
 package lt.henrix.caloriesapp.user.service;
 
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lt.henrix.caloriesapp.UserGoals.Utils.Counter;
 import lt.henrix.caloriesapp.UserGoals.Utils.GoalException;
+import lt.henrix.caloriesapp.food.Entity.Food;
+import lt.henrix.caloriesapp.food.Repository.FoodRepo;
+import lt.henrix.caloriesapp.food.dto.FoodDto;
+import lt.henrix.caloriesapp.food.mapper.FoodMapper;
 import lt.henrix.caloriesapp.user.dto.UserDto;
 import lt.henrix.caloriesapp.user.entity.User;
 import lt.henrix.caloriesapp.user.exception.EntityNotFoundException;
@@ -12,8 +17,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -22,6 +30,8 @@ public class UserService implements UserDetailsService {
 
     private UserRepo userRepo;
     private UserMapperImpl userMapperImpl;
+    private FoodRepo foodRepo;
+
 
 
     private Counter counter;
@@ -44,6 +54,23 @@ public class UserService implements UserDetailsService {
 //        return userRepo.getAllFoodsById(id);
 //    }
 
+    public UserDto saveUser( UserDto userDto){
+
+        UserDto userDto1 = getUserById(userDto.getId());
+        userDto1.getFoods()
+                .addAll(userDto.getFoods()
+                        .stream()
+                        .map(f -> {
+                            Food food = foodRepo.getById(f.getId());
+                            food.getUserFoods().add(userMapperImpl.convertUserDtoToUserEntity2(userDto1));
+                            return food;
+                        }).map(FoodMapper.FOOD_MAPPER::mapDto)
+                        .toList());
+        User  save = userMapperImpl.convertUserDtoToUserEntity2(userDto1);
+//        BeanUtils.copyProperties(userDto1, save);
+        userRepo.save(save);
+        return userDto1;
+    }
     public List<UserDto> getAllUsers() {
         return userRepo.findAll()
                 .stream()
@@ -74,6 +101,21 @@ public class UserService implements UserDetailsService {
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepo.findWithRolesByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found."));
+    }
+
+    @Transactional
+    public @NonNull UserDto addToMyList(User user, Long foodId) {
+        Optional<Food> food = foodRepo.findById(foodId);
+
+//        setUserGoals(caloriesDto, caloriesDto.getCaloriesConsumed() + foodDto.get().getCalories());
+//        Calories calories = CaloriesMapper.CALORIES_MAPPER.mapModel(caloriesDto);
+//        Calories save = CaloriesMapper.CALORIES_MAPPER.mapForUpdate(caloriesDto, calories);
+//        caloriesRepo.save(save);
+        user.addFood(food.get());
+        User save = userRepo.save(user);
+
+        UserDto userDto = userMapperImpl.convertUserToDTO(save);
+        return userDto;
     }
 
     private User getById(long id) {

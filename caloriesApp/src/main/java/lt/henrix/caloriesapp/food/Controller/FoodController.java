@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lt.henrix.caloriesapp.food.dto.FoodDto;
 import lt.henrix.caloriesapp.food.service.FoodService;
+import lt.henrix.caloriesapp.user.dto.UserDto;
+import lt.henrix.caloriesapp.user.entity.User;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +37,12 @@ public class FoodController {
         return ResponseEntity.ok(foodDtoList);
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<?> getAllUser(@PathVariable long id) {
+        return ResponseEntity.ok(foodService.getAllUserFoods(id));
+    }
+
+
 
     @GetMapping("{name}")
     public String getByName(Model model, @PathVariable("name") String name) {
@@ -54,6 +62,7 @@ public class FoodController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(foodService.saveFood(food, principal.getName()));
     }
+
 
     @PutMapping("/update/{id}")
     public ResponseEntity<FoodDto> update(@RequestBody @Valid FoodDto foodDto, @PathVariable("id") Long id) {

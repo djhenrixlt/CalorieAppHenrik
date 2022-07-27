@@ -21,6 +21,7 @@ public class FoodService {
     private  final UserRepo userRepo;
 
 
+
     public List<FoodDto> filter(String keyword) {
         if (keyword != null){
             return foodRepo.search(keyword)
@@ -32,6 +33,14 @@ public class FoodService {
                 .stream()
                 .map(FoodMapper.FOOD_MAPPER::mapDto)
                 .toList();
+    }
+
+    public List<FoodDto> getAllUserFoods(long id){
+        return foodRepo.findAllWithUserFoodsByUserId(id)
+                .stream()
+                .map(FoodMapper.FOOD_MAPPER::mapDto)
+                .toList();
+
     }
     public List<FoodDto> getAllFoods() {
         return foodRepo.findAll()
@@ -83,6 +92,12 @@ public class FoodService {
             foodRepo.delete(food.get());
         }
     }
+
+    public void saveUserFood(Long userId, Long foodId){
+        foodRepo.saveUserFood(userId, foodId);
+    }
+
+
 
     public Integer getCalories() {
         return foodRepo.getCaloriesSUm();

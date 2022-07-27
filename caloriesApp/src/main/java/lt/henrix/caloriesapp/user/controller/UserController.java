@@ -34,6 +34,18 @@ public class UserController {
 //        return userService.getUserByIdFood(id);
 //    }
 
+    @PostMapping("/user")
+    public ResponseEntity<UserDto> saveUser( @RequestBody UserDto userDto) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(userService.saveUser(userDto));
+    }
+
+        @PostMapping("/food")
+    public ResponseEntity<?> addToMyList(@AuthenticationPrincipal User user, @RequestParam Long foodId) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED)
+                .body(userService.addToMyList(user,foodId));
+    }
+
     @GetMapping("/api/users")
     public List<UserDto> getAllUsers() {
         return userService.getAllUsers();

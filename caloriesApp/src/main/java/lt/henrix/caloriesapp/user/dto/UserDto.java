@@ -21,11 +21,11 @@ public class UserDto implements Serializable {
 
     private Long id;
 
-    @NotBlank
+//    @NotBlank
     @Size(min = 3, max = 20)
     private String username;
 
-    @NotBlank
+//    @NotBlank
     @Size(min = 3, max = 20)
     private String password;
 

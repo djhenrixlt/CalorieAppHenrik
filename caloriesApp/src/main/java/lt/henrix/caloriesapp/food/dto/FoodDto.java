@@ -11,6 +11,8 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class FoodDto {
 
+    private Long id;
+
     @NotBlank
     private String name;
     @NotBlank

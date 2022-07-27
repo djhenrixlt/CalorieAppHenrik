@@ -1,8 +1,6 @@
 
 U
 %.mvn/wrapper/maven-wrapper.properties,3\2\32e074f71d16c1e88ac02aa83592ca6ad1fd98a8
-i
-9src/main/java/lt/henrix/caloriesapp/food/dto/FoodDto.java,d\8\d8c9e413e40e8c4f07f1d38d760b9e050718d556
 u
 Esrc/main/java/lt/henrix/caloriesapp/food/Exception/FoodException.java,f\2\f2581d768cedd89495dc246792a0a9474a0df964
 7
@@ -11,16 +9,8 @@ Esrc/main/java/lt/henrix/caloriesapp/food/Exception/FoodException.java,f\2\f258
 Nsrc/main/java/lt/henrix/caloriesapp/user/security/JwtAuthenticationFilter.java,8\4\841461976ec8edec7676d2e90d0785560e8901f0
 r
 Bsrc/main/java/lt/henrix/caloriesapp/user/security/JwtProvider.java,8\a\8acd1325ac8272a514180cbe9db4edaf8f8ef576
-y
-Isrc/main/java/lt/henrix/caloriesapp/food/Controller/MyFoodController.java,0\2\02b5f468a2bc43e94e3f4e727ac1289a93385ffc
-n
->src/main/java/lt/henrix/caloriesapp/user/mapper/NewMapper.java,3\d\3ded9a2798ea798542a6e41f83fc54cfc5c5679c
 w
 Gsrc/main/java/lt/henrix/caloriesapp/food/Exception/PersonException.java,2\0\20544a02a0c1758c83bff06ad7509312f49b554c
-i
-9src/main/java/lt/henrix/caloriesapp/user/entity/Role.java,c\9\c90d2aadc98b1401d224b879f8bc8cddbf472cd2
-i
-9src/main/java/lt/henrix/caloriesapp/user/dto/RoleDto.java,8\6\86d991863b7463594379431c885c67381156fd96
 s
 Csrc/main/java/lt/henrix/caloriesapp/UserGoals/dto/UserGoalsDto.java,7\7\77f1790bdb4429113c54d6df818480382e56a48a
 {
@@ -29,7 +19,3 @@ z
 Jsrc/main/java/lt/henrix/caloriesapp/Userdetails/mapper/UserInfoMapper.java,5\9\59eaffae9472b6297ec08fc852d67ecaffe09cf8
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-n
->src/main/java/lt/henrix/caloriesapp/UserGoals/entity/Goal.java,1\a\1adcff400b0e5523da6de01055aec79467e1d925
-}
-Msrc/main/java/lt/henrix/caloriesapp/user/security/JwtAuthorizationFilter.java,3\0\30a32644bd23484c91b9a14e2d39501865c8b219

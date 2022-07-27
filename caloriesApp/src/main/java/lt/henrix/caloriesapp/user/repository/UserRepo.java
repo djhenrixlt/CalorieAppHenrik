@@ -20,7 +20,16 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
    Optional<User> findWithFoodById(Long id);
 
-//   @Query("SELECT u FROM user u join user_food uf where u.id == uf.user_id")
-//   List<User> getAllFoodsById(@Param("id") long id);
+//   Optional<User> findByGoal_Id(Long id);
+//
+//    Optional<User> findByUserInfo_Id(Long id);
+//
+//    Optional<List<User>> findAllByGoal_CaloriesConsumed(Integer calories);
+
+
+
+
+
+
 
 }

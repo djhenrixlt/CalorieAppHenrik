@@ -1,13 +1,16 @@
 package lt.henrix.caloriesapp.food.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import lt.henrix.caloriesapp.user.entity.User;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,8 +37,9 @@ public class Food {
 //    private UserInfo userInfo;
 
 
-//    @ManyToMany
-//    Set<User> registrations;
+    @ManyToMany(mappedBy = "foods")
+    @JsonIgnore
+    Set<User> userFoods = new HashSet<>();
 
 //    @OneToMany(mappedBy = "food")
 //    public Set<UserFood> userFoodsSet = new HashSet<>();

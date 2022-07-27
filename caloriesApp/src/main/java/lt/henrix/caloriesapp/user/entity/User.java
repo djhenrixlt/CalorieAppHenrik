@@ -20,14 +20,13 @@ import java.util.*;
 @AllArgsConstructor
 @Builder
 @Entity
-
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true, nullable = false)
-    @NotBlank
+//    @NotBlank
     @Size(min = 3, max = 200)
     private String username;
 
@@ -38,7 +37,7 @@ public class User implements UserDetails {
     private String name;
 
     @Column(nullable = false)
-    @NotBlank
+//    @NotBlank
     @Size(min=3, max=254)
     private String password;
 
@@ -64,11 +63,11 @@ public class User implements UserDetails {
     private Goal Goal;
 
     @ManyToMany
-//    @JoinTable(
-//            name = "user_foods",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "food_id"))
-    private Set<Food> foods = new HashSet<>();
+    @JoinTable(
+            name = "USER_FOODS",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "food_id"))
+    private List<Food> foods = new ArrayList<>();
 
 
     public void addRole(Role role){

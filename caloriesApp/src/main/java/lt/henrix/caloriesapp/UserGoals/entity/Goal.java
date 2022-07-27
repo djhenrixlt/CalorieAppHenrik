@@ -5,7 +5,8 @@ import lt.henrix.caloriesapp.user.entity.User;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

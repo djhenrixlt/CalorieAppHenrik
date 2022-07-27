@@ -35,14 +35,16 @@ values (1, 3000, 2500, 500, 150, 300, 70),
 
 INSERT INTO food (name, calories, protein, carbs, fat, fiber, user_Name_Created)
 VALUES ('smoked salmon', 200, 20, 0, 13, 0, 'admin'),
-       ('chicken', 120, 20, 0, 4, 0, 'admin');
+       ('chicken', 120, 20, 0, 4, 0, 'admin'),
+       ('alus', 200, 20, 0, 13, 0, 'admin');
+
 
 -- INSERT INTO USER_FOODS (id,  quantity, user_id, foods_id)
 -- values (1,1,1,2),
 --        (2,1,1,1),
 --        (3,2,2,1);
 
-INSERT INTO USER_FOODS (user_id, foods_id)
+INSERT INTO USER_FOODS (user_id, food_id)
 values (1, 2),
        (1, 1),
        (2, 1),

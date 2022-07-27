@@ -2,14 +2,12 @@ package lt.henrix.caloriesapp.food.mapper;
 
 import javax.annotation.processing.Generated;
 import lt.henrix.caloriesapp.food.Entity.Food;
-import lt.henrix.caloriesapp.food.Entity.Food.FoodBuilder;
 import lt.henrix.caloriesapp.food.dto.FoodDto;
-import lt.henrix.caloriesapp.food.dto.FoodDto.FoodDtoBuilder;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-07-25T22:25:19+0200",
+    date = "2022-07-26T19:24:26+0200",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -21,17 +19,18 @@ public class FoodMapperImpl implements FoodMapper {
             return null;
         }
 
-        FoodDtoBuilder foodDto = FoodDto.builder();
+        FoodDto foodDto = new FoodDto();
 
-        foodDto.name( food.getName() );
-        foodDto.calories( food.getCalories() );
-        foodDto.protein( food.getProtein() );
-        foodDto.carbs( food.getCarbs() );
-        foodDto.fat( food.getFat() );
-        foodDto.fiber( food.getFiber() );
-        foodDto.userNameCreated( food.getUserNameCreated() );
+        foodDto.setId( food.getId() );
+        foodDto.setName( food.getName() );
+        foodDto.setCalories( food.getCalories() );
+        foodDto.setProtein( food.getProtein() );
+        foodDto.setCarbs( food.getCarbs() );
+        foodDto.setFat( food.getFat() );
+        foodDto.setFiber( food.getFiber() );
+        foodDto.setUserNameCreated( food.getUserNameCreated() );
 
-        return foodDto.build();
+        return foodDto;
     }
 
     @Override
@@ -40,17 +39,18 @@ public class FoodMapperImpl implements FoodMapper {
             return null;
         }
 
-        FoodBuilder food = Food.builder();
+        Food food = new Food();
 
-        food.name( foodDto.getName() );
-        food.calories( foodDto.getCalories() );
-        food.protein( foodDto.getProtein() );
-        food.carbs( foodDto.getCarbs() );
-        food.fat( foodDto.getFat() );
-        food.fiber( foodDto.getFiber() );
-        food.userNameCreated( foodDto.getUserNameCreated() );
+        food.setId( foodDto.getId() );
+        food.setName( foodDto.getName() );
+        food.setCalories( foodDto.getCalories() );
+        food.setProtein( foodDto.getProtein() );
+        food.setCarbs( foodDto.getCarbs() );
+        food.setFat( foodDto.getFat() );
+        food.setFiber( foodDto.getFiber() );
+        food.setUserNameCreated( foodDto.getUserNameCreated() );
 
-        return food.build();
+        return food;
     }
 
     @Override
@@ -59,6 +59,7 @@ public class FoodMapperImpl implements FoodMapper {
             return null;
         }
 
+        food.setId( foodDto.getId() );
         food.setName( foodDto.getName() );
         food.setCalories( foodDto.getCalories() );
         food.setProtein( foodDto.getProtein() );
