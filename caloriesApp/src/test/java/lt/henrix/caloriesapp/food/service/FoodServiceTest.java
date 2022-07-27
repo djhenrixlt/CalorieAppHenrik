@@ -101,7 +101,7 @@ class FoodServiceTest {
 
         when(foodRepo.save(food)).thenReturn(food);
 
-        FoodDto actual = foodService.saveFood(foodDto, "admin");
+        FoodDto actual = foodService.saveFood(foodDto, "user1");
 
         verify(foodRepo).save(food);
         testFood(food, actual);

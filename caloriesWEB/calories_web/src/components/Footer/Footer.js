@@ -15,7 +15,7 @@ const Footer = () => {
                     Simple Queue
                 </Typography>
                 <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-                    Easy Queue for everyone!
+                   Easy Queue for everyone!
                 </Typography>
                 <Copyright />
             </footer>

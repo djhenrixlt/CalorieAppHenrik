@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         backgroundColor: 'rgba(158, 216, 235, 1)',
-    },
+        },
     avatar1: {
         background: `transparent url${queue} 0% 0% no-repeat padding-box`,
         opacity: 1,

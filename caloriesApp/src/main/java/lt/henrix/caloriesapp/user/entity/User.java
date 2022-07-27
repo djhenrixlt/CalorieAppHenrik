@@ -2,15 +2,11 @@ package lt.henrix.caloriesapp.user.entity;
 
 import lombok.*;
 
-import lt.henrix.caloriesapp.UserGoals.entity.Goal;
-
-import lt.henrix.caloriesapp.Userdetails.entity.UserInfo;
 import lt.henrix.caloriesapp.food.Entity.Food;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.*;
 

@@ -2,12 +2,9 @@ package lt.henrix.caloriesapp.food.Controller;
 
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lt.henrix.caloriesapp.food.dto.FoodDto;
 import lt.henrix.caloriesapp.food.service.FoodService;
-import lt.henrix.caloriesapp.user.dto.UserDto;
-import lt.henrix.caloriesapp.user.entity.User;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,13 +18,13 @@ import java.util.List;
 @RestController
 @Slf4j
 @AllArgsConstructor
-@RequestMapping("/foods")
+@RequestMapping("/api/foods")
 public class FoodController {
 
     private final FoodService foodService;
 
     @GetMapping("/list")
-    public ResponseEntity<?> getAll() {
+    public ResponseEntity<List<FoodDto>> getAll() {
         return ResponseEntity.ok(foodService.getAllFoods());
     }
 
@@ -38,7 +35,7 @@ public class FoodController {
     }
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<?> getAllUser(@PathVariable long id) {
+    public ResponseEntity<?> getAllUserFood(@PathVariable long id) {
         return ResponseEntity.ok(foodService.getAllUserFoods(id));
     }
 
@@ -57,7 +54,7 @@ public class FoodController {
     }
 
 
-    @PutMapping("/new")
+    @PostMapping("/new")
     public ResponseEntity<FoodDto> create(@RequestBody @Valid FoodDto food, Principal principal) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(foodService.saveFood(food, principal.getName()));

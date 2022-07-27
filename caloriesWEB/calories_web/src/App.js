@@ -7,27 +7,27 @@ import cover from './assets/cover.jpg'
 import store from './store'
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    minHeight: '100vh',
-    backgroundImage: `url(${process.env.PUBLIC_URL + cover})`,
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-  }
+    root: {
+        minHeight: '100vh',
+        backgroundImage: `url(${process.env.PUBLIC_URL + cover})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+    }
 }))
 
 function App() {
-  const classes = useStyles();
-  return (
-      <div className={classes.root}>
-        <CssBaseline />
-        <Provider store={store}>
-          <Router>
-            <Header/>
-            <Content/>
-          </Router>
-        </Provider>
-      </div>
-  );
+    const classes = useStyles();
+    return (
+        <div className={classes.root}>
+            <CssBaseline />
+            <Provider store={store}>
+                <Router>
+                    <Header/>
+                    <Content/>
+                </Router>
+            </Provider>
+        </div>
+    );
 }
 
 export default App;

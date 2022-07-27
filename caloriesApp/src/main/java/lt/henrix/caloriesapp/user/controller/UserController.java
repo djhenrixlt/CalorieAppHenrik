@@ -1,7 +1,7 @@
 package lt.henrix.caloriesapp.user.controller;
 
 import lombok.AllArgsConstructor;
-import lt.henrix.caloriesapp.UserGoals.Utils.GoalException;
+import lt.henrix.caloriesapp.user.exception.GoalException;
 import lt.henrix.caloriesapp.user.dto.UserDto;
 import lt.henrix.caloriesapp.user.entity.User;
 import lt.henrix.caloriesapp.user.service.UserService;
@@ -30,16 +30,16 @@ public class UserController {
     }
 
 
-        @PostMapping("/food")
-    public ResponseEntity<?> addToMyList(@AuthenticationPrincipal User user, @RequestParam Long foodId) {
+        @PostMapping("api/food/add")
+    public ResponseEntity<?> addToUserFoods(@AuthenticationPrincipal User user, @RequestParam Long foodId) {
         return ResponseEntity.status(HttpStatus.ACCEPTED)
                 .body(userService.addToFoods(user,foodId));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/api/food/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteMyFood(@RequestParam Long foodId, @PathVariable("id") Long id) {
-        userService.deleteUserFood(foodId, id);
+    public void deleteUserFood(@RequestParam Long foodId, @PathVariable("id") Long userId) {
+        userService.deleteUserFood(foodId, userId);
     }
 
     @GetMapping("/api/users")

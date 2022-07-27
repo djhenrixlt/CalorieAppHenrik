@@ -38,7 +38,6 @@ public class Food {
 
 
     @ManyToMany(mappedBy = "foods")
-    @JsonIgnore
     Set<User> userFoods = new HashSet<>();
 
 //    @OneToMany(mappedBy = "food")

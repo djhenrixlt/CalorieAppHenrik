@@ -2,15 +2,13 @@ package lt.henrix.caloriesapp.user.service;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import lt.henrix.caloriesapp.UserGoals.Utils.Counter;
-import lt.henrix.caloriesapp.UserGoals.Utils.GoalException;
 import lt.henrix.caloriesapp.food.Entity.Food;
-import lt.henrix.caloriesapp.food.Exception.FoodException;
 import lt.henrix.caloriesapp.food.Repository.FoodRepo;
-import lt.henrix.caloriesapp.food.mapper.FoodMapper;
+import lt.henrix.caloriesapp.user.Utils.Counter;
 import lt.henrix.caloriesapp.user.dto.UserDto;
 import lt.henrix.caloriesapp.user.entity.User;
 import lt.henrix.caloriesapp.user.exception.EntityNotFoundException;
+import lt.henrix.caloriesapp.user.exception.GoalException;
 import lt.henrix.caloriesapp.user.mapper.UserMapperImpl;
 import lt.henrix.caloriesapp.user.repository.UserRepo;
 import org.springframework.beans.BeanUtils;
@@ -32,15 +30,13 @@ public class UserService implements UserDetailsService {
     private FoodRepo foodRepo;
 
 
-
     private Counter counter;
 
     public UserDto createUser(UserDto userDto) throws GoalException {
         User user = userMapperImpl.convertUserDtoToUserEntity(userDto);
         counter.setGoals(user.getUserInfo(), user.getGoal());
         User saveUser = userRepo.save(user);
-        userDto.setId(saveUser.getId());
-        return userDto;
+        return userMapperImpl.convertUserToDTO(saveUser);
     }
 
     public UserDto getUserById(long id) {
@@ -49,12 +45,11 @@ public class UserService implements UserDetailsService {
     }
 
 
-
     public List<UserDto> getAllUsers() {
         return userRepo.findAll()
                 .stream()
                 .map(user -> userMapperImpl.convertUserToDTO(user))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public UserDto updateUser(UserDto userDto) throws GoalException {
@@ -94,18 +89,13 @@ public class UserService implements UserDetailsService {
         return userDto;
     }
 
-        public void deleteUserFood(Long foodId, Long personID) {
+    public void deleteUserFood(Long foodId, Long personID) {
         User user = userRepo.getById(personID);
         Food food = foodRepo.getById(foodId);
         UserDto userDto = userMapperImpl.convertUserToDTO(user);
         Optional<List<Food>> foods = Optional.ofNullable(foodRepo.findAllWithUserFoodsByUserId(user.getId()));
-//        if (!foods.get().contains(foodId)) {
-//            throw new FoodException("food do not exist");
-//        }
+
         setUserGoals(user, user.getGoal().getCaloriesConsumed() - food.getCalories());
-//        Calories calories = CaloriesMapper.CALORIES_MAPPER.mapModel(caloriesDto);
-////        Calories save = CaloriesMapper.CALORIES_MAPPER.mapForUpdate(caloriesDto, calories);
-////        caloriesRepo.save(save);
         user.deleteFood(food);
         userRepo.save(user);
     }
@@ -115,7 +105,7 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new EntityNotFoundException(id));
     }
 
-        private void setUserGoals(User user, int foodCalories) {
+    private void setUserGoals(User user, int foodCalories) {
         user.getGoal().setCaloriesConsumed(foodCalories);
         user.getGoal().setCaloriesLeft(user.getGoal().getGoalCalories() - user.getGoal().getCaloriesConsumed());
     }
