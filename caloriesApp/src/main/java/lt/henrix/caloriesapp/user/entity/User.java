@@ -78,6 +78,8 @@ public class User implements UserDetails {
         foods.add(food);
     }
 
+    public void deleteFood(Food food){foods.remove(food);}
+
 
     public void addUserInfo(UserInfo userInfo) {
         if (userInfo != null) {

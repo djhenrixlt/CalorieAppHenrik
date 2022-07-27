@@ -29,21 +29,17 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-//    @GetMapping("/api/users/food/{id}")
-//    public List<User> getUserBy(@PathVariable long id) {
-//        return userService.getUserByIdFood(id);
-//    }
-
-    @PostMapping("/user")
-    public ResponseEntity<UserDto> saveUser( @RequestBody UserDto userDto) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userService.saveUser(userDto));
-    }
 
         @PostMapping("/food")
     public ResponseEntity<?> addToMyList(@AuthenticationPrincipal User user, @RequestParam Long foodId) {
         return ResponseEntity.status(HttpStatus.ACCEPTED)
-                .body(userService.addToMyList(user,foodId));
+                .body(userService.addToFoods(user,foodId));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteMyFood(@RequestParam Long foodId, @PathVariable("id") Long id) {
+        userService.deleteUserFood(foodId, id);
     }
 
     @GetMapping("/api/users")
@@ -59,7 +55,7 @@ public class UserController {
 
     @PostMapping("/api/users/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public UserDto updateUser(@RequestBody @Valid UserDto userDto) {
+    public UserDto updateUser(@RequestBody @Valid UserDto userDto) throws GoalException {
         return userService.updateUser(userDto);
     }
 
