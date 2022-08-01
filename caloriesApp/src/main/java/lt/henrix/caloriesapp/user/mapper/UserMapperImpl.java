@@ -1,6 +1,8 @@
 package lt.henrix.caloriesapp.user.mapper;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lt.henrix.caloriesapp.user.entity.Goal;
 import lt.henrix.caloriesapp.user.entity.UserInfo;
 import lt.henrix.caloriesapp.food.Entity.Food;
